@@ -15,7 +15,6 @@ public class PlayerMasterController : MonoBehaviour
     public PlayerAnimation animationController;
     public PlayerRig rigController;
     public PlayerAudio audioController;
-    public Jump jumpController;
     public CharacterBody characterBody;
     public HeathSystem heathSystem;
 
@@ -72,7 +71,6 @@ public class PlayerMasterController : MonoBehaviour
         if (animationController == null) animationController = gameObject.AddComponent<PlayerAnimation>();
         if (rigController == null) rigController = gameObject.AddComponent<PlayerRig>();
         if (audioController == null) audioController = gameObject.AddComponent<PlayerAudio>();
-        jumpController = new Jump();
         if (characterBody == null) characterBody = gameObject.AddComponent<CharacterBody>();
         if (heathSystem == null) heathSystem = gameObject.AddComponent<HeathSystem>();
     }
@@ -86,14 +84,14 @@ public class PlayerMasterController : MonoBehaviour
         animationController.Setup(GetComponent<Animator>(), _input);
         rigController.Setup(aimTarget);
         audioController.Setup(_controller);
-        jumpController.Setup(_input, animationController, transform);   
         characterBody.Setup(heathSystem);
+        characterBody.jumpController.Setup(_input, animationController, transform);
         heathSystem.Setup(characterBody);
 
         rigController.SetWeapon(weapon);
 
         // Передача ссылок между компонентами
-        movementComponent.SetDependencies(jumpController);
+        movementComponent.SetDependencies(characterBody.jumpController);
         Subs();
     }
 
@@ -116,7 +114,7 @@ public class PlayerMasterController : MonoBehaviour
         aimController?.UpdateAim();
         rigController?.UpdateRigWeights(_input.aim || _input.shooting);
         cameraController?.UpdateCamera();
-        jumpController?.UpdateJump();
+        characterBody.jumpController?.UpdateJump();
         movementComponent?.UpdateMovement();
         audioController?.UpdateAudio();
     }
@@ -126,10 +124,10 @@ public class PlayerMasterController : MonoBehaviour
         Debug.Log(characterBody.Inventory.money);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        jumpController?.OnDrawGizmosSelected();
-    }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     jumpController?.OnDrawGizmosSelected();
+    // }
 
     private void OnDestroy()
     {
