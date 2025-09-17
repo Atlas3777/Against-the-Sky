@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerJump : MonoBehaviour
+public class Jump : MonoBehaviour
 {
     [Header("Jump Settings")] 
     public float JumpHeight = 1.2f;

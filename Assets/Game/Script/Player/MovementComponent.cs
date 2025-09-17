@@ -14,7 +14,7 @@ public class MovementComponent : MonoBehaviour
     private PlayerAnimation _animationController;
 
     private PlayerAim _aimController;
-    private PlayerJump _jumpController;
+    private Jump _jumpController;
 
     private float _speed;
     private float _targetRotation = 0.0f;
@@ -29,7 +29,7 @@ public class MovementComponent : MonoBehaviour
         _animationController = animationController;
     }
 
-    public void SetDependencies(PlayerJump jumpController)
+    public void SetDependencies(Jump jumpController)
     {
         _jumpController = jumpController;
     }

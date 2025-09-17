@@ -15,7 +15,7 @@ public class PlayerMasterController : MonoBehaviour
     public PlayerAnimation animationController;
     public PlayerRig rigController;
     public PlayerAudio audioController;
-    public PlayerJump jumpController;
+    public Jump jumpController;
     public CharacterBody characterBody;
     public HeathSystem heathSystem;
 
@@ -72,7 +72,7 @@ public class PlayerMasterController : MonoBehaviour
         if (animationController == null) animationController = gameObject.AddComponent<PlayerAnimation>();
         if (rigController == null) rigController = gameObject.AddComponent<PlayerRig>();
         if (audioController == null) audioController = gameObject.AddComponent<PlayerAudio>();
-        if (jumpController == null) jumpController = gameObject.AddComponent<PlayerJump>();
+        if (jumpController == null) jumpController = gameObject.AddComponent<Jump>();
         if (characterBody == null) characterBody = gameObject.AddComponent<CharacterBody>();
         if (heathSystem == null) heathSystem = gameObject.AddComponent<HeathSystem>();
     }
