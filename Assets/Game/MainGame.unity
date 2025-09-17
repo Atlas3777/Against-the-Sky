@@ -1215,7 +1215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.000004
+      value: 39.230003
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2917,7 +2917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.600002
+      value: 38.83
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16475,10 +16475,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
-  moveSpeed: 2
-  attackRange: 1.5
+  MoveSpeed: 2
+  attackRange: 1.7
   attackPoint: {fileID: 0}
-  player: {fileID: 1080672598}
+  player: {fileID: 0}
   playerHeathSystem: {fileID: 0}
 --- !u!143 &2136670367
 CharacterController:
@@ -16539,7 +16539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2144889665226675582, guid: d93a217f15531ac48ad9967040d31ae0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.4
+      value: 38.63
       objectReference: {fileID: 0}
     - target: {fileID: 2144889665226675582, guid: d93a217f15531ac48ad9967040d31ae0, type: 3}
       propertyPath: m_LocalPosition.y

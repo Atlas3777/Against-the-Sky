@@ -16,10 +16,10 @@ public class CharacterBody : MonoBehaviour
         heathSystem.TakeDamage(damage);
     }
 
-    private void Start()
-    {
-        Setup(GetComponent<HeathSystem>());
-    }
+    // private void Start()
+    // {
+    //     Setup(GetComponent<HeathSystem>());
+    // }
 
     private void DeathHandler(DamageInfo damage)
     {

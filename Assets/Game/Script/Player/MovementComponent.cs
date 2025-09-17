@@ -21,12 +21,12 @@ public class MovementComponent : MonoBehaviour
     private float _rotationVelocity;
 
     public void Setup(CharacterController controller, BodyInputs input,
-        GameObject mainCamera, PlayerAnimation animationController)
+        GameObject mainCamera, PlayerAnimation AnimationController)
     {
         _controller = controller;
         _input = input;
         _mainCamera = mainCamera;
-        _animationController = animationController;
+        _animationController = AnimationController;
     }
 
     public void SetDependencies(Jump jumpController)

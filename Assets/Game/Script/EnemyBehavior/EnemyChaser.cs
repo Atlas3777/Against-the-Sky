@@ -4,11 +4,11 @@ using MountainGoap;
 using System.Text;
 using System.Collections.Concurrent;
 
-public class EnemyChaser : MonoBehaviour, IEnemy
+public class EnemyChaser : MonoBehaviour
 {
-    public float Damage;
-    public float moveSpeed = 2f;
-    public float attackRange = 0.7f;
+    public float Damage = 25;
+    public float MoveSpeed = 2f;
+    public float attackRange = 1.7f;
     public Transform attackPoint;
     public Transform player;
     public HeathSystem playerHeathSystem;
@@ -21,18 +21,18 @@ public class EnemyChaser : MonoBehaviour, IEnemy
     private int logCounter = 0; // Для уникальности сообщений
     private CharacterBody characterBody;
 
-    public void Init(Transform player, CharacterBody characterBody)
+    public void Init(Transform player, CharacterBody playerBody)
     {
         this.player = player;
-        playerHeathSystem = characterBody.heathSystem;
+        playerHeathSystem = playerBody.heathSystem;
+        this.characterBody = GetComponent<CharacterBody>();
+        controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        attackPoint = transform;
     }
 
     void Start()
     {
-        characterBody = GetComponent<CharacterBody>();
-        controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-
         agent = new Agent(
             state: new()
             {
@@ -70,7 +70,7 @@ public class EnemyChaser : MonoBehaviour, IEnemy
                         Vector3 currentPos = (Vector3)state["position"];
                         Vector3 playerPos = (Vector3)state["playerPosition"];
                         Vector3 direction = (playerPos - currentPos).normalized;
-                        Vector3 predictedPos = currentPos + direction * moveSpeed * 0.1f;
+                        Vector3 predictedPos = currentPos + direction * MoveSpeed * 0.1f;
                         state["position"] = predictedPos;
                         state["distanceToPlayer"] = Vector3.Distance(predictedPos, playerPos);
                     },
@@ -166,7 +166,7 @@ public class EnemyChaser : MonoBehaviour, IEnemy
             return ExecutionStatus.Succeeded;
         }
 
-        Vector3 move = direction.normalized * moveSpeed * Time.deltaTime;
+        Vector3 move = direction.normalized * MoveSpeed * Time.deltaTime;
         move.y = 0;
         controller.Move(move);
     
