@@ -35,31 +35,14 @@ namespace GDS.Demos.Basic
 
             quantField.RegisterValueChangedCallback(evt =>
             {
-                if (evt.newValue < 1) { quantField.value = 1; }
-                var basicItem = itemView.Data as BasicItem;
-                itemView.Data = new BasicItem {
-                    Base = basicItem.Base,
-                    Rarity = basicItem.Rarity,
-                    Quant = evt.newValue
-                };
+                if (evt.newValue < 1) { quantField.value = 1; } 
+                itemView.Data = itemView.Data as BasicItem with { Quant = evt.newValue };
             });
 
-            rarityField.RegisterValueChangedCallback(evt =>
-            {
-                if (evt.newValue == null) return;
-
-                var current = itemView.Data as BasicItem;
-                if (current == null) return;
-
-                var newItem = new BasicItem
-                {
-                    Base = current.Base,
-                    Quant = current.Quant,
-                    Rarity = (Rarity)evt.newValue
-                };
-
-                itemView.Data = newItem;
-            });
+            rarityField.RegisterValueChangedCallback(evt => 
+                { if (evt.newValue == null) return; 
+                    itemView.Data = itemView.Data as BasicItem with { Rarity = (Rarity)evt.newValue }; 
+                });
 
             baseField.RegisterValueChangedCallback(evt =>
             {
