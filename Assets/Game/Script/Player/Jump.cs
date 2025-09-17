@@ -1,15 +1,14 @@
 using UnityEngine;
 
-public class Jump : MonoBehaviour
+public class Jump
 {
-    [Header("Jump Settings")] 
     public float JumpHeight = 1.2f;
     public float Gravity = -15.0f;
     public float JumpTimeout = 0.50f;
     public float FallTimeout = 0.15f;
     public float GroundedOffset = -0.14f;
     public float GroundedRadius = 0.28f;
-    public LayerMask GroundLayers;
+    public LayerMask GroundLayers = LayerMask.GetMask("Default");
 
     private BodyInputs _input;
     private PlayerAnimation _animationController;
@@ -17,14 +16,16 @@ public class Jump : MonoBehaviour
     private bool _grounded = true;
     private float _jumpTimeoutDelta;
     private float _fallTimeoutDelta;
+    private Transform a;
 
-    public void Setup(BodyInputs input, PlayerAnimation animationController)
+    public void Setup(BodyInputs input, PlayerAnimation animationController, Transform transform)
     {
         _input = input;
         _animationController = animationController;
         _gravityController = new GravityController(Gravity, 53.0f);
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
+        a = transform;
     }
 
     public void UpdateJump()
@@ -36,8 +37,8 @@ public class Jump : MonoBehaviour
 
     private void GroundedCheck()
     {
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-            transform.position.z);
+        Vector3 spherePosition = new Vector3(a.position.x, a.position.y - GroundedOffset,
+            a.position.z);
         _grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
             QueryTriggerInteraction.Ignore);
 
@@ -92,7 +93,7 @@ public class Jump : MonoBehaviour
         Gizmos.color = gizmoColor;
 
         Gizmos.DrawSphere(
-            new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
+            new Vector3(a.position.x, a.position.y - GroundedOffset, a.position.z),
             GroundedRadius);
     }
 }
