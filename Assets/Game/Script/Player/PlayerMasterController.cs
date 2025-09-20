@@ -65,14 +65,14 @@ public class PlayerMasterController : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
 
         // Инициализация компонентов
-        if (movementComponent == null) movementComponent = gameObject.AddComponent<MovementComponent>();
-        if (cameraController == null) cameraController = gameObject.AddComponent<PlayerCamera>();
-        if (aimController == null) aimController = gameObject.AddComponent<PlayerAim>();
-        if (animationController == null) animationController = gameObject.AddComponent<PlayerAnimation>();
-        if (rigController == null) rigController = gameObject.AddComponent<PlayerRig>();
-        if (audioController == null) audioController = gameObject.AddComponent<PlayerAudio>();
-        if (characterBody == null) characterBody = gameObject.AddComponent<CharacterBody>();
-        if (heathSystem == null) heathSystem = gameObject.AddComponent<HeathSystem>();
+        if (movementComponent is null) movementComponent = gameObject.AddComponent<MovementComponent>();
+        if (cameraController is null) cameraController = gameObject.AddComponent<PlayerCamera>();
+        if (aimController is null) aimController = gameObject.AddComponent<PlayerAim>();
+        if (animationController is null) animationController = gameObject.AddComponent<PlayerAnimation>();
+        if (rigController is null) rigController = gameObject.AddComponent<PlayerRig>();
+        if (audioController is null) audioController = gameObject.AddComponent<PlayerAudio>();
+        if (characterBody is null) characterBody = gameObject.AddComponent<CharacterBody>();
+        if (heathSystem is null) heathSystem = gameObject.AddComponent<HeathSystem>();
     }
 
     private void SetupComponents()
