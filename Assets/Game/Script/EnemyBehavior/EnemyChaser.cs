@@ -77,7 +77,7 @@ public class EnemyChaser : MonoBehaviour
                     executor: ChasePlayerExecutor,
                     preconditions: new Dictionary<string, object>
                     {
-                        //{ "playerInAttackRange", false },
+                        { "playerInAttackRange", false },
                         { "playerInVisibilityRange", true }
                     },
                     postconditions: new Dictionary<string, object>
@@ -135,6 +135,8 @@ public class EnemyChaser : MonoBehaviour
                             state["position"] = currentPos + move;
                             state["isTargetPointReached"] = false;
                         }
+                        else
+                            state["isTargetPointReached"] = true;
                     },
                     cost: 0.9f
                 )
@@ -209,10 +211,7 @@ public class EnemyChaser : MonoBehaviour
             agent.State["isTargetPointReached"] = false;
 
         if (distance <= attackRange)
-            {
-                return ExecutionStatus.Succeeded;
-            }
-        
+            return ExecutionStatus.Succeeded;
         var move = (playerPos - enemyPos).normalized * MoveSpeed * Time.deltaTime;
         move.y = 0;
         controller.Move(move);
@@ -258,7 +257,10 @@ public class EnemyChaser : MonoBehaviour
     {
         //Debug.Log("wolk king");
         if ((bool)agent.State["playerInVisibilityRange"])
-            return ExecutionStatus.NotYetExecuted;
+        {
+            Debug.Log("no more wolk king :(");
+            return ExecutionStatus.Failed;
+        }
         var enemyPos = (Vector3)agent.State["position"];
         var distance = (_targetPoint - enemyPos).magnitude;
         if (distance >= 1f)
