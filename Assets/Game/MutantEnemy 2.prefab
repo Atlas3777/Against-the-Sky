@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4818054730476959929}
-  - component: {fileID: -3316537034235456263}
   - component: {fileID: 5737543176749537964}
   - component: {fileID: 2106930266720549383}
   - component: {fileID: 1309293487091757004}
   - component: {fileID: 6122540665879323820}
   - component: {fileID: 3009484142783035517}
+  - component: {fileID: 6302274583503340287}
+  - component: {fileID: 8405204280034139075}
   m_Layer: 0
   m_Name: MutantEnemy 2
   m_TagString: Untagged
@@ -39,24 +40,6 @@ Transform:
   - {fileID: 5328915742213924827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3316537034235456263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6670876335773878465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81a7b011af7d43dd8f7246c6240fb09c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 25
-  moveSpeed: 1.96
-  attackRange: 1.5
-  attackPoint: {fileID: 5328915742213924827}
-  player: {fileID: 0}
-  playerHeathSystem: {fileID: 0}
 --- !u!95 &5737543176749537964
 Animator:
   serializedVersion: 7
@@ -86,10 +69,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6670876335773878465}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -159,6 +142,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heathSystem: {fileID: 6122540665879323820}
+--- !u!114 &6302274583503340287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670876335773878465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e636ef91a5c2e046b8d19c33398e250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  EnemyChaser: {fileID: 0}
+  CharacterBody: {fileID: 3009484142783035517}
+  PlayerBody: {fileID: 0}
+  Player: {fileID: 0}
+  Heath: {fileID: 6122540665879323820}
+  AnimationController: {fileID: 8405204280034139075}
+  CharacterController: {fileID: 1309293487091757004}
+--- !u!114 &8405204280034139075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670876335773878465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6193e3b9a4be413491a386076a9175d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
 --- !u!1 &7797767209653432326
 GameObject:
   m_ObjectHideFlags: 0

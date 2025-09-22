@@ -9,16 +9,17 @@ public class CharacterBody : MonoBehaviour
 
     public Action<DamageInfo> Death;
     public Action<DamageInfo> TakeDamageAction;
+    public Jump jumpController;
 
     public void TakeDamage(DamageInfo damage)
     {
         heathSystem.TakeDamage(damage);
     }
 
-    private void Start()
-    {
-        Setup(GetComponent<HeathSystem>());
-    }
+    // private void Start()
+    // {
+    //     Setup(GetComponent<HeathSystem>());
+    // }
 
     private void DeathHandler(DamageInfo damage)
     {
@@ -37,6 +38,8 @@ public class CharacterBody : MonoBehaviour
             return;
         Inventory = new Inventory();
         this.heathSystem = heathSystem;
+        jumpController = new Jump();
+
         Death += DeathHandler;
         TakeDamageAction += TakeDamageHandler;
     }

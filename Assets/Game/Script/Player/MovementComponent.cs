@@ -14,22 +14,22 @@ public class MovementComponent : MonoBehaviour
     private PlayerAnimation _animationController;
 
     private PlayerAim _aimController;
-    private PlayerJump _jumpController;
+    private Jump _jumpController;
 
     private float _speed;
     private float _targetRotation = 0.0f;
     private float _rotationVelocity;
 
     public void Setup(CharacterController controller, BodyInputs input,
-        GameObject mainCamera, PlayerAnimation animationController)
+        GameObject mainCamera, PlayerAnimation AnimationController)
     {
         _controller = controller;
         _input = input;
         _mainCamera = mainCamera;
-        _animationController = animationController;
+        _animationController = AnimationController;
     }
 
-    public void SetDependencies(PlayerJump jumpController)
+    public void SetDependencies(Jump jumpController)
     {
         _jumpController = jumpController;
     }
