@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class GravityController
+public class PhysicsController
 {
     private float _verticalVelocity;
     private float _gravity;
     private float _terminalVelocity;
     private bool _grounded;
 
-    public GravityController(float gravity, float terminalVelocity)
+    public PhysicsController(float gravity, float terminalVelocity)
     {
         _gravity = gravity;
         _terminalVelocity = terminalVelocity;

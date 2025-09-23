@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Jump
+public class GravityController
 {
     public float JumpHeight = 1.2f;
     public float Gravity = -15.0f;
@@ -13,7 +13,7 @@ public class Jump
     private BodyInputs _input;
     private CharacterController _characterController;
     private PlayerAnimation _animationController;
-    private GravityController _gravityController;
+    private PhysicsController _gravityController;
     private bool _grounded = false;
     private float _jumpTimeoutDelta;
     private float _fallTimeoutDelta;
@@ -34,7 +34,7 @@ public class Jump
     public void Setup(PlayerAnimation animationController, Transform transform)
     {
         _animationController = animationController;
-        _gravityController = new GravityController(Gravity, 53.0f);
+        _gravityController = new PhysicsController(Gravity, 53.0f);
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
         _transform = transform;
