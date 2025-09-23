@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MountainGoap;
-using System.Text;
-using System.Collections.Concurrent;
+using UnityEngine.AI;
 
 public class EnemyChaser : MonoBehaviour
 {
@@ -13,24 +12,34 @@ public class EnemyChaser : MonoBehaviour
     public Transform player;
     public HeathSystem playerHeathSystem;
     public const float VISIBILITY_RANGE = 10f;
+    public List<Vector3> PatrolPoints;
     private Agent agent;
 
-    private CharacterController controller;
+    //private CharacterController controller;
     private Animator animator;
     private bool causedDamage;
     private bool performAttack;
     private int logCounter = 0; // Для уникальности сообщений
     private CharacterBody characterBody;
-    private Vector3 _targetPoint = new Vector3(36, 10, -24);
+    private NavMeshAgent _navMeshAgent;
+    private int _nextPatrolPoint = 0;
+    //private Vector3 _targetPoint = new Vector3(36, 10, -24);
 
     public void Init(Transform player, CharacterBody playerBody)
     {
         this.player = player;
         playerHeathSystem = playerBody.heathSystem;
         this.characterBody = GetComponent<CharacterBody>();
-        controller = GetComponent<CharacterController>();
+        //controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         attackPoint = transform;
+        PatrolPoints = new List<Vector3>
+        {
+            new Vector3(36, 10, -24),
+            new Vector3(30, 10, -20)
+        };
+        _navMeshAgent.SetDestination(PatrolPoints[_nextPatrolPoint]);
     }
 
     void Start()
@@ -41,205 +50,132 @@ public class EnemyChaser : MonoBehaviour
                 { "position", transform.position },
                 { "playerPosition", player.position },
                 { "playerInAttackRange", false },
-                { "playerInVisibilityRange", false},
                 { "playerHealth", playerHeathSystem.CurrentHeath },
                 { "playerDead", false },
-                { "isTargetPointReached", false},
+                { "atPatrolTarget", false },
+                { "nextPatrolTarget", PatrolPoints[0] },
+                //{ "playerInVisibilityRange", false }
             },
             goals: new()
             {
-                // new ExtremeGoal(
-                //     name: "Minimize Player Health",
-                //     weight: 5f,
-                //     desiredState: new (){
-                //         { "playerHealth", false }
-                //     }
-                // ),
-                new Goal(
-                    name: "Idle walk",
-                    weight: 2f,
-                    desiredState: new(){
-                        { "isTargetPointReached", true }
+                new ExtremeGoal(
+                    name: "Kill player",
+                    weight: 5f,
+                    desiredState: new()
+                    {
+                        { "playerHealth", false}
                     }
                 ),
                 new Goal(
-                    name: "Chase player",
-                    weight: 20f,
-                    desiredState: new(){
-                        { "playerInAttackRange", true }
+                    name: "Patrol",
+                    weight: 5f,
+                    desiredState: new()
+                    {
+                        { "atPatrolTarget", true }
                     }
                 )
             },
             actions: new List<Action>
             {
                 new Action(
-                    name: "Chase Player",
+                    name: "Chase player",
                     executor: ChasePlayerExecutor,
                     preconditions: new Dictionary<string, object>
                     {
-                        { "playerInAttackRange", false },
-                        { "playerInVisibilityRange", true }
+                        // { "playerInVisibilityRange", true },
+                        { "playerInAttackRange", false } // отменить патруль???
                     },
                     postconditions: new Dictionary<string, object>
                     {
                         { "playerInAttackRange", true }
                     },
-                    stateMutator: (action, state) =>
+                    costCallback: (action, state) =>
                     {
-                        Vector3 currentPos = (Vector3)state["position"];
-                        Vector3 playerPos = (Vector3)state["playerPosition"];
-                        Vector3 direction = (playerPos - currentPos).normalized;
-                        Vector3 predictedPos = currentPos + direction * MoveSpeed * 0.1f;
-                        state["position"] = predictedPos;
-                        state["distanceToPlayer"] = Vector3.Distance(predictedPos, playerPos);
-                    },
-                    cost: 1
-                    // costCallback: (action, state) =>
-                    // {
-                    //     float distance = (float)state["distanceToPlayer"];
-                    //     return distance * 0.1f;
-                    // }
+                        agent.State["position"] = transform.position;
+                        agent.State["playerPosition"] = player.transform.position;
+                        var distance = Vector3.Distance(transform.position, player.transform.position);
+                        agent.State["playerInAttackRange"] = distance <= attackRange;
+                        var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+                        return cost;
+                    }
+                    // cost: 1f
                 ),
-                // new Action(
-                //     name: "Attack",
-                //     executor: AttackExecutor,
-                //     // preconditions: new()
-                //     // {
-                //     //     { "playerInAttackRange", true }
-                //     // },
-                //     arithmeticPostconditions: new () {
-                //         {"playerHealth", -20f}
-                //     },
-                //     cost: 0.5f
-                // ),
                 new Action(
-                    name: "IdleWalk",
-                    executor: IdleWalkExecutor,
-                    preconditions: new()
+                    name: "Hit player",
+                    executor: HitPlayerExecutor,
+                    preconditions: new Dictionary<string, object>
                     {
-                        { "isTargetPointReached", false },
-                        { "playerInVisibilityRange", false },
+                        { "playerDead", false },
+                        // { "playerInVisibilityRange", true },
+                        { "playerInAttackRange", true }
                     },
-                    postconditions: new()
+                    arithmeticPostconditions: new Dictionary<string, object>
                     {
-                        { "isTargetPointReached", true }
+                        { "playerHealth", -Damage }
                     },
-                    stateMutator: (action, state) =>
+                    cost: 1f
+                ),
+                new Action(
+                    name: "Patrol",
+                    executor: PatrolExecutor,
+                    // preconditions: new Dictionary<string, object>
+                    // {
+                    //     { "playerInVisibilityRange", false }
+                    // },
+                    postconditions: new Dictionary<string, object>
                     {
-                        var currentPos = (Vector3)state["position"];
-                        var direction = _targetPoint - currentPos;
-                        var distance = direction.magnitude;
-                        if (distance > 1)
-                        {
-                            var move = direction.normalized * MoveSpeed * 0.1f;
-                            state["position"] = currentPos + move;
-                            state["isTargetPointReached"] = false;
-                        }
-                        else
-                            state["isTargetPointReached"] = true;
+                        { "atPatrolTarget", true }
                     },
-                    cost: 0.9f
+                    costCallback: (action, state) =>
+                    {
+                        agent.State["position"] = transform.position;
+                        agent.State["playerPosition"] = player.transform.position;
+                        var distance = Vector3.Distance(transform.position, player.transform.position);
+                        agent.State["playerInAttackRange"] = distance <= attackRange;
+                        var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+                        return cost;
+                    }
                 )
             },
             sensors: new List<Sensor>
             {
                 new Sensor(UpdateGameStateSensor),
-                new Sensor(CheckDistanceToPlayer),
             }
         );
-
-        //SubscribeToEvents();
     }
 
-    private void SubscribeToEvents()
+    ExecutionStatus ChasePlayerExecutor(Agent agent, Action action)
     {
-        // Подписываемся на события
-        Agent.OnAgentActionSequenceCompleted += (Agent a)
-            => Debug.Log($"[{logCounter++}] Агент завершил выполнение плана.");
-        //Agent.OnAgentStep += (Agent a)
-        //  =>Debug.Log($"[{logCounter++}] Агент работает. Текущее состояние: " + GetStateString(new Dictionary<string, object>(a.State)));
-
-        // Обработчики событий агента
-
-        Agent.OnPlanningStarted += (Agent a)
-            => Debug.Log($"[{logCounter++}] Агент начал планирование.");
-        Agent.OnPlanningFinished += (Agent a, BaseGoal? goal, float utility)
-            => Debug.Log($"[{logCounter++}] Агент завершил планирование. Цель: {goal?.Name}, Полезность: {utility}");
-        Agent.OnPlanningFinishedForSingleGoal += (Agent a, BaseGoal goal, float utility)
-            => Debug.Log($"[{logCounter++}] Агент завершил планирование для одной цели: {goal.Name}, Полезность: {utility}");
-        Agent.OnEvaluatedActionNode += (ActionNode node, ConcurrentDictionary<ActionNode, ActionNode> nodes)
-            => Debug.Log($"[{logCounter++}] Агент оценил узел действия: {node.Action?.Name ?? "null"}");
-        Agent.OnPlanUpdated += OnPlanUpdated;
-
-
-        // Обработчики событий действий
-        // Action.OnBeginExecuteAction += (Agent a, Action action, Dictionary<string, object?> parameters)
-        //     => Debug.Log($"[{logCounter++}] Агент начал выполнение действия: {action.Name}");
-        // Action.OnFinishExecuteAction += (Agent a, Action action, ExecutionStatus status, Dictionary<string, object?> parameters)
-        //     => Debug.Log($"[{logCounter++}] Агент завершил выполнение действия: {action.Name}, Статус: {status}");
-    }
-
-
-
-    private void OnPlanUpdated(Agent a, List<Action> actionList)
-    {
-        StringBuilder sb = new StringBuilder();
-        foreach (var action in actionList)
-        {
-            sb.Append(action.Name + " -> ");
-        }
-        Debug.Log($"[{logCounter++}] Агент сгенерировал последовательность действий: {sb.ToString()}");
-    }
-
-
-    private string GetStateString(Dictionary<string, object> state)
-    {
-        StringBuilder sb = new StringBuilder();
-        foreach (var kvp in state)
-        {
-            sb.Append($"{kvp.Key}: {kvp.Value} | ");
-        }
-        return sb.ToString();
-    }
-
-    private ExecutionStatus ChasePlayerExecutor(Agent agent, Action action)
-    {
-        var enemyPos = (Vector3)agent.State["position"];
-        var playerPos = (Vector3)agent.State["playerPosition"];
-        var distance = Vector3.Distance(enemyPos, playerPos);
-        if ((_targetPoint - enemyPos).magnitude > 1f && (bool)agent.State["isTargetPointReached"])
-            agent.State["isTargetPointReached"] = false;
-
+        var position = (Vector3)agent.State["position"];
+        var playerPosition = (Vector3)agent.State["playerPosition"];
+        var distance = Vector3.Distance(position, playerPosition);
+        if (distance > VISIBILITY_RANGE)
+            return ExecutionStatus.NotPossible;
         if (distance <= attackRange)
+        {
+            _navMeshAgent.isStopped = true;
             return ExecutionStatus.Succeeded;
-        var move = (playerPos - enemyPos).normalized * MoveSpeed * Time.deltaTime;
-        move.y = 0;
-        controller.Move(move);
-    
-        // Поворот только по горизонтали (Y axis)
-        var lookDirection = playerPos - transform.position;
-        lookDirection.y = 0; // Обнуляем Y компоненту для горизонтального поворота
-    
-        if (lookDirection != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(lookDirection);
-
+        }
+        _navMeshAgent.isStopped = false;
+        _navMeshAgent.SetDestination(playerPosition);
         return ExecutionStatus.Executing;
+        // var movingOffset = (playerPosition - position).normalized * MoveSpeed * Time.deltaTime;
+        // movingOffset.y = 0;
+        // controller.Move(movingOffset);
+        // var lookDirection = playerPosition - transform.position;
+        // lookDirection.y = 0;
+        // if (lookDirection != Vector3.zero)
+        //     transform.rotation = Quaternion.LookRotation(lookDirection);
+        // return ExecutionStatus.Executing;
     }
 
-    private ExecutionStatus AttackExecutor(Agent agent, Action action)
+    ExecutionStatus HitPlayerExecutor(Agent agent, Action action)
     {
+        _navMeshAgent.isStopped = true;
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-        {
             animator.SetTrigger("Attack");
-            //Debug.Log($"[{logCounter++}] AttackExecutor: Запуск анимации атаки");
-        }
-        
         if (!performAttack)
-        {
-            //Debug.Log($"[{logCounter++}] AttackExecutor: Анимация атаки еще выполняется");
             return ExecutionStatus.Executing;
-        }
-        
         if (causedDamage)
         {
             causedDamage = false;
@@ -247,83 +183,58 @@ public class EnemyChaser : MonoBehaviour
             Debug.Log($"[{logCounter++}] AttackExecutor: Атака успешно завершена");
             return ExecutionStatus.Succeeded;
         }
-        
         performAttack = false;
         Debug.Log($"[{logCounter++}] AttackExecutor: Атака провалена");
         return ExecutionStatus.Failed;
     }
 
-    private ExecutionStatus IdleWalkExecutor(Agent agent, Action action)
+    ExecutionStatus PatrolExecutor(Agent agent, Action action)
     {
-        //Debug.Log("wolk king");
-        if ((bool)agent.State["playerInVisibilityRange"])
-        {
-            Debug.Log("no more wolk king :(");
+        var position = (Vector3)agent.State["position"];
+        var playerPosition = (Vector3)agent.State["playerPosition"];
+        var distance = Vector3.Distance(position, playerPosition);
+        if (distance <= VISIBILITY_RANGE)
             return ExecutionStatus.Failed;
+        if (PatrolPoints.Count == 0)
+        {
+            Debug.Log("there are no points to patrol");
+            return ExecutionStatus.NotPossible;
         }
-        var enemyPos = (Vector3)agent.State["position"];
-        var distance = (_targetPoint - enemyPos).magnitude;
-        if (distance >= 1f)
-            {
-                var direction = _targetPoint - enemyPos;
-                var move = direction.normalized * MoveSpeed * Time.deltaTime;
-                move.y = 0;
-                controller.Move(move);
-                //Debug.Log("moved on " + move);
+        var target = PatrolPoints[_nextPatrolPoint];
 
-                // Поворот только по горизонтали (Y axis)
-                var lookDirection = _targetPoint - transform.position;
-                lookDirection.y = 0; // Обнуляем Y компоненту для горизонтального поворота
+        if (!_navMeshAgent.hasPath || Vector3.Distance(_navMeshAgent.destination, target) > 0.1f)
+        {
+            _navMeshAgent.SetDestination(target);
+            Debug.Log("Setting new destination: " + target);
+        }
 
-                if (lookDirection != Vector3.zero)
-                {
-                    var targetRotation = Quaternion.LookRotation(lookDirection);
-                    transform.rotation = targetRotation;
-                }
-            }
-            else
-            {
-                Debug.LogWarning("target point reached");
-                return ExecutionStatus.Succeeded;
-            }
+        if (!_navMeshAgent.pathPending && Vector3.Distance(transform.position, target) <= _navMeshAgent.stoppingDistance)
+        {
+            Debug.Log("target reached");
+            ++_nextPatrolPoint;
+            _nextPatrolPoint %= PatrolPoints.Count;
+            target = PatrolPoints[_nextPatrolPoint];
+            _navMeshAgent.SetDestination(target);
+            return ExecutionStatus.Succeeded;
+        }
         return ExecutionStatus.Executing;
     }
 
-    private void UpdateGameStateSensor(Agent agent)
+    void UpdateGameStateSensor(Agent agent)
     {
         agent.State["position"] = transform.position;
-
-        if (player != null)
-        {
-            agent.State["playerPosition"] = player.position;
-            agent.State["playerHealth"] = playerHeathSystem.CurrentHeath;
-            agent.State["playerDead"] = !player.gameObject.activeSelf;
-
-            float distance = Vector3.Distance(
-                (Vector3)agent.State["position"],
-                player.position
-            );
-
-            bool wasInAttackRange = (bool)agent.State["playerInAttackRange"];
-            agent.State["playerInAttackRange"] = distance <= attackRange;
-            bool isInAttackRange = (bool)agent.State["playerInAttackRange"];
-
-            if (wasInAttackRange != isInAttackRange)
-            {
-                //Debug.Log($"[{logCounter++}] Сенсор: Статус зоны атаки игрока изменился на: {isInAttackRange}. Расстояние: {distance:F2}");
-            }
-        }
-    }
-
-    private void CheckDistanceToPlayer(Agent agent)
-    {
-        var pos = (Vector3)agent.State["position"];
-        var playerPos = (Vector3)agent.State["playerPosition"];
-        var direction = pos - playerPos;
-        var distance = direction.magnitude;
-        var visible = distance < VISIBILITY_RANGE;
-        agent.State["playerInVisibilityRange"] = visible;
-        //Debug.Log($"[SENSOR] Distance to player: {distance:F2}, Visible: {visible}");
+        agent.State["playerPosition"] = player.transform.position;
+        // var distance = Vector3.Distance(transform.position, player.transform.position);
+        //agent.State["playerInAttackRange"] = distance <= attackRange;
+        agent.State["playerDead"] = playerHeathSystem.CurrentHeath <= 0;
+        //agent.State["playerInVisibilityRange"] = distance <= VISIBILITY_RANGE;
+        agent.State["atPatrolTarget"] = _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending;
+        agent.State["playerHealth"] = Mathf.Max(0, playerHeathSystem.CurrentHeath);
+        // if (distance <= VISIBILITY_RANGE && !_navMeshAgent.isStopped)
+        //     _navMeshAgent.isStopped = true;
+        // if (distance > VISIBILITY_RANGE && _navMeshAgent.isStopped)
+        //     _navMeshAgent.isStopped = false;
+        //Debug.Log(agent.State["atPatrolTarget"] + " " + agent.State["playerInVisibilityRange"]);
     }
 
     void Update()
@@ -336,8 +247,8 @@ public class EnemyChaser : MonoBehaviour
     {
         Debug.Log($"[{logCounter++}] OnAttackHit: Событие удара из анимации сработало");
 
-        Collider[] hitColliders = Physics.OverlapSphere(attackPoint.position, attackRange);
-        bool playerHit = false;
+        var hitColliders = Physics.OverlapSphere(attackPoint.position, attackRange);
+        var playerHit = false;
         
         foreach (var col in hitColliders)
         {
@@ -351,13 +262,12 @@ public class EnemyChaser : MonoBehaviour
 
         if (playerHit)
         {
-            float damage = 25f;
-            float currentHealth = (float)agent.State["playerHealth"];
-            float newHealth = Mathf.Max(0, currentHealth - damage);
+            var currentHealth = (float)agent.State["playerHealth"];
+            var newHealth = Mathf.Max(0, currentHealth - Damage);
 
             agent.State["playerHealth"] = newHealth;
 
-            Debug.Log($"[{logCounter++}] OnAttackHit: Нанесено урона {damage}. Здоровье игрока: {newHealth:F1}");
+            Debug.Log($"[{logCounter++}] OnAttackHit: Нанесено урона {Damage}. Здоровье игрока: {newHealth:F1}");
 
             causedDamage = true;
         }

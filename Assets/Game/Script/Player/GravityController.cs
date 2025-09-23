@@ -27,7 +27,7 @@ public class GravityController
 
     public void Setup(CharacterController characterController, PlayerAnimation animationController, Transform transform)
     {
-        _characterController = characterController;
+        //_characterController = characterController;
         Setup(animationController, transform);
     }
 
