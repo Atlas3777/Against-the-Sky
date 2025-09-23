@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterBody))]
 [RequireComponent(typeof(HeathSystem))]
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 public class EnemyController : MonoBehaviour, IEnemy
 {
     public EnemyChaser EnemyChaser;
@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     public Transform Player;
     public HeathSystem Heath;
     public PlayerAnimation AnimationController;
-    public CharacterController CharacterController;
+    //public CharacterController CharacterController;
 
     void Awake() => InitializeComponents();
 
@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         CharacterBody = GetComponent<CharacterBody>();
         Heath = GetComponent<HeathSystem>();
-        CharacterController = GetComponent<CharacterController>();
+        //CharacterController = GetComponent<CharacterController>();
         EnemyChaser = gameObject.AddComponent<EnemyChaser>();
     }
 
@@ -29,12 +29,12 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         CharacterBody.Setup(Heath);
         Heath.Setup(CharacterBody);
-        CharacterBody.jumpController?.Setup(CharacterController, AnimationController, transform);
+        //CharacterBody.jumpController?.Setup(CharacterController, AnimationController, transform);
     }
 
     void Update()
     {
-        CharacterBody.jumpController?.UpdateJump();
+        //CharacterBody.jumpController?.UpdateJump();
     }
 
     public void Init(Transform player, CharacterBody playerBody)

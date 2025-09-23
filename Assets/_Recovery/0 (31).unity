@@ -16364,7 +16364,7 @@ Transform:
   m_GameObject: {fileID: 2116379872}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.96, y: 10, z: -14.39}
+  m_LocalPosition: {x: 34.96, y: 11.49, z: -14.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16480,7 +16480,6 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   player: {fileID: 0}
   playerHeathSystem: {fileID: 0}
-  PatrolPoints: []
 --- !u!143 &2136670367
 CharacterController:
   m_ObjectHideFlags: 0
