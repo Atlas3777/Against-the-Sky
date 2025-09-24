@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MountainGoap;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class EnemyChaser : MonoBehaviour
 {
@@ -36,8 +37,8 @@ public class EnemyChaser : MonoBehaviour
         attackPoint = transform;
         PatrolPoints = new List<Vector3>
         {
-            new Vector3(36, 10, -24),
-            new Vector3(30, 10, -20)
+            new Vector3(36, 20, -24),
+            new Vector3(30, 20, -20)
         };
         _navMeshAgent.SetDestination(PatrolPoints[_nextPatrolPoint]);
     }
@@ -82,8 +83,7 @@ public class EnemyChaser : MonoBehaviour
                     executor: ChasePlayerExecutor,
                     preconditions: new Dictionary<string, object>
                     {
-                        // { "playerInVisibilityRange", true },
-                        { "playerInAttackRange", false } // отменить патруль???
+                        { "playerInAttackRange", false }
                     },
                     postconditions: new Dictionary<string, object>
                     {
@@ -91,14 +91,11 @@ public class EnemyChaser : MonoBehaviour
                     },
                     costCallback: (action, state) =>
                     {
-                        agent.State["position"] = transform.position;
-                        agent.State["playerPosition"] = player.transform.position;
-                        var distance = Vector3.Distance(transform.position, player.transform.position);
+                        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
                         agent.State["playerInAttackRange"] = distance <= attackRange;
                         var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
                         return cost;
                     }
-                    // cost: 1f
                 ),
                 new Action(
                     name: "Hit player",
@@ -106,7 +103,6 @@ public class EnemyChaser : MonoBehaviour
                     preconditions: new Dictionary<string, object>
                     {
                         { "playerDead", false },
-                        // { "playerInVisibilityRange", true },
                         { "playerInAttackRange", true }
                     },
                     arithmeticPostconditions: new Dictionary<string, object>
@@ -118,19 +114,13 @@ public class EnemyChaser : MonoBehaviour
                 new Action(
                     name: "Patrol",
                     executor: PatrolExecutor,
-                    // preconditions: new Dictionary<string, object>
-                    // {
-                    //     { "playerInVisibilityRange", false }
-                    // },
                     postconditions: new Dictionary<string, object>
                     {
                         { "atPatrolTarget", true }
                     },
                     costCallback: (action, state) =>
                     {
-                        agent.State["position"] = transform.position;
-                        agent.State["playerPosition"] = player.transform.position;
-                        var distance = Vector3.Distance(transform.position, player.transform.position);
+                        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
                         agent.State["playerInAttackRange"] = distance <= attackRange;
                         var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
                         return cost;
@@ -146,9 +136,7 @@ public class EnemyChaser : MonoBehaviour
 
     ExecutionStatus ChasePlayerExecutor(Agent agent, Action action)
     {
-        var position = (Vector3)agent.State["position"];
-        var playerPosition = (Vector3)agent.State["playerPosition"];
-        var distance = Vector3.Distance(position, playerPosition);
+        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
         if (distance > VISIBILITY_RANGE)
             return ExecutionStatus.NotPossible;
         if (distance <= attackRange)
@@ -157,23 +145,17 @@ public class EnemyChaser : MonoBehaviour
             return ExecutionStatus.Succeeded;
         }
         _navMeshAgent.isStopped = false;
-        _navMeshAgent.SetDestination(playerPosition);
+        _navMeshAgent.SetDestination((Vector3)agent.State["playerPosition"]);
         return ExecutionStatus.Executing;
-        // var movingOffset = (playerPosition - position).normalized * MoveSpeed * Time.deltaTime;
-        // movingOffset.y = 0;
-        // controller.Move(movingOffset);
-        // var lookDirection = playerPosition - transform.position;
-        // lookDirection.y = 0;
-        // if (lookDirection != Vector3.zero)
-        //     transform.rotation = Quaternion.LookRotation(lookDirection);
-        // return ExecutionStatus.Executing;
     }
 
     ExecutionStatus HitPlayerExecutor(Agent agent, Action action)
     {
         _navMeshAgent.isStopped = true;
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MutantAttack"))
             animator.SetTrigger("Attack");
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("MutantAttack"))
+            animator.ResetTrigger("Attack");
         if (!performAttack)
             return ExecutionStatus.Executing;
         if (causedDamage)
@@ -190,9 +172,7 @@ public class EnemyChaser : MonoBehaviour
 
     ExecutionStatus PatrolExecutor(Agent agent, Action action)
     {
-        var position = (Vector3)agent.State["position"];
-        var playerPosition = (Vector3)agent.State["playerPosition"];
-        var distance = Vector3.Distance(position, playerPosition);
+        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
         if (distance <= VISIBILITY_RANGE)
             return ExecutionStatus.Failed;
         if (PatrolPoints.Count == 0)
@@ -230,11 +210,6 @@ public class EnemyChaser : MonoBehaviour
         //agent.State["playerInVisibilityRange"] = distance <= VISIBILITY_RANGE;
         agent.State["atPatrolTarget"] = _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending;
         agent.State["playerHealth"] = Mathf.Max(0, playerHeathSystem.CurrentHeath);
-        // if (distance <= VISIBILITY_RANGE && !_navMeshAgent.isStopped)
-        //     _navMeshAgent.isStopped = true;
-        // if (distance > VISIBILITY_RANGE && _navMeshAgent.isStopped)
-        //     _navMeshAgent.isStopped = false;
-        //Debug.Log(agent.State["atPatrolTarget"] + " " + agent.State["playerInVisibilityRange"]);
     }
 
     void Update()
@@ -249,10 +224,10 @@ public class EnemyChaser : MonoBehaviour
 
         var hitColliders = Physics.OverlapSphere(attackPoint.position, attackRange);
         var playerHit = false;
-        
+
         foreach (var col in hitColliders)
         {
-            if(col.TryGetComponent(out CharacterBody playerBody))
+            if (col.TryGetComponent(out CharacterBody playerBody) && !(col.GameObject() == gameObject))
             {
                 playerHit = true;
                 playerBody.TakeDamage(new DamageInfo(Damage, characterBody, playerBody));
@@ -288,7 +263,7 @@ public class EnemyChaser : MonoBehaviour
             GUIStyle style = new GUIStyle();
             style.normal.textColor = Color.white;
             style.fontSize = 28;
-            
+
             GUILayout.BeginArea(new Rect(10, 10, 400, 300));
             GUILayout.Label("Состояние агента:", style);
             foreach (var kvp in agent.State)
@@ -298,5 +273,7 @@ public class EnemyChaser : MonoBehaviour
             GUILayout.EndArea();
         }
     }
+
+    private float CheckDistance(Vector3 first, Vector3 second) => Vector3.Distance(first, second);
 }
 
