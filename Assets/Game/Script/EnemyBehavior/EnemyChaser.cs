@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MountainGoap;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class EnemyChaser : MonoBehaviour
 {
@@ -36,8 +37,8 @@ public class EnemyChaser : MonoBehaviour
         attackPoint = transform;
         PatrolPoints = new List<Vector3>
         {
-            new Vector3(36, 10, -24),
-            new Vector3(30, 10, -20)
+            new Vector3(36, 20, -24),
+            new Vector3(30, 20, -20)
         };
         _navMeshAgent.SetDestination(PatrolPoints[_nextPatrolPoint]);
     }
@@ -105,7 +106,7 @@ public class EnemyChaser : MonoBehaviour
                     executor: HitPlayerExecutor,
                     preconditions: new Dictionary<string, object>
                     {
-                        { "playerDead", false },
+                        //{ "playerDead", false },
                         // { "playerInVisibilityRange", true },
                         { "playerInAttackRange", true }
                     },
@@ -146,6 +147,11 @@ public class EnemyChaser : MonoBehaviour
 
     ExecutionStatus ChasePlayerExecutor(Agent agent, Action action)
     {
+        if ((bool)agent.State["playerInAttackRange"] || animator.GetCurrentAnimatorStateInfo(0).IsName("MutantAttack"))
+        {
+            // Debug.Log("Attacking!! can't execute chasing, exiting");
+            return ExecutionStatus.Failed;
+        }
         var position = (Vector3)agent.State["position"];
         var playerPosition = (Vector3)agent.State["playerPosition"];
         var distance = Vector3.Distance(position, playerPosition);
@@ -154,9 +160,11 @@ public class EnemyChaser : MonoBehaviour
         if (distance <= attackRange)
         {
             _navMeshAgent.isStopped = true;
+            _navMeshAgent.updatePosition = false;
             return ExecutionStatus.Succeeded;
         }
         _navMeshAgent.isStopped = false;
+        _navMeshAgent.updatePosition = true;
         _navMeshAgent.SetDestination(playerPosition);
         return ExecutionStatus.Executing;
         // var movingOffset = (playerPosition - position).normalized * MoveSpeed * Time.deltaTime;
@@ -172,7 +180,8 @@ public class EnemyChaser : MonoBehaviour
     ExecutionStatus HitPlayerExecutor(Agent agent, Action action)
     {
         _navMeshAgent.isStopped = true;
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        _navMeshAgent.updatePosition = false;
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MutantAttack"))
             animator.SetTrigger("Attack");
         if (!performAttack)
             return ExecutionStatus.Executing;
@@ -190,6 +199,8 @@ public class EnemyChaser : MonoBehaviour
 
     ExecutionStatus PatrolExecutor(Agent agent, Action action)
     {
+        _navMeshAgent.isStopped = false;
+        _navMeshAgent.updatePosition = true;
         var position = (Vector3)agent.State["position"];
         var playerPosition = (Vector3)agent.State["playerPosition"];
         var distance = Vector3.Distance(position, playerPosition);
@@ -224,8 +235,8 @@ public class EnemyChaser : MonoBehaviour
     {
         agent.State["position"] = transform.position;
         agent.State["playerPosition"] = player.transform.position;
-        // var distance = Vector3.Distance(transform.position, player.transform.position);
-        //agent.State["playerInAttackRange"] = distance <= attackRange;
+        var distance = Vector3.Distance(transform.position, player.transform.position);
+        agent.State["playerInAttackRange"] = distance <= attackRange;
         agent.State["playerDead"] = playerHeathSystem.CurrentHeath <= 0;
         //agent.State["playerInVisibilityRange"] = distance <= VISIBILITY_RANGE;
         agent.State["atPatrolTarget"] = _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending;
@@ -252,7 +263,7 @@ public class EnemyChaser : MonoBehaviour
         
         foreach (var col in hitColliders)
         {
-            if(col.TryGetComponent(out CharacterBody playerBody))
+            if(col.TryGetComponent(out CharacterBody playerBody) && !(col.GameObject() == gameObject))
             {
                 playerHit = true;
                 playerBody.TakeDamage(new DamageInfo(Damage, characterBody, playerBody));
