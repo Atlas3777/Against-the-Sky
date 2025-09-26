@@ -256,23 +256,23 @@ public class EnemyChaser : MonoBehaviour
     }
 
     // Дополнительный метод для отладки состояния агента
-    private void OnGUI()
-    {
-        if (agent != null)
-        {
-            GUIStyle style = new GUIStyle();
-            style.normal.textColor = Color.white;
-            style.fontSize = 28;
+    // private void OnGUI()
+    // {
+    //     if (agent != null)
+    //     {
+    //         GUIStyle style = new GUIStyle();
+    //         style.normal.textColor = Color.white;
+    //         style.fontSize = 28;
 
-            GUILayout.BeginArea(new Rect(10, 10, 400, 300));
-            GUILayout.Label("Состояние агента:", style);
-            foreach (var kvp in agent.State)
-            {
-                GUILayout.Label($"{kvp.Key}: {kvp.Value}", style);
-            }
-            GUILayout.EndArea();
-        }
-    }
+    //         GUILayout.BeginArea(new Rect(10, 10, 400, 300));
+    //         GUILayout.Label("Состояние агента:", style);
+    //         foreach (var kvp in agent.State)
+    //         {
+    //             GUILayout.Label($"{kvp.Key}: {kvp.Value}", style);
+    //         }
+    //         GUILayout.EndArea();
+    //     }
+    // }
 
     private float CheckDistance(Vector3 first, Vector3 second) => Vector3.Distance(first, second);
 }

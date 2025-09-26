@@ -99,7 +99,7 @@ public class PlayerMasterController : MonoBehaviour
     {
         var navMeshPath = new NavMeshPath();
         NavMesh.CalculatePath(transform.position, MoveTarget.position, NavMesh.AllAreas, navMeshPath);
-        Debug.Log(string.Join(",", navMeshPath.corners));
+        // Debug.Log(string.Join(",", navMeshPath.corners));
     }
 
     public void Subs()
