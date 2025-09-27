@@ -46,10 +46,6 @@ public class PlayerMasterController : MonoBehaviour
     private void Update()
     {
         UpdateComponents();
-        if (Input.GetMouseButtonDown(0))
-        {
-            NavMeshTest();
-        }
     }
 
     private void LateUpdate()
@@ -93,13 +89,6 @@ public class PlayerMasterController : MonoBehaviour
         // Передача ссылок между компонентами
         movementComponent.SetDependencies(characterBody.jumpController);
         Subs();
-    }
-
-    private void NavMeshTest()
-    {
-        var navMeshPath = new NavMeshPath();
-        NavMesh.CalculatePath(transform.position, MoveTarget.position, NavMesh.AllAreas, navMeshPath);
-        Debug.Log(string.Join(",", navMeshPath.corners));
     }
 
     public void Subs()
