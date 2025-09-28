@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab3752ce37a6ed4d859d49bbf60b766, type: 3}
+  m_Name: Bullets
+  m_EditorClassIdentifier: 
+  _name: Bullets
+  description: 
+  icon: {fileID: 21300000, guid: 9f4425af637275d438db6030e69e0e23, type: 3}
+  pickUpGraphics: {fileID: 919132149155446097, guid: fb501e11e55aa584c98f63c5734791b2, type: 3}
+  maxStack: 64
+  itemSize: {x: 1, y: 1}
+  irregularItemIcon: {fileID: 0}
+  applyWeight: 1
+  weightMultiplier: 0.2
