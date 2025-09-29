@@ -3,6 +3,7 @@ using UnityEngine;
 using MountainGoap;
 using UnityEngine.AI;
 using Unity.VisualScripting;
+using cowsins;
 
 public class EnemyChaser : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class EnemyChaser : MonoBehaviour
     public float attackRange = 1.7f;
     public Transform attackPoint;
     public Transform player;
-    public HeathSystem playerHeathSystem;
+    public PlayerStats PlayerStats;
     public const float VISIBILITY_RANGE = 10f;
     public List<Vector3> PatrolPoints;
     private Agent agent;
@@ -21,16 +22,16 @@ public class EnemyChaser : MonoBehaviour
     private bool causedDamage;
     private bool performAttack;
     private int logCounter = 0; // Для уникальности сообщений
-    private CharacterBody characterBody;
+    // private CharacterBody characterBody;
     private NavMeshAgent _navMeshAgent;
     private int _nextPatrolPoint = 0;
     //private Vector3 _targetPoint = new Vector3(36, 10, -24);
 
-    public void Init(Transform player, CharacterBody playerBody)
+    public void Init(Transform player, PlayerStats playerBody)
     {
         this.player = player;
-        playerHeathSystem = playerBody.heathSystem;
-        this.characterBody = GetComponent<CharacterBody>();
+        this.PlayerStats = playerBody;
+        // this.characterBody = GetComponent<CharacterBody>();
         //controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -51,7 +52,7 @@ public class EnemyChaser : MonoBehaviour
                 { "position", transform.position },
                 { "playerPosition", player.position },
                 { "playerInAttackRange", false },
-                { "playerHealth", playerHeathSystem.CurrentHeath },
+                { "playerHealth", PlayerStats.health },
                 { "playerDead", false },
                 { "atPatrolTarget", false },
                 { "nextPatrolTarget", PatrolPoints[0] },
@@ -206,10 +207,11 @@ public class EnemyChaser : MonoBehaviour
         agent.State["playerPosition"] = player.transform.position;
         // var distance = Vector3.Distance(transform.position, player.transform.position);
         //agent.State["playerInAttackRange"] = distance <= attackRange;
-        agent.State["playerDead"] = playerHeathSystem.CurrentHeath <= 0;
+        agent.State["playerDead"] = PlayerStats.health <= 0;
         //agent.State["playerInVisibilityRange"] = distance <= VISIBILITY_RANGE;
         agent.State["atPatrolTarget"] = _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending;
-        agent.State["playerHealth"] = Mathf.Max(0, playerHeathSystem.CurrentHeath);
+        agent.State["playerHealth"] = Mathf.Max(0, PlayerStats.health);
+        // Debug.Log(agent.State["playerHealth"]);
     }
 
     void Update()
@@ -227,10 +229,11 @@ public class EnemyChaser : MonoBehaviour
 
         foreach (var col in hitColliders)
         {
-            if (col.TryGetComponent(out CharacterBody playerBody) && !(col.GameObject() == gameObject))
+            if (col.TryGetComponent(out PlayerStats playerStats) && !(col.GameObject() == gameObject))
             {
                 playerHit = true;
-                playerBody.TakeDamage(new DamageInfo(Damage, characterBody, playerBody));
+                PlayerStats.Damage(Damage, false);
+                Debug.Log("hit");
                 break;
             }
         }

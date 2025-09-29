@@ -1,9 +1,10 @@
 using System;
+using cowsins;
 using UnityEngine;
 
 public class CharacterBody : MonoBehaviour
 {
-    public HeathSystem heathSystem;
+    public EnemyHealth HealthSystem;
     
     public Inventory Inventory;
 
@@ -13,7 +14,7 @@ public class CharacterBody : MonoBehaviour
 
     public void TakeDamage(DamageInfo damage)
     {
-        heathSystem.TakeDamage(damage);
+        HealthSystem.Damage(damage.Damage, false);
     }
     
     private void DeathHandler(DamageInfo damage)
@@ -27,12 +28,12 @@ public class CharacterBody : MonoBehaviour
         Debug.Log(gameObject.name + " is " + damage);
     }
     
-    public void Setup(HeathSystem heathSystem)
+    public void Setup(EnemyHealth enemyHealth)
     {
         if(Inventory != null)
             return;
         Inventory = new Inventory();
-        this.heathSystem = heathSystem;
+        this.HealthSystem = enemyHealth;
         jumpController = new GravityController();
 
         Death += DeathHandler;
