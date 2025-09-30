@@ -1,15 +1,16 @@
+using cowsins;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterBody))]
-[RequireComponent(typeof(HeathSystem))]
+// [RequireComponent(typeof(HeathSystem))]
 //[RequireComponent(typeof(CharacterController))]
 public class EnemyController : MonoBehaviour, IEnemy
 {
     public EnemyChaser EnemyChaser;
     public CharacterBody CharacterBody;
-    public HeathSystem PlayerBody;
+    public PlayerStats PlayerStats;
     public Transform Player;
-    public HeathSystem Heath;
+    public EnemyHealth Health;
     public PlayerAnimation AnimationController;
     //public CharacterController CharacterController;
 
@@ -18,7 +19,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     void InitializeComponents()
     {
         CharacterBody = GetComponent<CharacterBody>();
-        Heath = GetComponent<HeathSystem>();
+        Health = GetComponent<EnemyHealth>();
         //CharacterController = GetComponent<CharacterController>();
         EnemyChaser = gameObject.AddComponent<EnemyChaser>();
     }
@@ -27,8 +28,8 @@ public class EnemyController : MonoBehaviour, IEnemy
 
     void SetupComponents()
     {
-        CharacterBody.Setup(Heath);
-        Heath.Setup(CharacterBody);
+        CharacterBody.Setup(Health);
+        // Health.Start();
         //CharacterBody.jumpController?.Setup(CharacterController, AnimationController, transform);
     }
 
@@ -37,10 +38,10 @@ public class EnemyController : MonoBehaviour, IEnemy
         //CharacterBody.jumpController?.UpdateJump();
     }
 
-    public void Init(Transform player, CharacterBody playerBody)
+    public void Init(Transform player, PlayerStats playerBody)
     {
         Player = player;
-        PlayerBody = playerBody.heathSystem;
-        EnemyChaser.Init(player, playerBody);
+        PlayerStats = playerBody.GetComponent<PlayerStats>();
+        EnemyChaser.Init(player, PlayerStats);
     }
 }
