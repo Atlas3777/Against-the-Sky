@@ -7,6 +7,8 @@ public class Main : MonoBehaviour
     public Transform EnemySpawnPoint;
     public Transform Player;
     public GameObject PlayerStats;
+    public GameObject DeadEnemyPrefab;
+    public Transform DeadEnemySpawnPoint;
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class Main : MonoBehaviour
         }
 
         GlobalEventManager.BodyDeath += KillHandler;
+        Instantiate(DeadEnemyPrefab, DeadEnemySpawnPoint.position, Quaternion.identity);
     }
 
     private void Update()

@@ -44,7 +44,7 @@ namespace cowsins.Inventory
         {
             if (InventoryProManager.instance == null) return;
 
-            // Opening the chest means generating a grid exclusively for chests apart from the Inventory´s Grid, given the parameters of this specific chest.
+            // Opening the chest means generating a grid exclusively for chests apart from the Inventoryï¿½s Grid, given the parameters of this specific chest.
             InventoryProManager.instance._GridGenerator.OpenChest(this, currentChestData, initialInventoryGridData.rows, initialInventoryGridData.columns);
             // To visualize the Chest UI we need to Open the Inventory, as they work together
             InventoryProManager.instance.OpenInventory();
