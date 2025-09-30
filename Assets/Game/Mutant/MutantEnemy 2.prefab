@@ -194,7 +194,7 @@ MonoBehaviour:
   _name: Mutant
   health: 0
   shield: 0
-  maxHealth: 100
+  maxHealth: 10
   maxShield: 0
   destroyOnDie: 1
   deathEffect: {fileID: 0}
