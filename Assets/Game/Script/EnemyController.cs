@@ -20,17 +20,28 @@ public class EnemyController : MonoBehaviour, IEnemy
         CharacterBody = GetComponent<CharacterBody>();
         Heath = GetComponent<HeathSystem>();
         //CharacterController = GetComponent<CharacterController>();
-        EnemyChaser = gameObject.AddComponent<EnemyChaser>();
+        EnemyChaser = gameObject.GetComponent<EnemyChaser>();
     }
 
-    void Start() => SetupComponents();
-
-    void SetupComponents()
+    public void AAAAAAStart()
     {
+<<<<<<< refs/remotes/origin/fixed_enemy_refactor
         CharacterBody.Setup(Heath);
         Heath.Setup(CharacterBody);
         //CharacterBody.jumpController?.Setup(CharacterController, AnimationController, transform);
+=======
+        EnemyChaser.AAAAAAStart();
+>>>>>>> local
     }
+
+    // void Start() => SetupComponents();
+
+    // void SetupComponents()
+    // {
+    //     CharacterBody.Setup(Health);
+    //     // Health.Start();
+    //     //CharacterBody.jumpController?.Setup(CharacterController, AnimationController, transform);
+    // }
 
     void Update()
     {

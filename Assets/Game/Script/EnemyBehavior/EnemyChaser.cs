@@ -8,7 +8,7 @@ public class EnemyChaser : MonoBehaviour
 {
     public float Damage = 25;
     public float MoveSpeed = 2f;
-    public float attackRange = 1.7f;
+    public float attackRange = 1f;
     public Transform attackPoint;
     public Transform player;
     public HeathSystem playerHeathSystem;
@@ -34,7 +34,7 @@ public class EnemyChaser : MonoBehaviour
         //controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        attackPoint = transform;
+        // attackPoint = transform;
         PatrolPoints = new List<Vector3>
         {
             new Vector3(36, 20, -24),
@@ -43,7 +43,7 @@ public class EnemyChaser : MonoBehaviour
         _navMeshAgent.SetDestination(PatrolPoints[_nextPatrolPoint]);
     }
 
-    void Start()
+    public void AAAAAAStart()
     {
         agent = new Agent(
             state: new()
@@ -51,10 +51,16 @@ public class EnemyChaser : MonoBehaviour
                 { "position", transform.position },
                 { "playerPosition", player.position },
                 { "playerInAttackRange", false },
+<<<<<<< refs/remotes/origin/fixed_enemy_refactor
                 { "playerHealth", playerHeathSystem.CurrentHeath },
+=======
+                { "playerHealth", PlayerStats.health + PlayerStats.shield },
+>>>>>>> local
                 { "playerDead", false },
-                { "atPatrolTarget", false },
                 { "nextPatrolTarget", PatrolPoints[0] },
+                { "distanceToPlayer", float.MaxValue },
+                { "visitedPatrolPoints", 0}
+                //{ "atPatrolTarget", false },
                 //{ "playerInVisibilityRange", false }
             },
             goals: new()
@@ -67,12 +73,12 @@ public class EnemyChaser : MonoBehaviour
                         { "playerHealth", false}
                     }
                 ),
-                new Goal(
+                new ExtremeGoal(
                     name: "Patrol",
                     weight: 5f,
                     desiredState: new()
                     {
-                        { "atPatrolTarget", true }
+                        { "visitedPatrolPoints", true }
                     }
                 )
             },
@@ -91,9 +97,9 @@ public class EnemyChaser : MonoBehaviour
                     },
                     costCallback: (action, state) =>
                     {
-                        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-                        agent.State["playerInAttackRange"] = distance <= attackRange;
-                        var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+                        // var distance = CheckDistance(attackPoint.position, (Vector3)agent.State["playerPosition"]);
+                        // agent.State["playerInAttackRange"] = distance <= attackRange;
+                        var cost = (float)state["distanceToPlayer"] > VISIBILITY_RANGE ? 1f : float.MaxValue;
                         return cost;
                     }
                 ),
@@ -120,9 +126,9 @@ public class EnemyChaser : MonoBehaviour
                     },
                     costCallback: (action, state) =>
                     {
-                        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-                        agent.State["playerInAttackRange"] = distance <= attackRange;
-                        var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+                        // var distance = CheckDistance(attackPoint.position, (Vector3)agent.State["playerPosition"]);
+                        // agent.State["playerInAttackRange"] = distance <= attackRange;
+                        var cost = (float)state["distanceToPlayer"] > VISIBILITY_RANGE ? 1f : float.MaxValue;
                         return cost;
                     }
                 )
@@ -136,10 +142,10 @@ public class EnemyChaser : MonoBehaviour
 
     ExecutionStatus ChasePlayerExecutor(Agent agent, Action action)
     {
-        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-        if (distance > VISIBILITY_RANGE)
+        // var distance = CheckAttackRange((Vector3)agent.State["playerPosition"]);
+        if ((float)agent.State["distanceToPlayer"] > VISIBILITY_RANGE)
             return ExecutionStatus.NotPossible;
-        if (distance <= attackRange)
+        if ((float)agent.State["distanceToPlayer"] <= attackRange)
         {
             _navMeshAgent.isStopped = true;
             return ExecutionStatus.Succeeded;
@@ -172,8 +178,8 @@ public class EnemyChaser : MonoBehaviour
 
     ExecutionStatus PatrolExecutor(Agent agent, Action action)
     {
-        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-        if (distance <= VISIBILITY_RANGE)
+        // var distance = CheckAttackRange((Vector3)agent.State["playerPosition"]);
+        if ((float)agent.State["distanceToPlayer"] <= VISIBILITY_RANGE)
             return ExecutionStatus.Failed;
         if (PatrolPoints.Count == 0)
         {
@@ -204,9 +210,16 @@ public class EnemyChaser : MonoBehaviour
     {
         agent.State["position"] = transform.position;
         agent.State["playerPosition"] = player.transform.position;
+<<<<<<< refs/remotes/origin/fixed_enemy_refactor
         // var distance = Vector3.Distance(transform.position, player.transform.position);
         //agent.State["playerInAttackRange"] = distance <= attackRange;
         agent.State["playerDead"] = playerHeathSystem.CurrentHeath <= 0;
+=======
+        var distance = Vector3.Distance(attackPoint.position, player.transform.position);
+        agent.State["playerInAttackRange"] = distance <= attackRange;
+        agent.State["distanceToPlayer"] = Vector3.Distance(attackPoint.position, player.transform.position);
+        agent.State["playerDead"] = PlayerStats.health <= 0;
+>>>>>>> local
         //agent.State["playerInVisibilityRange"] = distance <= VISIBILITY_RANGE;
         agent.State["atPatrolTarget"] = _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending;
         agent.State["playerHealth"] = Mathf.Max(0, playerHeathSystem.CurrentHeath);
@@ -264,16 +277,17 @@ public class EnemyChaser : MonoBehaviour
             style.normal.textColor = Color.white;
             style.fontSize = 28;
 
-            GUILayout.BeginArea(new Rect(10, 10, 400, 300));
+            GUILayout.BeginArea(new Rect(10, 10, 400, 500));
             GUILayout.Label("Состояние агента:", style);
             foreach (var kvp in agent.State)
             {
                 GUILayout.Label($"{kvp.Key}: {kvp.Value}", style);
             }
+            GUILayout.Label($"distanve: {agent.State["distanceToPlayer"]}", style);
             GUILayout.EndArea();
         }
     }
 
-    private float CheckDistance(Vector3 first, Vector3 second) => Vector3.Distance(first, second);
+    // private float CheckAttackRange(Vector3 playerPos) => Vector3.Distance(attackPoint.position, playerPos);
 }
 

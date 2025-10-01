@@ -13,7 +13,12 @@ public class Main : MonoBehaviour
         var enemy = Instantiate(EnemyPrefab, EnemySpawnPoint.position, Quaternion.identity);
         if (enemy.TryGetComponent<IEnemy>(out var controller))
         {
+<<<<<<< refs/remotes/origin/fixed_enemy_refactor
             controller.Init(Player, PlayerBody);
+=======
+            controller.Init(Player, PlayerStats.GetComponent<PlayerStats>());
+            controller.AAAAAAStart();
+>>>>>>> local
         }
 
         GlobalEventManager.BodyDeath += KillHandler;
@@ -33,7 +38,12 @@ public class Main : MonoBehaviour
 
 public interface IEnemy
 {
+<<<<<<< refs/remotes/origin/fixed_enemy_refactor
     public void Init(Transform player, CharacterBody playerBody);
+=======
+    public void Init(Transform player, PlayerStats playerStats);
+    public void AAAAAAStart();
+>>>>>>> local
 }
 
 public class DamageInfo
