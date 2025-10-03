@@ -2,61 +2,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using MountainGoap;
 using UnityEngine.AI;
-using Unity.VisualScripting;
 using cowsins;
 
-public class EnemyChaser : MonoBehaviour
+public class EnemyChaser : MonoBehaviour, IEnemy
 {
+    [SerializeField] private Animator animator;
     public float Damage = 25;
-    public float MoveSpeed = 2f;
-    public float attackRange = 1.7f;
-    public Transform attackPoint;
-    public Transform player;
-    public PlayerStats PlayerStats;
-    public const float VISIBILITY_RANGE = 10f;
-    public List<Vector3> PatrolPoints;
-    private Agent agent;
+    public float AttackRange = 2f;
+    
+    public PointOfInterest PointOfInterest;
+    
 
-    //private CharacterController controller;
-    private Animator animator;
+    public Transform attackPoint;
+    public GameObject target;
+
+    public bool PlayerVisibilite; 
+
+    private Agent _agent;
     private bool causedDamage;
     private bool performAttack;
-    private int logCounter = 0; // Для уникальности сообщений
-    // private CharacterBody characterBody;
+    private int logCounter;
     private NavMeshAgent _navMeshAgent;
-    private int _nextPatrolPoint = 0;
-    //private Vector3 _targetPoint = new Vector3(36, 10, -24);
 
-    public void Init(Transform player, PlayerStats playerBody)
+    public void Init(GameObject target)
     {
-        this.player = player;
-        this.PlayerStats = playerBody;
-        // this.characterBody = GetComponent<CharacterBody>();
-        //controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        attackPoint = transform;
-        PatrolPoints = new List<Vector3>
-        {
-            new Vector3(36, 20, -24),
-            new Vector3(30, 20, -20)
-        };
-        _navMeshAgent.SetDestination(PatrolPoints[_nextPatrolPoint]);
+        this.target = target;
     }
 
-    void Start()
+    public void GetComponents()
     {
-        agent = new Agent(
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+    }
+
+
+    public void MyStart()
+    {
+        _agent = new Agent(
             state: new()
             {
-                { "position", transform.position },
-                { "playerPosition", player.position },
-                { "playerInAttackRange", false },
-                { "playerHealth", PlayerStats.health },
-                { "playerDead", false },
-                { "atPatrolTarget", false },
-                { "nextPatrolTarget", PatrolPoints[0] },
-                //{ "playerInVisibilityRange", false }
+                { ASS.myTransform, transform },
+                { ASS.targetTransform, target.GetComponent<InteractManager>().AttachmentPoints[0] },
+                { ASS.targetHealth, 10000 },
+                { ASS.distanceToTarget, 10000 },
+                { ASS.navMeshAgent, _navMeshAgent },
+                { ASS.countVisitedPoints, 0 },
+                { ASS.targetReached, false }
             },
             goals: new()
             {
@@ -65,68 +56,77 @@ public class EnemyChaser : MonoBehaviour
                     weight: 5f,
                     desiredState: new()
                     {
-                        { "playerHealth", false}
+                        { ASS.targetHealth, false }
                     }
                 ),
-                new Goal(
-                    name: "Patrol",
-                    weight: 5f,
-                    desiredState: new()
-                    {
-                        { "atPatrolTarget", true }
-                    }
-                )
+                // new ExtremeGoal(
+                //     name: "Visited Spot",
+                //     weight: 5f,
+                //     desiredState: new()
+                //     {
+                //         { ASS.countVisitedPoints, true }
+                //     }
+                // ),
             },
             actions: new List<Action>
             {
                 new Action(
-                    name: "Chase player",
-                    executor: ChasePlayerExecutor,
+                    name: "ChaseTarget",
+                    executor: ChaseTargetExecutor,
                     preconditions: new Dictionary<string, object>
                     {
-                        { "playerInAttackRange", false }
+                        { ASS.targetReached, false }
                     },
-                    postconditions: new Dictionary<string, object>
+                    stateChecker: (action, state) =>
                     {
-                        { "playerInAttackRange", true }
+                        var navMeshPath = new NavMeshPath();
+                        return NavMesh.CalculatePath(((Transform)state[ASS.myTransform]).position,
+                            ((Transform)state[ASS.targetTransform]).position, NavMesh.AllAreas, navMeshPath);
+                    },
+                    postconditions: new()
+                    {
+                        { ASS.targetReached, true }
                     },
                     costCallback: (action, state) =>
                     {
-                        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-                        agent.State["playerInAttackRange"] = distance <= attackRange;
-                        var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+                        var cost = PlayerVisibilite ? 1f : float.MaxValue;
                         return cost;
                     }
                 ),
                 new Action(
-                    name: "Hit player",
-                    executor: HitPlayerExecutor,
-                    preconditions: new Dictionary<string, object>
+                    name: "Hit",
+                    executor: HitExecutor,
+                    preconditions: new()
                     {
-                        { "playerDead", false },
-                        { "playerInAttackRange", true }
+                        { ASS.targetReached, true }
                     },
-                    arithmeticPostconditions: new Dictionary<string, object>
+                    arithmeticPostconditions: new()
                     {
-                        { "playerHealth", -Damage }
+                        { ASS.targetHealth, -1000f }
                     },
                     cost: 1f
                 ),
-                new Action(
-                    name: "Patrol",
-                    executor: PatrolExecutor,
-                    postconditions: new Dictionary<string, object>
-                    {
-                        { "atPatrolTarget", true }
-                    },
-                    costCallback: (action, state) =>
-                    {
-                        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-                        agent.State["playerInAttackRange"] = distance <= attackRange;
-                        var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
-                        return cost;
-                    }
-                )
+                // new Action(
+                //     name: "Define New Spot Point",
+                //     executor: DefineNewPoint,
+                //     preconditions: new()
+                //     {
+                //         
+                //     },
+                //     postconditions: new Dictionary<string, object>
+                //     {
+                //         { ASS.е, true }
+                //     },
+                //     cost: 0.1f
+                //     // costCallback: (action, state) =>
+                //     // {
+                //     //     var distance = CheckDistance((Vector3)agent.State["position"],
+                //     //         (Vector3)agent.State["playerPosition"]);
+                //     //     agent.State["playerInAttackRange"] = distance <= attackRange;
+                //     //     var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+                //     //     return cost;
+                //     // }
+               // )
             },
             sensors: new List<Sensor>
             {
@@ -135,104 +135,117 @@ public class EnemyChaser : MonoBehaviour
         );
     }
 
-    ExecutionStatus ChasePlayerExecutor(Agent agent, Action action)
+
+
+    private ExecutionStatus DefineNewPoint(Agent agent, Action action)
     {
-        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-        if (distance > VISIBILITY_RANGE)
-            return ExecutionStatus.NotPossible;
-        if (distance <= attackRange)
-        {
-            _navMeshAgent.isStopped = true;
-            return ExecutionStatus.Succeeded;
-        }
-        _navMeshAgent.isStopped = false;
-        _navMeshAgent.SetDestination((Vector3)agent.State["playerPosition"]);
         return ExecutionStatus.Executing;
     }
 
-    ExecutionStatus HitPlayerExecutor(Agent agent, Action action)
+    ExecutionStatus ChaseTargetExecutor(Agent agent, Action action)
+    {
+        //Debug.Log("Trying to chase target");
+        _navMeshAgent.ResetPath();
+        
+
+        if ((bool)agent.State[ASS.targetReached])
+        {
+            return ExecutionStatus.Succeeded;
+        }
+
+        if (!_navMeshAgent.SetDestination(((Transform)agent.State[ASS.targetTransform]).position))
+        {
+            return ExecutionStatus.NotPossible;
+        }
+
+        return ExecutionStatus.Executing;
+    }
+
+    ExecutionStatus HitExecutor(Agent agent, Action action)
     {
         _navMeshAgent.isStopped = true;
+
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MutantAttack"))
             animator.SetTrigger("Attack");
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MutantAttack"))
             animator.ResetTrigger("Attack");
+
         if (!performAttack)
             return ExecutionStatus.Executing;
+        
+        performAttack = false;
+
         if (causedDamage)
         {
             causedDamage = false;
-            performAttack = false;
             Debug.Log($"[{logCounter++}] AttackExecutor: Атака успешно завершена");
             return ExecutionStatus.Succeeded;
         }
-        performAttack = false;
+
         Debug.Log($"[{logCounter++}] AttackExecutor: Атака провалена");
         return ExecutionStatus.Failed;
     }
 
-    ExecutionStatus PatrolExecutor(Agent agent, Action action)
-    {
-        var distance = CheckDistance((Vector3)agent.State["position"], (Vector3)agent.State["playerPosition"]);
-        if (distance <= VISIBILITY_RANGE)
-            return ExecutionStatus.Failed;
-        if (PatrolPoints.Count == 0)
-        {
-            Debug.Log("there are no points to patrol");
-            return ExecutionStatus.NotPossible;
-        }
-        var target = PatrolPoints[_nextPatrolPoint];
-
-        if (!_navMeshAgent.hasPath || Vector3.Distance(_navMeshAgent.destination, target) > 0.1f)
-        {
-            _navMeshAgent.SetDestination(target);
-            Debug.Log("Setting new destination: " + target);
-        }
-
-        if (!_navMeshAgent.pathPending && Vector3.Distance(transform.position, target) <= _navMeshAgent.stoppingDistance)
-        {
-            Debug.Log("target reached");
-            ++_nextPatrolPoint;
-            _nextPatrolPoint %= PatrolPoints.Count;
-            target = PatrolPoints[_nextPatrolPoint];
-            _navMeshAgent.SetDestination(target);
-            return ExecutionStatus.Succeeded;
-        }
-        return ExecutionStatus.Executing;
-    }
+    // ExecutionStatus PatrolExecutor(Agent agent, Action action)
+    // {
+    //     if (PatrolPoints.Count == 0)
+    //     {
+    //         Debug.Log("there are no points to patrol");
+    //         return ExecutionStatus.NotPossible;
+    //     }
+    //     
+    //     var target = PatrolPoints[_nextPatrolPoint];
+    //     
+    //     if (!_navMeshAgent.hasPath || Vector3.Distance(_navMeshAgent.destination, target) > 0.1f)
+    //     {
+    //         _navMeshAgent.SetDestination(target);
+    //         Debug.Log("Setting new destination: " + target);
+    //     }
+    //     
+    //     if (!_navMeshAgent.pathPending &&
+    //         Vector3.Distance(transform.position, target) <= _navMeshAgent.stoppingDistance)
+    //     {
+    //         Debug.Log("target reached");
+    //         ++_nextPatrolPoint;
+    //         _nextPatrolPoint %= PatrolPoints.Count;
+    //         target = PatrolPoints[_nextPatrolPoint];
+    //         _navMeshAgent.SetDestination(target);
+    //         return ExecutionStatus.Succeeded;
+    //     }
+    //
+    //     return ExecutionStatus.Executing;
+    // }
 
     void UpdateGameStateSensor(Agent agent)
     {
-        agent.State["position"] = transform.position;
-        agent.State["playerPosition"] = player.transform.position;
-        // var distance = Vector3.Distance(transform.position, player.transform.position);
-        //agent.State["playerInAttackRange"] = distance <= attackRange;
-        agent.State["playerDead"] = PlayerStats.health <= 0;
-        //agent.State["playerInVisibilityRange"] = distance <= VISIBILITY_RANGE;
-        agent.State["atPatrolTarget"] = _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending;
-        agent.State["playerHealth"] = Mathf.Max(0, PlayerStats.health);
-        // Debug.Log(agent.State["playerHealth"]);
+        agent.State[ASS.distanceToTarget] = Vector3.Distance(((Transform)agent.State[ASS.myTransform]).position,
+            ((Transform)agent.State[ASS.targetTransform]).position);
+
+        agent.State[ASS.targetHealth] = Mathf.Max(0, target.GetComponent<PlayerStats>().health);
+        agent.State[ASS.targetReached] = (float)agent.State[ASS.distanceToTarget] <= 0.1f;
     }
 
     void Update()
     {
-        if (agent == null || player == null) return;
-        agent.Step(StepMode.OneAction);
+        if (_agent == null || target == null) return;
+
+        _agent.Step(StepMode.OneAction);
     }
 
     public void OnAttackHit()
     {
         Debug.Log($"[{logCounter++}] OnAttackHit: Событие удара из анимации сработало");
 
-        var hitColliders = Physics.OverlapSphere(attackPoint.position, attackRange);
+
+        var results = Physics.OverlapSphere(attackPoint.position, AttackRange);
         var playerHit = false;
 
-        foreach (var col in hitColliders)
+        foreach (var col in results)
         {
-            if (col.TryGetComponent(out PlayerStats playerStats) && !(col.GameObject() == gameObject))
+            if (col.TryGetComponent(out PlayerStats playerStats) && (col.gameObject != gameObject))
             {
                 playerHit = true;
-                PlayerStats.Damage(Damage, false);
+                //PlayerStats.Damage(Damage, false);
                 Debug.Log("hit");
                 break;
             }
@@ -240,13 +253,7 @@ public class EnemyChaser : MonoBehaviour
 
         if (playerHit)
         {
-            var currentHealth = (float)agent.State["playerHealth"];
-            var newHealth = Mathf.Max(0, currentHealth - Damage);
-
-            agent.State["playerHealth"] = newHealth;
-
-            Debug.Log($"[{logCounter++}] OnAttackHit: Нанесено урона {Damage}. Здоровье игрока: {newHealth:F1}");
-
+            Debug.Log($"[{logCounter++}] OnAttackHit: Нанесено урон");
             causedDamage = true;
         }
         else
@@ -258,25 +265,30 @@ public class EnemyChaser : MonoBehaviour
         performAttack = true;
     }
 
-    // Дополнительный метод для отладки состояния агента
     private void OnGUI()
     {
-        if (agent != null)
+        if (_agent != null)
         {
             GUIStyle style = new GUIStyle();
             style.normal.textColor = Color.white;
             style.fontSize = 28;
 
-            GUILayout.BeginArea(new Rect(10, 10, 400, 300));
+            GUILayout.BeginArea(new Rect(10, 10, 500, 700));
             GUILayout.Label("Состояние агента:", style);
-            foreach (var kvp in agent.State)
+            foreach (var kvp in _agent.State)
             {
                 GUILayout.Label($"{kvp.Key}: {kvp.Value}", style);
             }
+
+            foreach (var actionSequence in _agent.CurrentActionSequences)
+            {
+                foreach (var action in actionSequence)
+                {
+                    GUILayout.Label($"{action.Name}", style);
+                }
+            }
+
             GUILayout.EndArea();
         }
     }
-
-    private float CheckDistance(Vector3 first, Vector3 second) => Vector3.Distance(first, second);
 }
-
