@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42e751c39a4e254e9c37b130a1c0500, type: 3}
   m_Name: DataPersistence_SO
   m_EditorClassIdentifier: 
-  firstLevelScene: {fileID: 102900000, guid: 3232ffb0b68f89e41a7b5b4f1e6e1b1b, type: 3}
-  firstLevelName: Save & Load Showroom Inventory
+  firstLevelScene: {fileID: 102900000, guid: 56299e752576f454d894f8c3dd99da12, type: 3}
+  firstLevelName: MainGame
   fileName: data
   savePlayerStats: 1
   saveExperience: 1
@@ -22,7 +22,7 @@ MonoBehaviour:
   saveInventory: 1
   savePlayerTransforms: 1
   saveObjects: 1
-  autoSave: 1
+  autoSave: 0
   autoSaveTimeSeconds: 20
   showToastOnGameSaved: 1
   toastMessage: Progress Saved
