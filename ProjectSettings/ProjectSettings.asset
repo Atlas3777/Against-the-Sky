@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 3ecce9bb38d0d6e46a45cf1769568e05
+  productGUID: b1bed6469e723654a9e83ab60e0f686c
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -890,7 +890,7 @@ PlayerSettings:
   cloudProjectId: 648612c7-bc7b-4f9e-92f6-30e69b3964bc
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Against the Sky
+  projectName: 
   organizationId: backup-breakers
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
