@@ -607,7 +607,7 @@ namespace cowsins
             emission.rateOverTime = emissionRate * speedLinesAmount;
         }
 
-        public void StopSpeedlines() => speedLines.Stop();
+        // public void StopSpeedlines() => speedLines.Stop();
 
         public void StartCrouch()
         {

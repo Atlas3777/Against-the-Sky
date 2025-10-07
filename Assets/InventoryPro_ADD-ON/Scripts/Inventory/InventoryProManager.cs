@@ -474,7 +474,7 @@ namespace cowsins.Inventory
             // Player shouldn�t move or perform any UI unrelated action.
             InputManager.ToggleUIControls(true);
             PauseMenu.Instance.stats.LoseControl();
-            playerMovement.StopSpeedlines();
+            // playerMovement.StopSpeedlines();
             UIController.instance.UnlockMouse();
             UIController.instance.crosshair.SetVisibility(false);
             contextMenu.HideContextMenu();
