@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d534552d659494bb99447bd9bea061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.SaveLoad.SwitchSceneTrigger
-  uniqueID: 0e82d050-a36b-4c0c-b2e9-f3980408f524
+  uniqueID: afdf6349-d0de-4b9f-bf85-4b421f781169
   events:
     onEnter:
       m_PersistentCalls:
