@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PointOfInterest : MonoBehaviour
+public class MapAction : MonoBehaviour
 {
-    public ActionSpot[] AllWayPoints;
+    public ActionPOI[] AllPOI;
+
+    public Transform sparePoint;
     
     public GameObject Enemy;
 
@@ -30,13 +32,21 @@ public class PointOfInterest : MonoBehaviour
     }
     
     
-    public ActionSpot GetFirstActionSpot()
+    public ActionPOI GetFirstActionSpot()
     {
-        return AllWayPoints.FirstOrDefault(x => !x.IsOccupied);
+        return AllPOI.FirstOrDefault(x => !x.IsOccupied);
     }
     
-    public List<ActionSpot> GetAllAvailableActionSpot()
+    public List<ActionPOI> GetAllAvailableActionSpot()
     {
-        return AllWayPoints.Where(x => !x.IsOccupied).ToList();
+        return AllPOI.Where(x => !x.IsOccupied).ToList();
+    }
+    
+    public ActionPOI GetNearFreePOI(Transform body)
+    {
+        return AllPOI
+            .Where(poi => !poi.IsOccupied)
+            .OrderBy(poi => Vector3.Distance(poi.BodyPositionTarget.position, body.position))
+            .FirstOrDefault();
     }
 }

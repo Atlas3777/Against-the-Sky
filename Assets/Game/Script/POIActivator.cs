@@ -1,13 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class POIActivator : MonoBehaviour
 {
-    public PointOfInterest pointOfInterest;
+    [FormerlySerializedAs("pointOfInterest")] public MapAction mapAction;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
-            pointOfInterest.StartPointOfInterest();
+            mapAction.StartPointOfInterest();
     }
 }

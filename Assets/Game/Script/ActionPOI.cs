@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ActionSpot : MonoBehaviour
+public class ActionPOI : MonoBehaviour
 {
     public Transform BodyPositionTarget;
     public float timeCooldown;

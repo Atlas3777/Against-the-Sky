@@ -10,8 +10,7 @@ public class EnemyChaser : MonoBehaviour, IEnemy
     public float Damage = 25;
     public float AttackRange = 2f;
     
-    public PointOfInterest PointOfInterest;
-    
+    public MapAction mapAction;
 
     public Transform attackPoint;
     public GameObject target;
@@ -42,12 +41,12 @@ public class EnemyChaser : MonoBehaviour, IEnemy
             state: new()
             {
                 { ASS.myTransform, transform },
-                { ASS.targetTransform, target.GetComponent<InteractManager>().AttachmentPoints[0] },
-                { ASS.targetHealth, 10000 },
-                { ASS.distanceToTarget, 10000 },
+                { ASS.movementTargetTransform, target.GetComponent<InteractManager>().AttachmentPoints[0] },
+                { ASS.targetHealth, 10000f },
+                { ASS.distanceToTarget, 10000f },
                 { ASS.navMeshAgent, _navMeshAgent },
                 { ASS.countVisitedPoints, 0 },
-                { ASS.targetReached, false }
+                { ASS.movementTargetReached, false }
             },
             goals: new()
             {
@@ -71,21 +70,21 @@ public class EnemyChaser : MonoBehaviour, IEnemy
             actions: new List<Action>
             {
                 new Action(
-                    name: "ChaseTarget",
-                    executor: ChaseTargetExecutor,
+                    name: "MoveToTarget",
+                    executor: MoveToTargetExecutor,
                     preconditions: new Dictionary<string, object>
                     {
-                        { ASS.targetReached, false }
+                        { ASS.movementTargetReached, false }
                     },
                     stateChecker: (action, state) =>
                     {
                         var navMeshPath = new NavMeshPath();
                         return NavMesh.CalculatePath(((Transform)state[ASS.myTransform]).position,
-                            ((Transform)state[ASS.targetTransform]).position, NavMesh.AllAreas, navMeshPath);
+                            ((Transform)state[ASS.movementTargetTransform]).position, NavMesh.AllAreas, navMeshPath);
                     },
                     postconditions: new()
                     {
-                        { ASS.targetReached, true }
+                        { ASS.movementTargetReached, true }
                     },
                     costCallback: (action, state) =>
                     {
@@ -98,7 +97,7 @@ public class EnemyChaser : MonoBehaviour, IEnemy
                     executor: HitExecutor,
                     preconditions: new()
                     {
-                        { ASS.targetReached, true }
+                        { ASS.movementTargetReached, true }
                     },
                     arithmeticPostconditions: new()
                     {
@@ -106,26 +105,26 @@ public class EnemyChaser : MonoBehaviour, IEnemy
                     },
                     cost: 1f
                 ),
-                // new Action(
-                //     name: "Define New Spot Point",
-                //     executor: DefineNewPoint,
-                //     preconditions: new()
-                //     {
-                //         
-                //     },
-                //     postconditions: new Dictionary<string, object>
-                //     {
-                //         { ASS.е, true }
-                //     },
-                //     cost: 0.1f
-                //     // costCallback: (action, state) =>
-                //     // {
-                //     //     var distance = CheckDistance((Vector3)agent.State["position"],
-                //     //         (Vector3)agent.State["playerPosition"]);
-                //     //     agent.State["playerInAttackRange"] = distance <= attackRange;
-                //     //     var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
-                //     //     return cost;
-                //     // }
+               //  new Action(
+               //      name: "Define New Spot Point",
+               //      executor: DefineNewPoint,
+               //      preconditions: new()
+               //      {
+               //          
+               //      },
+               //      postconditions: new Dictionary<string, object>
+               //      {
+               //          { ASS.е, true }
+               //      },
+               //      cost: 0.1f
+               //      // costCallback: (action, state) =>
+               //      // {
+               //      //     var distance = CheckDistance((Vector3)agent.State["position"],
+               //      //         (Vector3)agent.State["playerPosition"]);
+               //      //     agent.State["playerInAttackRange"] = distance <= attackRange;
+               //      //     var cost = distance > VISIBILITY_RANGE ? 1f : float.MaxValue;
+               //      //     return cost;
+               //      // }
                // )
             },
             sensors: new List<Sensor>
@@ -137,23 +136,28 @@ public class EnemyChaser : MonoBehaviour, IEnemy
 
 
 
-    private ExecutionStatus DefineNewPoint(Agent agent, Action action)
-    {
-        return ExecutionStatus.Executing;
-    }
+    // private ExecutionStatus DefineNewPoint(Agent agent, Action action)
+    // {
+    //     var pos = mapAction.GetNearFreePOI((Transform)agent.State[ASS.myTransform]);
+    //     if (pos is not null)
+    //         return ExecutionStatus.Succeeded;
+    //     
+    //     return 
+    //        
+    // }
 
-    ExecutionStatus ChaseTargetExecutor(Agent agent, Action action)
+    ExecutionStatus MoveToTargetExecutor(Agent agent, Action action)
     {
         //Debug.Log("Trying to chase target");
-        _navMeshAgent.ResetPath();
+        _navMeshAgent.ResetPath(); //#MYTODO
         
 
-        if ((bool)agent.State[ASS.targetReached])
+        if ((bool)agent.State[ASS.movementTargetReached])
         {
             return ExecutionStatus.Succeeded;
         }
 
-        if (!_navMeshAgent.SetDestination(((Transform)agent.State[ASS.targetTransform]).position))
+        if (!_navMeshAgent.SetDestination(((Transform)agent.State[ASS.movementTargetTransform]).position))
         {
             return ExecutionStatus.NotPossible;
         }
@@ -219,10 +223,10 @@ public class EnemyChaser : MonoBehaviour, IEnemy
     void UpdateGameStateSensor(Agent agent)
     {
         agent.State[ASS.distanceToTarget] = Vector3.Distance(((Transform)agent.State[ASS.myTransform]).position,
-            ((Transform)agent.State[ASS.targetTransform]).position);
+            ((Transform)agent.State[ASS.movementTargetTransform]).position);
 
-        agent.State[ASS.targetHealth] = Mathf.Max(0, target.GetComponent<PlayerStats>().health);
-        agent.State[ASS.targetReached] = (float)agent.State[ASS.distanceToTarget] <= 0.1f;
+        //agent.State[ASS.targetHealth] = Mathf.Max(0, target.GetComponent<PlayerStats>().health);
+        agent.State[ASS.movementTargetReached] = (float)agent.State[ASS.distanceToTarget] <= 0.1f;
     }
 
     void Update()

@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82cbea3f3e77114fa694320860c707a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::POIActivator
-  pointOfInterest: {fileID: 1939787598}
+  mapAction: {fileID: 1939787598}
 --- !u!1 &1032623174
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,7 +2087,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e96f689552472699c72a3f6e505904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointOfInterest
-  AllWayPoints: []
+  AllPOI: []
+  sparePoint: {fileID: 0}
   Enemy: {fileID: 6670876335773878465, guid: cff1eb5cc7991ba428d6b275a17ac4eb, type: 3}
   EnemySpawnPoints:
   - {fileID: 424930946}
