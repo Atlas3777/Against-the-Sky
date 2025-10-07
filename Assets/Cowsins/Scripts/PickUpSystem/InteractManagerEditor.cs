@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 /// <summary>
-/// This script belongs to cowsins™ as a part of the cowsins´ FPS Engine. All rights reserved. 
+/// This script belongs to cowsinsï¿½ as a part of the cowsinsï¿½ FPS Engine. All rights reserved. 
 /// </summary>
 using UnityEngine;
 using UnityEditor;
@@ -36,6 +36,7 @@ namespace cowsins
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("mask"));
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponGenericPickeable"));
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("attachmentGenericPickeable"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachmentPoints")); //MYTODO
                         break;
                     case "Interaction":
                         EditorGUILayout.LabelField("INTERACTION", EditorStyles.boldLabel);
@@ -43,6 +44,7 @@ namespace cowsins
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("detectInteractionDistance"));
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("progressRequiredToInteract"));
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("interactInterval"));
+                        
                         if (myScript.DuplicateWeaponAddsBullets)
                         {
                             EditorGUILayout.Space(10);

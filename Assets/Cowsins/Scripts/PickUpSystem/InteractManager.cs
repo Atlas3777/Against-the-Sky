@@ -1,5 +1,5 @@
 /// <summary>
-/// This script belongs to cowsins™ as a part of the cowsins´ FPS Engine. All rights reserved. 
+/// This script belongs to cowsinsï¿½ as a part of the cowsinsï¿½ FPS Engine. All rights reserved. 
 /// </summary>
 using UnityEngine;
 using UnityEngine.Events;
@@ -64,12 +64,14 @@ namespace cowsins
         [HideInInspector] public bool inspecting = false;
 
         public Events events;
+        public Transform[] AttachmentPoints;
 
         private WeaponController weaponController;
 
         public float DroppingDistance => droppingDistance;
 
-        public bool DuplicateWeaponAddsBullets => duplicateWeaponAddsBullets;   
+        public bool DuplicateWeaponAddsBullets => duplicateWeaponAddsBullets;
+
         private void OnEnable()
         {
             // Subscribe to the event

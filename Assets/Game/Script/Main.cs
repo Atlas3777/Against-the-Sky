@@ -1,23 +1,19 @@
-using cowsins;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
     public GameObject EnemyPrefab;
     public Transform EnemySpawnPoint;
-    public Transform Player;
-    public GameObject PlayerStats;
+    public GameObject Player;
     public GameObject DeadEnemyPrefab;
     public Transform DeadEnemySpawnPoint;
 
     private void Start()
     {
-        var enemy = Instantiate(EnemyPrefab, EnemySpawnPoint.position, Quaternion.identity);
-        if (enemy.TryGetComponent<IEnemy>(out var controller))
-        {
-            controller.Init(Player, PlayerStats.GetComponent<PlayerStats>());
-        }
-
+        G.Player = Player;
+        
+        EnemyFactory.SpawnEnemy(EnemyPrefab, EnemySpawnPoint);
+        
         GlobalEventManager.BodyDeath += KillHandler;
         Instantiate(DeadEnemyPrefab, DeadEnemySpawnPoint.position, Quaternion.identity);
     }
@@ -36,7 +32,9 @@ public class Main : MonoBehaviour
 
 public interface IEnemy
 {
-    public void Init(Transform player, PlayerStats playerStats);
+    public void GetComponents();
+    public void Init(GameObject target);
+    public void MyStart();
 }
 
 public class DamageInfo
