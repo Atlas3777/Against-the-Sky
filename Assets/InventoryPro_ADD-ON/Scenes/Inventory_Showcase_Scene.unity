@@ -7092,10 +7092,6 @@ PrefabInstance:
       value: Gear_Item Pickeable
       objectReference: {fileID: 0}
     - target: {fileID: 4788863507091020781, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4788863507091020781, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.9502192
       objectReference: {fileID: 0}
@@ -7134,14 +7130,6 @@ PrefabInstance:
     - target: {fileID: 4788863507091020781, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515330995256141581, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: c86e20b76badbe5469143250c928aa68, type: 2}
-    - target: {fileID: 6515330995256141581, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}
-      propertyPath: amount
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6515330995256141581, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}
       propertyPath: uniqueID
@@ -11192,6 +11180,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1195374611263023446, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195374611387908800, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1195374611476548382, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
