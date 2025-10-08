@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Game.GOAP;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public static class EnemyFactory
 {
-    public static IEnemy SpawnEnemy(GameObject EnemyPrefab, Transform EnemySpawnPoint)
+    public static GameObject SpawnEnemy(GameObject enemyPrefab, Transform enemySpawnPoint)
     {
-        var enemy = Object.Instantiate(EnemyPrefab, EnemySpawnPoint.position, Quaternion.identity);
+        var enemy = Object.Instantiate(enemyPrefab, enemySpawnPoint.position, Quaternion.identity);
         if (enemy.TryGetComponent<IEnemy>(out var controller))
         {
             controller.GetComponents();
@@ -13,11 +16,18 @@ public static class EnemyFactory
             controller.MyStart();
         }
 
-        return controller;
+        return enemy;
     }
-    // public static GameObject SpawnEnemyWithPoint(GameObject EnemyPrefab, Transform EnemySpawnPoint, List<ActionSpot> ActionSpots)
-    // {
-    //     var e = SpawnEnemy(EnemyPrefab, EnemySpawnPoint);
-    //     
-    // }
+    public static GameObject SpawnEnemy(GameObject enemyPrefab, Transform enemySpawnPoint, MapAction mapAction)
+    {
+        var enemy = Object.Instantiate(enemyPrefab, enemySpawnPoint.position, Quaternion.identity);
+
+        if (enemy.TryGetComponent<BrainBehaviour>(out var brainBehaviour))
+            brainBehaviour.myAwake();
+
+        if(enemy.TryGetComponent<DataPatrolBehaviour>(out var behaviour))
+            behaviour.MapAction = mapAction;
+        
+        return enemy;
+    }
 }

@@ -12,14 +12,19 @@ namespace Game.GOAP
         
         private void Awake()
         {
-            this.goap = FindObjectOfType<GoapBehaviour>();
+            myAwake();
+        }
+
+        public void myAwake()
+        {
+            if(this.goap ==null) this.goap = FindObjectOfType<GoapBehaviour>();
             
-            this.agent = this.GetComponent<AgentBehaviour>();
-            this.provider = this.GetComponent<GoapActionProvider>();
+            if(this.agent is null) agent = this.GetComponent<AgentBehaviour>();
+            if(this.provider is null) provider = this.GetComponent<GoapActionProvider>();
             
             // This only applies sto the code demo
             if (this.provider.AgentTypeBehaviour == null)
-                this.provider.AgentType = this.goap.GetAgentType("ScriptDemoAgent");
+                this.provider.AgentType = this.goap.GetAgentType("PatrolAgent");
         }
 
         private void Start()

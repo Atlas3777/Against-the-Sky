@@ -3,11 +3,11 @@ using CrashKonijn.Goap.Runtime;
 
 namespace Game.GOAP
 {
-    public class DemoAgentTypeFactory : AgentTypeFactoryBase
+    public class PatrolTypeFactory : AgentTypeFactoryBase
     {
         public override IAgentTypeConfig Create()
         {
-            var factory = new AgentTypeBuilder("ScriptDemoAgent");
+            var factory = new AgentTypeBuilder("PatrolAgent");
             
             factory.AddCapability<PatrollingCapabilityFactory>();
 

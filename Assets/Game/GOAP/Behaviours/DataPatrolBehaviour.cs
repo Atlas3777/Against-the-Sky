@@ -6,5 +6,10 @@ namespace Game.GOAP
     {
         public MapAction MapAction;
         public ActionPOI currentPOI;
+
+        public void DeathRepost()
+        {
+            MapAction?.RegisterEnemyDeath();
+        }
     }
 }
