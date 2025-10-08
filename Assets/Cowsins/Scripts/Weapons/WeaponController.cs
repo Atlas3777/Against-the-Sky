@@ -1103,8 +1103,11 @@ namespace cowsins
             }
             if (InputManager.switchingWeaponSlot)
             {
-                currentWeapon = InputManager.selectedWeaponSlot;
-                SelectWeapon();
+                if (currentWeapon != InputManager.selectedWeaponSlot)
+                {
+                    currentWeapon = InputManager.selectedWeaponSlot;
+                    SelectWeapon();
+                }
             }
         }
 

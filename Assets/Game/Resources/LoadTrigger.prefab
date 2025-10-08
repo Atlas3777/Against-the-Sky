@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ba53375ca008a47afbbf09a1774600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.SaveLoad.LoadTrigger
-  uniqueID: 139ec1b0-8fb6-45e2-934d-b33d7958ed6a
+  uniqueID: fbf5cb1a-96b2-4e16-aa1f-e0099764aac0
   events:
     onEnter:
       m_PersistentCalls:

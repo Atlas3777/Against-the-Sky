@@ -196,7 +196,7 @@ namespace cowsins.SaveLoad
             if (dataPersistenceSettings.SaveCoins)
                 gameData.coins = coinManager.coins;
 
-            // Save Hotbar ( FPS Engine´s Base Inventory )
+            // Save Hotbar ( FPS Engineï¿½s Base Inventory )
             if (dataPersistenceSettings.SaveHotbar)
             {
                 // Save current weapon unholstered
@@ -241,7 +241,7 @@ namespace cowsins.SaveLoad
 #if INVENTORY_PRO_ADD_ON
         private void SaveInventoryData(GameData gameData)
         {
-            // if the Inventory can´t be found, return
+            // if the Inventory canï¿½t be found, return
             if (InventoryProManager.instance == null) return;
 
             // Store size parameters
@@ -399,7 +399,7 @@ namespace cowsins.SaveLoad
                 coinManager.AddCoins(gameData.coins, false);
             }
 
-            // Load FPS Engine´s Base Inventory
+            // Load FPS Engineï¿½s Base Inventory
             if (dataPersistenceSettings.SaveHotbar)
             {
                 weaponController.currentWeapon = gameData.currentWeaponInt;
