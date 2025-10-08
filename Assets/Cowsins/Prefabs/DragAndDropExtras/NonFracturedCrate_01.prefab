@@ -889,7 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 562ea0b427a387540bb45476b3a33f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: 96945609-a98e-4111-8d93-e0799fe58b96
+  uniqueID: 44238198-6fd6-4f0d-9f60-a9f40b3a6ac9
   maxHealth: 4
   lootInside: {fileID: 0}
   destroyedSFX: {fileID: 8300000, guid: 3b0a8bf3bdc699841a53d53fa374a39f, type: 3}

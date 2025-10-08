@@ -53,8 +53,8 @@ namespace cowsins
             // Handle shooting if the target is within the radius or detection range.
             if (targetDirection.magnitude <= detectionRange)
             {
-                RaycastHit hit;
-                if (Physics.Raycast(firePoint.position, targetDirection, out hit, detectionRange, wallLayer))
+                var distanceToTarget = Vector3.Distance(firePoint.position, player.position);
+                if (Physics.Raycast(firePoint.position, targetDirection, out var hit, distanceToTarget, wallLayer))
                 {
                     canShoot = false;
                     return;
