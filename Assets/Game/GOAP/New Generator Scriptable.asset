@@ -55,24 +55,19 @@ MonoBehaviour:
       <Path>k__BackingField: Assets/Game/GOAP/Sensors/IdleTargetSensor.cs
       <Id>k__BackingField: IdleTargetSensor-9999
     targetKeys:
-    - <Name>k__BackingField: PatrollingPoint
-      fullName: Game.GOAP.PatrollingPoint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/CurrentPatrollingPoints.cs
-      <Id>k__BackingField: PatrollingPoint-19eff497-1b0a-4567-ac99-6a2da009f472
-    - <Name>k__BackingField: CurrentPOI
-      fullName: Game.GOAP.CurrentPOI, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/CurrentPOI.cs
-      <Id>k__BackingField: CurrentPOI-acc33708-1c77-4d29-b079-fafcec5f9041
     - <Name>k__BackingField: IdleTarget
       fullName: Game.GOAP.IdleTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/IdleTarget.cs
       <Id>k__BackingField: IdleTarget-fab430a1-db88-43cd-b490-8eab2acca328
-    multiSensors:
-    - <Name>k__BackingField: ActionPOISensor
-      fullName: Game.GOAP.ActionPOISensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    - <Name>k__BackingField: PatrollingPoint
+      fullName: Game.GOAP.PatrollingPoint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      <Path>k__BackingField: Assets/Game/GOAP/Sensors/ActionPOISensor.cs
-      <Id>k__BackingField: ActionPOISensor-9999
+      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/PatrollingPoint.cs
+      <Id>k__BackingField: PatrollingPoint-19eff497-1b0a-4567-ac99-6a2da009f472
+    multiSensors:
+    - <Name>k__BackingField: PatrollingSensor
+      fullName: Game.GOAP.PatrollingSensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/PatrollingSensor.cs
+      <Id>k__BackingField: PatrollingSensor-9999

@@ -26,7 +26,7 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void Start(IMonoAgent agent, Data data)
         {
-            
+            data.TestGoapEnemy.currentPOI.Occupy();
         }
 
         // This method is called once before the action is performed
@@ -58,6 +58,8 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void End(IMonoAgent agent, Data data)
         {
+            Debug.Log("End");
+            data.TestGoapEnemy.currentPOI.Release();
         }
 
         // The action class itself must be stateless!
@@ -67,7 +69,7 @@ namespace Game.GOAP
             public ITarget Target { get; set; }
             
             [GetComponent]
-            public DataBehaviour DataBehaviour { get; set; }
+            public TestGOAPEnemy TestGoapEnemy { get; set; }
         }
     }
 }

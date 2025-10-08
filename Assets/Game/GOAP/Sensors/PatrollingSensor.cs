@@ -6,31 +6,27 @@ using UnityEngine;
 namespace Game.GOAP
 {
     [GoapId("PatrollingSensor-9999")]
-    public class PatrollingSensor : MultiSensorBase
+    public class PatrollingSensor : LocalTargetSensorBase
     {
         // A cache of all the pears in the world
         private ActionPOI[] _pois;
 
-        // You must use the constructor to register all the sensors
-        // This can also be called outside of the gameplay loop to validate the configuration
-        public PatrollingSensor()
+        public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
         {
-            this.AddLocalTargetSensor<PatrollingPoint>((agent, references, target) =>
-            {
-                var data = references.GetCachedComponent<TestGOAPEnemy>();
-                var point = data.MapAction.GetNearFreePOI(agent.Transform).BodyPositionTarget;
+            var data = references.GetCachedComponent<TestGOAPEnemy>();
+            var poi = data.MapAction.GetNearFreePOI(agent.Transform);
         
-                if (point == null)
-                    return null;
+            if (poi == null)
+                return null;
         
-                // If the target is a transform target, set the target to the closest pear
-                if (target is TransformTarget transformTarget)
-                    return transformTarget.SetTransform(point.transform);
+            data.currentPOI = poi;
+            
+            // If the target is a transform target, set the target to the closest pear
+            if (existingTarget is TransformTarget transformTarget)
+                return transformTarget.SetTransform(poi.BodyPositionTarget.transform);
         
-                return new TransformTarget(point.transform);
-            });
+            return new TransformTarget(poi.BodyPositionTarget.transform);
         }
-
         // The Created method is called when the sensor is created
         // This can be used to gather references to objects in the scene
         public override void Created() { }
@@ -41,5 +37,7 @@ namespace Game.GOAP
         {
             this._pois = Object.FindObjectsOfType<ActionPOI>();
         }
+
+       
     }
 }
