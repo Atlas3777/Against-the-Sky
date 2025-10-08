@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
+  m_Name: IdleCapability
+  m_EditorClassIdentifier: CrashKonijn.Goap.Runtime::CrashKonijn.Goap.Runtime.CapabilityConfigScriptable
+  goals:
+  - goal:
+      <Name>k__BackingField: IdleGoal
+      <Id>k__BackingField: Idle-b019c0b5-0cbd-4f35-a708-0427df7f0473
+    baseCost: 1
+    conditions:
+    - worldKey:
+        <Name>k__BackingField: IsIdle
+        <Id>k__BackingField: IsIdle-66d3b958-b4a3-4e91-b82b-d44be762c061
+      comparison: 2
+      amount: 1
+  actions:
+  - action:
+      <Name>k__BackingField: IdleAction
+      <Id>k__BackingField: Idle-e7762334-15fc-4ec8-99cb-4192f6770bb8
+    target:
+      <Name>k__BackingField: IdleTarget
+      <Id>k__BackingField: IdleTarget-fab430a1-db88-43cd-b490-8eab2acca328
+    properties:
+      rid: 5010974934873931987
+    baseCost: 1
+    stoppingDistance: 0.1
+    validateTarget: 1
+    requiresTarget: 1
+    validateConditions: 1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: IsIdle
+        <Id>k__BackingField: IsIdle-66d3b958-b4a3-4e91-b82b-d44be762c061
+      effect: 1
+  worldSensors: []
+  targetSensors:
+  - sensor:
+      <Name>k__BackingField: IdleTargetSensor
+      <Id>k__BackingField: IdleTargetSensor-9999
+    targetKey:
+      <Name>k__BackingField: IdleTarget
+      <Id>k__BackingField: IdleTarget-fab430a1-db88-43cd-b490-8eab2acca328
+  multiSensors: []
+  generatorScriptable: {fileID: 11400000, guid: e8d5c805e648b974b849f14337f65885, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5010974934873931987
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Agent.Runtime, asm: CrashKonijn.Agent.Runtime}
+      data: 

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0857b2a53377458ebec6c4b1179e3c5a, type: 3}
+  m_Name: New Generator Scriptable
+  m_EditorClassIdentifier: CrashKonijn.Goap.Runtime::CrashKonijn.Goap.Runtime.GeneratorScriptable
+  nameSpace: Game.GOAP
+  scripts:
+    goals:
+    - <Name>k__BackingField: IdleGoal
+      fullName: Game.GOAP.IdleGoal, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Goals/IdleGoal.cs
+      <Id>k__BackingField: Idle-b019c0b5-0cbd-4f35-a708-0427df7f0473
+    - <Name>k__BackingField: PatrollingGoal
+      fullName: Game.GOAP.PatrollingGoal, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Goals/PatrollingGoal.cs
+      <Id>k__BackingField: Patrolling-30fe2818-628a-49bb-8cf6-71b6ff500311
+    actions:
+    - <Name>k__BackingField: IdleAction
+      fullName: Game.GOAP.IdleAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Actions/IdleAction.cs
+      <Id>k__BackingField: Idle-e7762334-15fc-4ec8-99cb-4192f6770bb8
+    - <Name>k__BackingField: PatrollingAction
+      fullName: Game.GOAP.PatrollingAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Actions/PatrollingAction.cs
+      <Id>k__BackingField: Patrolling-1cb119ea-f609-41f0-bd31-7b2f254e5b42
+    worldSensors: []
+    worldKeys:
+    - <Name>k__BackingField: CountVisitedPoints
+      fullName: Game.GOAP.CountVisitedPoints, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/WorldKeys/CountVisitedPoints.cs
+      <Id>k__BackingField: CountVisitedPoints-9935f158-4c4e-45dc-acaf-72f61f3ed647
+    - <Name>k__BackingField: IsIdle
+      fullName: Game.GOAP.IsIdle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/WorldKeys/IsIdle.cs
+      <Id>k__BackingField: IsIdle-66d3b958-b4a3-4e91-b82b-d44be762c061
+    targetSensors:
+    - <Name>k__BackingField: IdleTargetSensor
+      fullName: Game.GOAP.IdleTargetSensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/IdleTargetSensor.cs
+      <Id>k__BackingField: IdleTargetSensor-9999
+    targetKeys:
+    - <Name>k__BackingField: PatrollingPoint
+      fullName: Game.GOAP.PatrollingPoint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/CurrentPatrollingPoints.cs
+      <Id>k__BackingField: PatrollingPoint-19eff497-1b0a-4567-ac99-6a2da009f472
+    - <Name>k__BackingField: CurrentPOI
+      fullName: Game.GOAP.CurrentPOI, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/CurrentPOI.cs
+      <Id>k__BackingField: CurrentPOI-acc33708-1c77-4d29-b079-fafcec5f9041
+    - <Name>k__BackingField: IdleTarget
+      fullName: Game.GOAP.IdleTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/IdleTarget.cs
+      <Id>k__BackingField: IdleTarget-fab430a1-db88-43cd-b490-8eab2acca328
+    multiSensors:
+    - <Name>k__BackingField: ActionPOISensor
+      fullName: Game.GOAP.ActionPOISensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/ActionPOISensor.cs
+      <Id>k__BackingField: ActionPOISensor-9999

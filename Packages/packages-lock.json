@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.crashkonijn.goap": {
+      "version": "https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.34",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.collections": "1.2.4"
+      },
+      "hash": "601802d6e10403ac4794fd1d7f9dd9ded7ee62df"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
       "depth": 0,
