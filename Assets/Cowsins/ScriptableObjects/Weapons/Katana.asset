@@ -119,7 +119,7 @@ MonoBehaviour:
   AimingFOVValueToSubtract: 0
   amountOfShootAnimations: 3
   bulletTrail: {fileID: 0}
-  damagePerHit: 20
+  damagePerHit: 40
   attackRate: 0.7
   hitDelay: 0.05
   attackRange: 2

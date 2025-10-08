@@ -177,7 +177,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""name"": ""Aiming"",
                     ""type"": ""Button"",
                     ""id"": ""8eb3e718-5d82-4d68-964e-3aed5e2c4e26"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -222,7 +222,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""993d9484-9810-4c28-b59b-344c4816bf4f"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -231,7 +231,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Button"",
                     ""id"": ""63bd04ec-bf4b-41a3-940d-e8482e2c3125"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -268,6 +268,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""d73a9e9b-d4d5-474b-a466-667dcb30a86f"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeaponSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6fe9603-4371-4cf1-82e8-c2c86a572c60"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -744,6 +753,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""InventoryFavOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbba14c5-68fb-4001-873b-0bf32ef405c8"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeaponSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d7ac48e-6b0e-4819-8e94-05751ac63d82"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeaponSlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1453,6 +1484,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_GameControls_InventoryOpen = m_GameControls.FindAction("InventoryOpen", throwIfNotFound: true);
         m_GameControls_InventoryFavOpen = m_GameControls.FindAction("InventoryFavOpen", throwIfNotFound: true);
         m_GameControls_ToggleTipsCanvas = m_GameControls.FindAction("ToggleTipsCanvas", throwIfNotFound: true);
+        m_GameControls_SelectWeaponSlot = m_GameControls.FindAction("SelectWeaponSlot", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1570,6 +1602,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameControls_InventoryOpen;
     private readonly InputAction m_GameControls_InventoryFavOpen;
     private readonly InputAction m_GameControls_ToggleTipsCanvas;
+    private readonly InputAction m_GameControls_SelectWeaponSlot;
     /// <summary>
     /// Provides access to input actions defined in input action map "GameControls".
     /// </summary>
@@ -1662,6 +1695,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @ToggleTipsCanvas => m_Wrapper.m_GameControls_ToggleTipsCanvas;
         /// <summary>
+        /// Provides access to the underlying input action "GameControls/SelectWeaponSlot".
+        /// </summary>
+        public InputAction @SelectWeaponSlot => m_Wrapper.m_GameControls_SelectWeaponSlot;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_GameControls; }
@@ -1747,6 +1784,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ToggleTipsCanvas.started += instance.OnToggleTipsCanvas;
             @ToggleTipsCanvas.performed += instance.OnToggleTipsCanvas;
             @ToggleTipsCanvas.canceled += instance.OnToggleTipsCanvas;
+            @SelectWeaponSlot.started += instance.OnSelectWeaponSlot;
+            @SelectWeaponSlot.performed += instance.OnSelectWeaponSlot;
+            @SelectWeaponSlot.canceled += instance.OnSelectWeaponSlot;
         }
 
         /// <summary>
@@ -1818,6 +1858,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ToggleTipsCanvas.started -= instance.OnToggleTipsCanvas;
             @ToggleTipsCanvas.performed -= instance.OnToggleTipsCanvas;
             @ToggleTipsCanvas.canceled -= instance.OnToggleTipsCanvas;
+            @SelectWeaponSlot.started -= instance.OnSelectWeaponSlot;
+            @SelectWeaponSlot.performed -= instance.OnSelectWeaponSlot;
+            @SelectWeaponSlot.canceled -= instance.OnSelectWeaponSlot;
         }
 
         /// <summary>
@@ -2263,6 +2306,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleTipsCanvas(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectWeaponSlot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectWeaponSlot(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

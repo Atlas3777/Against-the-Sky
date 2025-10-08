@@ -37,7 +37,7 @@ MonoBehaviour:
   explosionForce: 0
   explosionVFX: {fileID: 0}
   continuousFire: 0
-  fireRate: 0.2
+  fireRate: 0.15
   reloadTime: 3.1
   coolSpeed: 0
   cooledPercentageAfterOverheat: 0
@@ -153,7 +153,7 @@ MonoBehaviour:
   applyDifferentRecoilOnAiming: 0
   xRecoilAmountOnAiming: 0
   yRecoilAmountOnAiming: 0
-  damagePerBullet: 2.8
+  damagePerBullet: 30
   applyDamageReductionBasedOnDistance: 0
   minimumDistanceToApplyDamageReduction: 0
   damageReductionMultiplier: 0

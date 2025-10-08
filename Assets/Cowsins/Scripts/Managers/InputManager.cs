@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 namespace cowsins
 {
     /// <summary>
@@ -32,6 +33,7 @@ namespace cowsins
             dropping,
             nextweapon,
             previousweapon,
+            switchingWeaponSlot,
             inspecting,
             melee,
             pausing,
@@ -59,6 +61,7 @@ namespace cowsins
             controllerSensitivityX = 30f,
             controllerSensitivityY = 30f,
             aimingSensitivityMultiplier = .5f;
+        public static int selectedWeaponSlot;
 
         private bool ToggleAiming;
 
@@ -117,17 +120,23 @@ namespace cowsins
             inputActions.GameControls.ToggleFlashLight.started += ctx => onToggleFlashlight?.Invoke();
             inputActions.GameControls.Grapple.started += ctx => onStartGrapple?.Invoke();
             inputActions.GameControls.Grapple.canceled += ctx => onStopGrapple?.Invoke();
-            
+
             inputActions.UI.Back.started += ctx => onBackUI?.Invoke();
 
-            inputActions.GameControls.Firing.started += ctx => {
-                shooting = true;    
+            inputActions.GameControls.Firing.started += ctx =>
+            {
+                shooting = true;
                 onShoot?.Invoke();
             };
             inputActions.GameControls.Firing.canceled += ctx =>
             {
                 shooting = false;
                 onStopShoot?.Invoke();
+            };
+            inputActions.GameControls.SelectWeaponSlot.performed += ctx =>
+            {
+                var keyName = ctx.control.name;
+                selectedWeaponSlot = int.Parse(keyName) - 1;
             };
         }
 
@@ -199,6 +208,7 @@ namespace cowsins
             scrolling = inputActions.GameControls.Scrolling.ReadValue<Vector2>().y;
             nextweapon = inputActions.GameControls.ChangeWeapons.WasPressedThisFrame() && inputActions.GameControls.ChangeWeapons.ReadValue<float>() > 0;
             previousweapon = inputActions.GameControls.ChangeWeapons.WasPressedThisFrame() && inputActions.GameControls.ChangeWeapons.ReadValue<float>() < 0;
+            switchingWeaponSlot = inputActions.GameControls.SelectWeaponSlot.WasPressedThisFrame();
 
             if (weaponController.alternateAiming && weaponController.weapon != null)
             {

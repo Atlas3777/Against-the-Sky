@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5737543176749537964}
   - component: {fileID: 2106930266720549383}
   - component: {fileID: 3009484142783035517}
-  - component: {fileID: 6302274583503340287}
   - component: {fileID: 8405204280034139075}
   - component: {fileID: -5159217798023741482}
   - component: {fileID: -2349293718985728567}
@@ -104,24 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthSystem: {fileID: 0}
---- !u!114 &6302274583503340287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6670876335773878465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e636ef91a5c2e046b8d19c33398e250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  EnemyChaser: {fileID: 0}
-  CharacterBody: {fileID: 3009484142783035517}
-  PlayerStats: {fileID: 0}
-  Player: {fileID: 0}
-  Health: {fileID: 0}
-  AnimationController: {fileID: 8405204280034139075}
 --- !u!114 &8405204280034139075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +176,7 @@ MonoBehaviour:
   _name: Mutant
   health: 0
   shield: 0
-  maxHealth: 10
+  maxHealth: 100
   maxShield: 0
   destroyOnDie: 1
   deathEffect: {fileID: 0}
@@ -230,8 +211,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   Damage: 25
   AttackRange: 2
+  mapAction: {fileID: 0}
   attackPoint: {fileID: 5328915742213924827}
   target: {fileID: 0}
+  PlayerVisibilite: 0
 --- !u!1 &7797767209653432326
 GameObject:
   m_ObjectHideFlags: 0
