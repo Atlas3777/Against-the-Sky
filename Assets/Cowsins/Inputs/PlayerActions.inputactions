@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerActions",
     "maps": [
         {
@@ -90,7 +91,7 @@
                     "name": "Aiming",
                     "type": "Button",
                     "id": "8eb3e718-5d82-4d68-964e-3aed5e2c4e26",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -135,7 +136,7 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "993d9484-9810-4c28-b59b-344c4816bf4f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -144,7 +145,7 @@
                     "name": "Movement",
                     "type": "Button",
                     "id": "63bd04ec-bf4b-41a3-940d-e8482e2c3125",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -181,6 +182,15 @@
                     "type": "Button",
                     "id": "d73a9e9b-d4d5-474b-a466-667dcb30a86f",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectWeaponSlot",
+                    "type": "Button",
+                    "id": "c6fe9603-4371-4cf1-82e8-c2c86a572c60",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -657,6 +667,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "InventoryFavOpen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cbba14c5-68fb-4001-873b-0bf32ef405c8",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "SelectWeaponSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d7ac48e-6b0e-4819-8e94-05751ac63d82",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "SelectWeaponSlot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

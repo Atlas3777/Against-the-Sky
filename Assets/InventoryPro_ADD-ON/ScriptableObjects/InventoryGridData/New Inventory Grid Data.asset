@@ -20,7 +20,7 @@ MonoBehaviour:
     vertical: 10
   inventoryInitialData:
   - item: {fileID: 11400000, guid: b8517e6bfc0840a40a4d784a37919a28, type: 2}
-    amount: 1
+    amount: 2
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -163,8 +163,8 @@ MonoBehaviour:
     laser: {fileID: 0}
     bulletsLeftInMagazine: 0
     totalBullets: 0
-  - item: {fileID: 11400000, guid: 048ec5bba03e6ed48a3238601e58544b, type: 2}
-    amount: 1
+  - item: {fileID: 0}
+    amount: 0
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -175,8 +175,8 @@ MonoBehaviour:
     laser: {fileID: 0}
     bulletsLeftInMagazine: 0
     totalBullets: 0
-  - item: {fileID: 11400000, guid: c7fa8639ed794a74797b1d0fcc036441, type: 2}
-    amount: 1
+  - item: {fileID: 0}
+    amount: 0
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -187,8 +187,8 @@ MonoBehaviour:
     laser: {fileID: 0}
     bulletsLeftInMagazine: 0
     totalBullets: 0
-  - item: {fileID: 11400000, guid: 56ff5d58ca988ff49bcf83c2a05d1030, type: 2}
-    amount: 1
+  - item: {fileID: 0}
+    amount: 0
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -355,8 +355,8 @@ MonoBehaviour:
     laser: {fileID: 0}
     bulletsLeftInMagazine: 0
     totalBullets: 0
-  - item: {fileID: 11400000, guid: 80da6c1185b9c6744b9452ea80dee4b3, type: 2}
-    amount: 1
+  - item: {fileID: 0}
+    amount: 0
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -365,10 +365,10 @@ MonoBehaviour:
     magazine: {fileID: 0}
     flashlight: {fileID: 0}
     laser: {fileID: 0}
-    bulletsLeftInMagazine: 6
-    totalBullets: 6
-  - item: {fileID: 11400000, guid: 907aa7bd70f532947bfa1d5f3ce12fa9, type: 2}
-    amount: 1
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 0}
+    amount: 0
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -415,18 +415,6 @@ MonoBehaviour:
     laser: {fileID: 0}
     bulletsLeftInMagazine: 0
     totalBullets: 0
-  - item: {fileID: 11400000, guid: 354403e2e1c9d094db0018ef2f98b0b5, type: 2}
-    amount: 1
-    isOriented: 1
-    barrel: {fileID: 0}
-    scope: {fileID: 0}
-    stock: {fileID: 0}
-    grip: {fileID: 0}
-    magazine: {fileID: 0}
-    flashlight: {fileID: 0}
-    laser: {fileID: 0}
-    bulletsLeftInMagazine: 1
-    totalBullets: 1
   - item: {fileID: 0}
     amount: 0
     isOriented: 1
@@ -441,6 +429,18 @@ MonoBehaviour:
     totalBullets: 0
   - item: {fileID: 0}
     amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: 907aa7bd70f532947bfa1d5f3ce12fa9, type: 2}
+    amount: 1
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}

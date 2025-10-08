@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredients:
   - item: {fileID: 11400000, guid: f8b063ebcbdaf354299a57ee188cfc0d, type: 2}
-    quantity: 5
+    quantity: 7
   - item: {fileID: 11400000, guid: b8517e6bfc0840a40a4d784a37919a28, type: 2}
-    quantity: 2
+    quantity: 5
   result: {fileID: 11400000, guid: 6553d6d464f4c3d489647f8005b06c2e, type: 2}
   resultAmount: 1
-  timeToCraft: 7
-  minLevelRequired: 1
+  timeToCraft: 0
+  minLevelRequired: 0

@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fbfa2d1734285b353878b31467c98, type: 3}
+  m_Name: PatrollingCapability
+  m_EditorClassIdentifier: CrashKonijn.Goap.Runtime::CrashKonijn.Goap.Runtime.CapabilityConfigScriptable
+  goals:
+  - goal:
+      <Name>k__BackingField: PatrollingGoal
+      <Id>k__BackingField: Patrolling-30fe2818-628a-49bb-8cf6-71b6ff500311
+    baseCost: 1
+    conditions: []
+  actions:
+  - action:
+      <Name>k__BackingField: PatrollingAction
+      <Id>k__BackingField: Patrolling-1cb119ea-f609-41f0-bd31-7b2f254e5b42
+    target:
+      <Name>k__BackingField: PatrollingPoint
+      <Id>k__BackingField: PatrollingPoint-19eff497-1b0a-4567-ac99-6a2da009f472
+    properties:
+      rid: 5010974934873931988
+    baseCost: 1
+    stoppingDistance: 0.1
+    validateTarget: 1
+    requiresTarget: 1
+    validateConditions: 1
+    moveMode: 0
+    conditions: []
+    effects:
+    - worldKey:
+        <Name>k__BackingField: CountVisitedPoints
+        <Id>k__BackingField: CountVisitedPoints-9935f158-4c4e-45dc-acaf-72f61f3ed647
+      effect: 1
+  worldSensors: []
+  targetSensors: []
+  multiSensors: []
+  generatorScriptable: {fileID: 11400000, guid: e8d5c805e648b974b849f14337f65885, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5010974934873931988
+      type: {class: EmptyActionProperties, ns: CrashKonijn.Agent.Runtime, asm: CrashKonijn.Agent.Runtime}
+      data: 

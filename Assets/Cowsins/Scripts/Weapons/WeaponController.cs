@@ -1080,6 +1080,11 @@ namespace cowsins
                     currentWeapon++;
                     SelectWeapon();
                 }
+                else
+                {
+                    currentWeapon--;
+                    SelectWeapon();
+                }
             }
             if (InputManager.scrolling < 0 || InputManager.nextweapon)
             {
@@ -1088,6 +1093,19 @@ namespace cowsins
                 if (currentWeapon > 0)
                 {
                     currentWeapon--;
+                    SelectWeapon();
+                }
+                else
+                {
+                    currentWeapon++;
+                    SelectWeapon();
+                }
+            }
+            if (InputManager.switchingWeaponSlot)
+            {
+                if (currentWeapon != InputManager.selectedWeaponSlot)
+                {
+                    currentWeapon = InputManager.selectedWeaponSlot;
                     SelectWeapon();
                 }
             }
