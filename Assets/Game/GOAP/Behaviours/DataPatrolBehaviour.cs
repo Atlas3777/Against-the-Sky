@@ -2,7 +2,7 @@
 
 namespace Game.GOAP
 {
-    public class TestGOAPEnemy : MonoBehaviour
+    public class DataPatrolBehaviour : MonoBehaviour
     {
         public MapAction MapAction;
         public ActionPOI currentPOI;

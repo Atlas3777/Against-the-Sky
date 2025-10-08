@@ -8,18 +8,16 @@ namespace Game.GOAP
     [GoapId("PatrollingSensor-9999")]
     public class PatrollingSensor : LocalTargetSensorBase
     {
-        // A cache of all the pears in the world
-        private ActionPOI[] _pois;
 
         public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
         {
-            var data = references.GetCachedComponent<TestGOAPEnemy>();
-            var poi = data.MapAction.GetNearFreePOI(agent.Transform);
+            var dataPatrolBehaviour = references.GetCachedComponent<DataPatrolBehaviour>();
+            var poi = dataPatrolBehaviour.MapAction.GetNearFreePOI(agent.Transform);
         
             if (poi == null)
                 return null;
         
-            data.currentPOI = poi;
+            dataPatrolBehaviour.currentPOI = poi;
             
             // If the target is a transform target, set the target to the closest pear
             if (existingTarget is TransformTarget transformTarget)
@@ -33,11 +31,6 @@ namespace Game.GOAP
 
         // This method is equal to the Update method of a local sensor.
         // It can be used to cache data, like gathering a list of all pears in the scene.
-        public override void Update()
-        {
-            this._pois = Object.FindObjectsOfType<ActionPOI>();
-        }
-
-       
+        public override void Update() { }
     }
 }
