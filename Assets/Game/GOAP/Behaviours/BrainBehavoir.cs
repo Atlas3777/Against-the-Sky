@@ -24,7 +24,7 @@ namespace Game.GOAP
 
         private void Start()
         {
-            this.provider.RequestGoal<IdleGoal>();
+            this.provider.RequestGoal<PatrollingGoal>();
         }
     }
 }

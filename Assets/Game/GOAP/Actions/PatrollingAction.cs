@@ -1,7 +1,9 @@
+using System;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game.GOAP
 {
@@ -26,7 +28,8 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void Start(IMonoAgent agent, Data data)
         {
-            
+            data.DataPatrolBehaviour.currentPOI.Occupy();
+            data.Timer = 4f;
         }
 
         // This method is called once before the action is performed
@@ -39,7 +42,15 @@ namespace Game.GOAP
         // This method is required
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            return ActionRunState.Completed;
+            if (data.Timer <= 0f)
+                // Return completed to stop the action
+                return ActionRunState.Completed;
+
+            // Lower the timer for the next frame
+            data.Timer -= context.DeltaTime;
+
+            // Return continue to keep the action running
+            return ActionRunState.Continue;
         }
 
         // This method is called when the action is completed
@@ -58,6 +69,7 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void End(IMonoAgent agent, Data data)
         {
+            data.DataPatrolBehaviour.currentPOI.Release();
         }
 
         // The action class itself must be stateless!
@@ -65,9 +77,11 @@ namespace Game.GOAP
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
+            public float Timer { get; set; }
+
             
             [GetComponent]
-            public DataBehaviour DataBehaviour { get; set; }
+            public DataPatrolBehaviour DataPatrolBehaviour { get; set; }
         }
     }
 }

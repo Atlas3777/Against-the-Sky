@@ -25,6 +25,7 @@ namespace Game.GOAP
 
             return new PositionTarget(random);
         }
+        
         private Vector3 GetRandomPosition(IActionReceiver agent)
         {
             var random = Random.insideUnitCircle * 3f;
@@ -36,6 +37,5 @@ namespace Game.GOAP
 
             return Bounds.ClosestPoint(position);
         }
-
     }
 }
