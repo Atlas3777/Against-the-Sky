@@ -8,7 +8,6 @@ namespace Game.GOAP
     [GoapId("PatrollingSensor-9999")]
     public class PatrollingSensor : LocalTargetSensorBase
     {
-
         public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
         {
             var dataPatrolBehaviour = references.GetCachedComponent<DataPatrolBehaviour>();
