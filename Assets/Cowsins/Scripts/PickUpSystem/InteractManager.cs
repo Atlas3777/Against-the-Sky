@@ -117,7 +117,8 @@ namespace cowsins
             {
                 if(highlightedInteractable == null)
                 {
-                    Interactable interactableTarget = interactableHit.collider.GetComponent<Interactable>();
+                    var collider = interactableHit.collider;
+                    Interactable interactableTarget = interactableHit.collider.GetComponentInParent<Interactable>();
                     // Check if the interaction is forbidden
                     if (interactableTarget.IsForbiddenInteraction(weaponController))
                     {
