@@ -669,6 +669,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovementCowsinsFPSController
       objectReference: {fileID: 0}
+    - target: {fileID: 1195374612628124382, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: runSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195374612628124382, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: usesStamina
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1195374612638355307, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.46
