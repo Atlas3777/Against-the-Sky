@@ -96,6 +96,7 @@ namespace cowsins.Inventory
         private WeaponController weaponController;
         private PlayerMovement playerMovement;
         private PlayerStats playerStats;
+        private WeightSystem weightSystem;
 
         // PUBLIC ACCESS
         public InventorySlot highlightedSlot;
@@ -154,6 +155,7 @@ namespace cowsins.Inventory
             weaponController = interactManager.GetComponent<WeaponController>();
             playerMovement = interactManager.GetComponent<PlayerMovement>();
             playerStats = interactManager.GetComponent<PlayerStats>();
+            weightSystem = playerStats.WeightSystem;
 
             // Initialize the Pinned Menu for Quick Access if useFavouritesRadialMenu allows it
             if (useFavouritesRadialMenu)
@@ -585,6 +587,7 @@ namespace cowsins.Inventory
                         WeaponPickeable weaponPickeable = (WeaponPickeable)interactManager.HighlightedInteractable;
                         UpdateHotbarSlot(i, weaponPickeable.Barrel, weaponPickeable.Scope, weaponPickeable.Stock, weaponPickeable.Grip, weaponPickeable.Magazine, weaponPickeable.Flashlight,
                             weaponPickeable.Laser);
+                        OnAddedItem(weaponPickeable.weapon);
                     }
                 }
                 CalculateTotalBullets(overrideCurrentBullets: true);
@@ -606,10 +609,16 @@ namespace cowsins.Inventory
                         case Laser laser: currentInventorySlot.slotData.laser = attachmentPickeable.attachmentIdentifier; break;
                     }
                 }
+                // OnAddedItem(attachmentPickeable.attachmentIdentifier);
             }
             else if (interactManager.HighlightedInteractable is BulletsPickeable) // Handle Interaction with BulletsPickeable.
             {
+                // var prevBulletsCount = weaponController.id.totalBullets;
                 CalculateTotalBullets(overrideCurrentBullets: false);
+                // weaponController.id.totalBullets = gridGenerator.GatherBulletsInInventory();
+                // Debug.Log($"было {prevBulletsCount} пуль, стало - {weaponController.id.totalBullets}");
+                // OnAddedItem((interactManager.HighlightedInteractable as BulletsPickeable).bulletsSO, weaponController.id.totalBullets - prevBulletsCount);
+                // Debug.Log($"new weight: " + weightSystem.CurrentWeight);
             }
         }
 
@@ -651,6 +660,7 @@ namespace cowsins.Inventory
             Quaternion dropRotation = orientation.rotation;
 
             Pickeable pickeable = InstantiatePickeable(slot, dropPosition, dropRotation);
+            // OnRemoveItem(slot.slotData.item, slot.slotData.amount);
 
 #if SAVE_LOAD_ADD_ON
             if (pickeable != null)
@@ -671,8 +681,10 @@ namespace cowsins.Inventory
         private void OnDropHotbar(Pickeable pick)
         {
             InventorySlot hotbarSlot = HotbarSlots[weaponController.currentWeapon];
+            // OnRemoveItem(hotbarSlot.slotData.item, hotbarSlot.slotData.amount);
             if (useFavouritesRadialMenu) favItemsMenu.UnpinFromFavMenu(hotbarSlot);
-            hotbarSlot.slotData = new SlotData();
+            DeleteItem(hotbarSlot);
+            // hotbarSlot.slotData = new SlotData();
             hotbarSlot.UpdateSlotGraphics();
 
             if (GameDataManager.instance == null) return;
@@ -684,7 +696,7 @@ namespace cowsins.Inventory
         /// Re-calculates the available bullets in the inventory that can be used by weapons with limited magazines
         /// </summary>
         /// <param name="overrideCurrentBullets">Overrides current Weapon Magazine with available bullets.</param>
-        public void CalculateTotalBullets(bool overrideCurrentBullets)
+        public void CalculateTotalBullets(bool overrideCurrentBullets, Item_SO bullet = null)
         {
             if (weaponController.weapon == null || !weaponController.weapon.limitedMagazines) return;
             if (overrideCurrentBullets) weaponController.id.bulletsLeftInMagazine = gridGenerator.HotbarSlots[weaponController.currentWeapon].slotData.bulletsLeftInMagazine;
@@ -799,6 +811,7 @@ namespace cowsins.Inventory
         public void DeleteItem(InventorySlot slot)
         {
             SlotData cachedSlotData = slot.slotData;
+            OnRemoveItem(slot.slotData.item, slot.slotData.amount);
 
             if (slot.IsHotbarSlot)
             {
@@ -1369,7 +1382,7 @@ namespace cowsins.Inventory
 
                 if (useFavouritesRadialMenu) favItemsMenu.UpdatePinnedFavorites(draggedSlot.GetAnchorSlot(), highlightedSlot.GetAnchorSlot());
             }
-            if(playSFX) SoundManager.Instance.PlaySound(placeItemSFX, 0, 0, false, 0);
+            if (playSFX) SoundManager.Instance.PlaySound(placeItemSFX, 0, 0, false, 0);
         }
 
         public void UpdateBulletsHotbar()
@@ -1692,6 +1705,26 @@ namespace cowsins.Inventory
         /// Returns whether the style of the Inventory is Grid or Tetris. True if Grid is returned.
         /// </summary>
         public bool IsGridInventory() { return inventoryStyle == InventoryStyle.Grid; }
+
+        private void OnAddedItem(Item_SO item, int amount = 1)
+        {
+            if (item is null)
+            {
+                Debug.Log("item is null when adding");
+                return;
+            }
+            weightSystem.CanPickUp(item.Weight, amount);
+        }
+
+        private void OnRemoveItem(Item_SO item, int amount = 1)
+        {
+            if (item is null)
+            {
+                Debug.Log("item is null when removing");
+                return;
+            }
+            weightSystem.RemoveItems(item.Weight, amount);
+        }
 
 #if UNITY_EDITOR
         public void SetRightClickEvent(SlotRightClickEvent slotRightClickEvent) => this.slotRightClickEvent = slotRightClickEvent;

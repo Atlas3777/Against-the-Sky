@@ -19,5 +19,5 @@ MonoBehaviour:
   maxStack: 99
   itemSize: {x: 1, y: 1}
   irregularItemIcon: {fileID: 0}
-  applyWeight: 0
-  weightMultiplier: 1
+  Weight:
+    Weight: 3

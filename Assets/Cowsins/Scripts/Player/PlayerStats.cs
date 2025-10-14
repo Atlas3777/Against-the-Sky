@@ -1,5 +1,5 @@
 /// <summary>
-/// This script belongs to cowsins™ as a part of the cowsins´ FPS Engine. All rights reserved. 
+/// This script belongs to cowsinsï¿½ as a part of the cowsinsï¿½ FPS Engine. All rights reserved. 
 /// </summary>
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,6 +22,7 @@ namespace cowsins
         public float maxHealth, maxShield;
         public float MaxHealth { get { return maxHealth; } }
         public float MaxShield { get { return maxShield; } }
+        public WeightSystem WeightSystem;
 
         [Tooltip("Turn on to apply damage on falling from great height")] public bool takesFallDamage;
 

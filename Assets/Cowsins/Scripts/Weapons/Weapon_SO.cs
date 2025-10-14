@@ -470,20 +470,20 @@ namespace cowsins
                                 EditorGUILayout.PropertyField(serializedObject.FindProperty("damagePerHit"));
                                 EditorGUILayout.PropertyField(serializedObject.FindProperty("criticalDamageMultiplier")); 
                                 
-                                var applyWeightProperty = serializedObject.FindProperty("applyWeight");
-                                EditorGUILayout.PropertyField(applyWeightProperty);
+                                var weightProperty = serializedObject.FindProperty("Weight");
+                                EditorGUILayout.PropertyField(weightProperty);
 
-                                using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(myScript.applyWeight)))
+                                using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(true/*myScript.applyWeight*/)))
                                 {
                                     if (group.visible == true)
                                     {
                                         EditorGUI.indentLevel++;
-                                        var weightMultiplierProperty = serializedObject.FindProperty("weightMultiplier");
+                                        var weightMultiplierProperty = serializedObject.FindProperty("Weight");
                                         EditorGUILayout.PropertyField(weightMultiplierProperty);
                                         EditorGUI.indentLevel--;
                                     }
                                 }
-                                if (!myScript.applyWeight) myScript.weightMultiplier = 1;
+                                // if (!myScript.applyWeight) myScript.weightMultiplier = 1;
                                 EndBox();   
                                 break;
                         }
@@ -860,19 +860,19 @@ namespace cowsins
 
             BeginBox("ITEM WEIGHT");
 
-            var applyWeightProperty = serializedObject.FindProperty("applyWeight");
-            EditorGUILayout.PropertyField(applyWeightProperty);
+            var weightProperty = serializedObject.FindProperty("Weight");
+            EditorGUILayout.PropertyField(weightProperty);
 
 
-            using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(myScript.applyWeight)))
+            using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(true/*myScript.applyWeight*/)))
             {
                 if (group.visible == true)
                 {
-                    var weightMultiplierProperty = serializedObject.FindProperty("weightMultiplier");
+                    var weightMultiplierProperty = serializedObject.FindProperty("Weight");
                     EditorGUILayout.PropertyField(weightMultiplierProperty);
                 }
             }
-            if (!myScript.applyWeight) myScript.weightMultiplier = 1;
+            // if (!myScript.applyWeight) myScript.weightMultiplier = 1;
 
             EndBox();
         }

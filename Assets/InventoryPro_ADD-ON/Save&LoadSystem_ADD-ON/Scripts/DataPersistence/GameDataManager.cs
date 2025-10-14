@@ -180,6 +180,9 @@ namespace cowsins.SaveLoad
                 gameData.maxHealth = playerStats.maxHealth;
                 gameData.maxShield = playerStats.maxShield;
 
+                // Save Weight system
+                gameData.WeightSystem = playerStats.WeightSystem;
+
                 // Save Player Multipliers
                 gameData.damageMultiplier = playerMultipliers.damageMultiplier;
                 gameData.healMultiplier = playerMultipliers.healMultiplier;
@@ -323,6 +326,7 @@ namespace cowsins.SaveLoad
         #region Load
         public void LoadData(GameData gameData, DataPersistence_SO dataPersistenceSettings)
         {
+            Debug.Log("loading data...");
             // If Data Persistence Settings is null, return.
             // Data Persistence Settings ( Scriptable Object ) must be properly assigned in the Data Persistence Manager object.
             if (dataPersistenceSettings == null)
@@ -332,6 +336,7 @@ namespace cowsins.SaveLoad
                     "<b><color=cyan>Data Persistence Manager</color></b> object to fix this error.");
                 return;
             }
+            Debug.Log(playerMovement is null);
             // If Player is not found in the scene, return
             if (playerMovement == null) return;
 
@@ -347,6 +352,7 @@ namespace cowsins.SaveLoad
 
         private void LoadPlayerData(GameData gameData, DataPersistence_SO dataPersistenceSettings, string currentSceneName)
         {
+            Debug.Log("loading player data...");
             if (dataPersistenceSettings.SavePlayerTransforms)
             {
                 // Load Player Position & Rotation & Teleport the Player 
@@ -368,6 +374,9 @@ namespace cowsins.SaveLoad
                 }
             }
 
+            // Load Weight system
+            playerStats.WeightSystem = gameData.WeightSystem;
+            
             if (dataPersistenceSettings.SavePlayerStats)
             {
                 // Load Health & Shield

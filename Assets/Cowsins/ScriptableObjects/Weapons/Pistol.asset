@@ -19,8 +19,8 @@ MonoBehaviour:
   maxStack: 1
   itemSize: {x: 1, y: 1}
   irregularItemIcon: {fileID: 0}
-  applyWeight: 1
-  weightMultiplier: 1
+  Weight:
+    Weight: 10
   weaponObject: {fileID: 4366474878721369578, guid: f19ba59a96cc01c4aad28a7bb59dc612, type: 3}
   shootStyle: 0
   shootMethod: 1
@@ -140,8 +140,8 @@ MonoBehaviour:
   minimumDistanceToApplyDamageReduction: 40.3
   damageReductionMultiplier: 1
   criticalDamageMultiplier: 1.5
-  limitedMagazines: 0
-  totalMagazines: 1
+  limitedMagazines: 1
+  totalMagazines: 2
   showBulletShells: 1
   bulletHoleImpact:
     defaultImpact: {fileID: 2462405574108921655, guid: e6d36bb0ebdf6cc4dacdeee8b6e8a0ce, type: 3}
