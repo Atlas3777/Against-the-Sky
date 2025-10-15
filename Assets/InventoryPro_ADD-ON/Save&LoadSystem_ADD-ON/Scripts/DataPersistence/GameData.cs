@@ -86,14 +86,14 @@ namespace cowsins.SaveLoad
         }
 
         // GameData Constructor
-        public GameData()
+        public GameData() // #IMPORTANT если меняете стату игрока - здесь надо базу поменять, пока мы это не поправим
         {
             playerTransforms = new Dictionary<string, SerializablePlayerTransforms>();
             playerHealth = 100f;
             playerShield = 50f;
             maxHealth = 100f;
             maxShield = 50f;
-            WeightSystem = new WeightSystem(50, 0);
+            WeightSystem = new WeightSystem(100, 0);
             damageMultiplier = 1f;
             healMultiplier = 1f;
             totalExperience = 0;

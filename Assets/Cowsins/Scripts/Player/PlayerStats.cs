@@ -65,6 +65,7 @@ namespace cowsins
 
         private void Start()
         {
+            Debug.Log(WeightSystem.MaxWeight);
             GetAllReferences();
             // Apply basic settings 
             health = maxHealth;

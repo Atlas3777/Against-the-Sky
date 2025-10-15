@@ -338,6 +338,11 @@ namespace cowsins.Inventory
             // Ensure the final scale is exactly the target scale
             inventoryContainer.localScale = targetScale;
         }
+
+        public bool IsSlotsInSameInventory(InventorySlot other)
+        {
+            return (this.IsChestSlot && other.IsChestSlot) || (this.IsHotbarSlot && other.IsHotbarSlot) || (this.IsInventorySlot && other.IsInventorySlot);
+        }
         #endregion
     }
 

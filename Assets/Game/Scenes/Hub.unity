@@ -579,6 +579,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2819244087631879089, guid: aa0876060463e134d9b6c85a243f3f0b, type: 3}
+      propertyPath: useSpeedLines
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2819244088795570800, guid: aa0876060463e134d9b6c85a243f3f0b, type: 3}
       propertyPath: m_Name
       value: MovementCowsinsFPSController Variant
@@ -589,7 +593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819244088795570801, guid: aa0876060463e134d9b6c85a243f3f0b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 2819244088795570801, guid: aa0876060463e134d9b6c85a243f3f0b, type: 3}
       propertyPath: m_LocalPosition.z

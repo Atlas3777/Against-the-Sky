@@ -13,7 +13,6 @@ public class Main : MonoBehaviour
     {
         G.Player = Player;
         G.PlayerStats = G.Player.GetComponent<PlayerStats>();
-        Debug.LogWarning(G.PlayerStats.WeightSystem is null);
         
         EnemyFactory.SpawnEnemy(EnemyPrefab, EnemySpawnPoint);
         

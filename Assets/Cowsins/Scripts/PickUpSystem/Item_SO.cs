@@ -31,6 +31,7 @@ namespace cowsins
 #if INVENTORY_PRO_ADD_ON
     public virtual void Use(InventoryProManager inventoryProManager, InventorySlot inventorySlot)
     {
+        inventoryProManager._GridGenerator.UpdateCurrentWeight(inventorySlot.slotData.item, -1);
         InventorySlot anchor = inventorySlot.GetAnchorSlot();
         anchor.slotData.amount -= 1;
         if(anchor.slotData.amount <= 0)

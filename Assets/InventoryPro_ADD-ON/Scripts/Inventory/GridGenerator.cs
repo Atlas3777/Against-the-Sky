@@ -695,23 +695,21 @@ namespace cowsins.Inventory
             return false;
         }
 
-        private void UpdateCurrentWeight(Item_SO item, int amountToAdd)
+        public void UpdateCurrentWeight(Item_SO item, int amountToAdd = 1)
         {
             if (item == null) return;
             if (G.PlayerStats is null)
             {
-                Debug.Log("Weight system is null((");
+                Debug.Log("Weight system is null");
                 return;
             }
             if (amountToAdd > 0)
             {
-                if (!G.PlayerStats.WeightSystem.CanPickUp(item.Weight, amountToAdd))
-                    Debug.Log("не чета нехочу пака");
+                G.PlayerStats.WeightSystem.CanPickUp(item.Weight, amountToAdd);
             }
             else
             {
                 G.PlayerStats.WeightSystem.RemoveItems(item.Weight, amountToAdd);
-                Debug.Log("удаляем предмет нафиг");
             }
             // float weight = item.Weight.Weight;
             // // float weight = item.applyWeight ? item.weightMultiplier : 1;
