@@ -286,6 +286,33 @@
       },
       "url": "https://packages.unity.com"
     },
+    "www.nulltale.oldmoviefx": {
+      "version": "https://github.com/NeGeterohromat/OldMovieFx.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.6"
+      },
+      "hash": "6ff493dddab38e85b7b1ab5603b4cfe43d4731bc"
+    },
+    "www.nulltale.pixelation": {
+      "version": "https://github.com/NullTale/PixelationFx.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.6"
+      },
+      "hash": "97667f4bacf445ff09986c0ea2eb6682335d4263"
+    },
+    "www.nulltale.vhsfx": {
+      "version": "https://github.com/NeGeterohromat/VhsFx.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.6"
+      },
+      "hash": "4990c372164fe7c109299aa38f6e17a2f5523649"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
