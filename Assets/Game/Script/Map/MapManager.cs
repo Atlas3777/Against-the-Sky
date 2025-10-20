@@ -1,10 +1,111 @@
+using System.Collections.Generic;
 using cowsins;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MapManager : MonoBehaviour 
 {
+    [SerializeField] 
+    private InteractManager interactManager;
+    [SerializeField]
+    private GameObject mapObject;
+    [SerializeField]
+    private MapContextMenu contextMenu;
+    [SerializeField] 
+    private AudioClip openMapSFX;
+    [SerializeField]
+    private AudioClip highlightStationSFX;
+    [SerializeField]
+    private List<MapStation> stations;
+
+    private PlayerMovement playerMovement;
+    private PlayerStats playerStats;
+
+    private bool isMapOpen = false;
+
+    private MapStation highlightedStation;
+    private MapStation selectedStation;
+
+    public void SelectStation(MapStation station)
+    {
+        selectedStation?.Unselect();
+        selectedStation = station;
+        selectedStation.Select();
+    }
+
+    public void PointerEnter(MapStation station)
+    {
+        contextMenu.HideContextMenu();
+        highlightedStation?.Unhighlight();
+        highlightedStation = station;
+        highlightedStation.Highlight();
+        SoundManager.Instance.PlaySound(highlightStationSFX, 0, 0, false, 0);
+    }
+
+    public void PointerExit()
+    {
+        highlightedStation.Unhighlight();
+        highlightedStation = null;
+    }
+
+    public void PointerClick(MapStation station)
+    {
+        ShowContextMenu(station);
+    }
+
+    private void ShowContextMenu(MapStation station)
+    {
+        contextMenu.ShowContextMenu(station, (Vector3)Mouse.current?.position.ReadValue());
+    }
+
     private void Start()
     {
-        InputManager.onMapOpenPressed += () => { print("m is pressed"); };
+        playerMovement = interactManager.GetComponent<PlayerMovement>();
+        playerStats = interactManager.GetComponent<PlayerStats>();
+
+        contextMenu.Init(this);
+
+        InputManager.onTogglePause += CloseMap;
+        InputManager.onMapOpenPressed += ToggleMapVisibility;
+
+        for (int i = 0;i<stations.Count;i++)
+        {
+            stations[i].Init(this, i);
+        }
+    }
+
+    private void ToggleMapVisibility()
+    {
+        if (PauseMenu.isPaused || playerStats.IsDead) return;
+
+        if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenMap();
+        else CloseMap();
+    }
+
+    private void OpenMap()
+    {
+        isMapOpen = true;
+
+        InputManager.ToggleUIControls(true);
+        PauseMenu.Instance.stats.LoseControl();
+        playerMovement.StopSpeedlines();
+        UIController.instance.UnlockMouse();
+        UIController.instance.crosshair.SetVisibility(false);
+
+        mapObject.SetActive(true);
+        SoundManager.Instance.PlaySound(openMapSFX, 0, 0, false, 0);
+    }
+
+    private void CloseMap()
+    {
+        isMapOpen = false;
+        mapObject.SetActive(false);
+        contextMenu.HideContextMenu();
+        PauseMenu.Instance?.stats?.CheckIfCanGrantControl();
+        UIController.instance.LockMouse();
+        UIController.instance.crosshair.SetVisibility(true);
+
+        InputManager.ToggleGameControls(true);
+        InputManager.ToggleUIControls(false);
     }
 }
