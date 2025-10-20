@@ -92,6 +92,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             ""name"": ""GameControls"",
             ""id"": ""8e11a806-753d-41d8-af38-51876e9ea8b1"",
             ""actions"": [
+		{
+                    ""name"": ""MapOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""8df4ee36-3570-472b-820d-e079ae218df3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
                 {
                     ""name"": ""Jumping"",
                     ""type"": ""Value"",
@@ -283,6 +292,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""39848753-f13e-4d1b-a875-330621b40474"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MapOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
                 {
                     ""name"": """",
                     ""id"": ""39848753-f13e-4d1b-a875-330621b40463"",
@@ -1464,6 +1484,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
 }");
         // GameControls
         m_GameControls = asset.FindActionMap("GameControls", throwIfNotFound: true);
+        m_GameControls_MapOpen = m_GameControls.FindAction("MapOpen", throwIfNotFound: true);
         m_GameControls_Jumping = m_GameControls.FindAction("Jumping", throwIfNotFound: true);
         m_GameControls_Dashing = m_GameControls.FindAction("Dashing", throwIfNotFound: true);
         m_GameControls_Reloading = m_GameControls.FindAction("Reloading", throwIfNotFound: true);
@@ -1603,6 +1624,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameControls_InventoryFavOpen;
     private readonly InputAction m_GameControls_ToggleTipsCanvas;
     private readonly InputAction m_GameControls_SelectWeaponSlot;
+    private readonly InputAction m_GameControls_MapOpen;
     /// <summary>
     /// Provides access to input actions defined in input action map "GameControls".
     /// </summary>
@@ -1614,6 +1636,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public GameControlsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "GameControls/MapOpen".
+        /// </summary>
+        public InputAction @MapOpen => m_Wrapper.m_GameControls_MapOpen;
         /// <summary>
         /// Provides access to the underlying input action "GameControls/Jumping".
         /// </summary>
@@ -1724,6 +1750,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameControlsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameControlsActionsCallbackInterfaces.Add(instance);
+            @MapOpen.started += instance.OnMapOpen;
+            @MapOpen.performed += instance.OnMapOpen;
+            @MapOpen.canceled += instance.OnMapOpen;
             @Jumping.started += instance.OnJumping;
             @Jumping.performed += instance.OnJumping;
             @Jumping.canceled += instance.OnJumping;
@@ -1798,6 +1827,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="GameControlsActions" />
         private void UnregisterCallbacks(IGameControlsActions instance)
         {
+            @MapOpen.started -= instance.OnMapOpen;
+            @MapOpen.performed -= instance.OnMapOpen;
+            @MapOpen.canceled -= instance.OnMapOpen;
             @Jumping.started -= instance.OnJumping;
             @Jumping.performed -= instance.OnJumping;
             @Jumping.canceled -= instance.OnJumping;
@@ -2166,6 +2198,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     /// <seealso cref="GameControlsActions.RemoveCallbacks(IGameControlsActions)" />
     public interface IGameControlsActions
     {
+        /// <summary>
+        /// Method invoked when associated input action "MapOpen" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMapOpen(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Jumping" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

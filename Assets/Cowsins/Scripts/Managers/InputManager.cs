@@ -11,6 +11,7 @@ namespace cowsins
     public class InputManager : MonoBehaviour
     {
         #region events
+        public static Action onMapOpenPressed;
         public static Action onInventoryOpenPressed, onInventoryFavOpenPressed;
         public static Action onDrop, onJump, onDash, onInspect, onMelee, onShoot, onStopShoot, onTogglePause, onToggleFlashlight, onStartGrapple, onStopGrapple, onBackUI;
 
@@ -40,6 +41,7 @@ namespace cowsins
             dashing,
             invertedAxis,
             yMovementActioned,
+            openMap,
             openInventory,
             openFavMenu,
             toggleFlashLight,
@@ -109,7 +111,9 @@ namespace cowsins
 
             inputActions.GameControls.Pause.started += ctx => onTogglePause?.Invoke();
 
-            inputActions.GameControls.InventoryOpen.performed += ctx => onInventoryOpenPressed?.Invoke();
+            inputActions.GameControls.MapOpen.performed += ctx => onMapOpenPressed?.Invoke(); 
+
+            inputActions.GameControls.InventoryOpen.performed += ctx => onInventoryOpenPressed?.Invoke(); 
             inputActions.GameControls.InventoryFavOpen.performed += ctx => onInventoryFavOpenPressed?.Invoke();
 
             inputActions.GameControls.Drop.started += ctx => onDrop?.Invoke();
@@ -223,6 +227,7 @@ namespace cowsins
             startInteraction = inputActions.GameControls.Interacting.WasPressedThisFrame();
             openInventory = inputActions.GameControls.InventoryOpen.WasPressedThisFrame();
             openFavMenu = inputActions.GameControls.InventoryFavOpen.WasPressedThisFrame();
+            openMap = inputActions.GameControls.MapOpen.WasPressedThisFrame();
             dropping = inputActions.GameControls.Drop.WasPressedThisFrame();
 
             inspecting = inputActions.GameControls.Inspect.IsPressed();
