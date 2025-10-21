@@ -54,6 +54,11 @@ MonoBehaviour:
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/Sensors/IdleTargetSensor.cs
       <Id>k__BackingField: IdleTargetSensor-9999
+    - <Name>k__BackingField: PatrollingSensor
+      fullName: Game.GOAP.PatrollingSensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/PatrollingSensor.cs
+      <Id>k__BackingField: PatrollingSensor-9999
     targetKeys:
     - <Name>k__BackingField: IdleTarget
       fullName: Game.GOAP.IdleTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -65,9 +70,4 @@ MonoBehaviour:
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/PatrollingPoint.cs
       <Id>k__BackingField: PatrollingPoint-19eff497-1b0a-4567-ac99-6a2da009f472
-    multiSensors:
-    - <Name>k__BackingField: PatrollingSensor
-      fullName: Game.GOAP.PatrollingSensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      <Path>k__BackingField: Assets/Game/GOAP/Sensors/PatrollingSensor.cs
-      <Id>k__BackingField: PatrollingSensor-9999
+    multiSensors: []
