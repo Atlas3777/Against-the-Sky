@@ -26,8 +26,6 @@ public class MapStation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right) return;
-
         mapManager.PointerClick(this);
     }
 

@@ -92,7 +92,8 @@ namespace cowsins.Inventory
         // INTERNAL USE & REFERENCES
         private int itemRotation = 0;
         private bool isInventoryOpen;
-        private bool isFavRadialMenuOpen; 
+        private bool isFavRadialMenuOpen;
+        private bool isMapOpen;
         private WeaponController weaponController;
         private PlayerMovement playerMovement;
         private PlayerStats playerStats;
@@ -186,6 +187,9 @@ namespace cowsins.Inventory
             InputManager.onTogglePause += CloseFavRadialMenu;
             InputManager.onInventoryOpenPressed += ToggleInventoryVisibility;
             InputManager.onInventoryFavOpenPressed += ToggleFavRadialMenu;
+
+            MapManager.instance.onMapOpen.AddListener(() => { SetMapState(true); });
+            MapManager.instance.onMapClose.AddListener(() => { SetMapState(false); });
 
             closeButton.onClick.AddListener(CloseInventory);
             if(allowLootAllChest && lootAllChestButton != null) lootAllChestButton.onClick.AddListener(LootAllChest);
@@ -457,10 +461,14 @@ namespace cowsins.Inventory
         private void ToggleInventoryVisibility()
         {
             if (PauseMenu.isPaused || playerStats.IsDead) return;
-
-            if (!isInventoryOpen && ( !interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenInventory();
-            else CloseInventory();
+            if (!isMapOpen)
+            {
+                if (!isInventoryOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenInventory();
+                else CloseInventory();
+            }
         }
+
+        public void SetMapState(bool state) => isMapOpen = state;
 
         /// <summary>
         /// Opens the Inventory & Enables UI

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using cowsins;
+using cowsins.Inventory;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class MapManager : MonoBehaviour 
@@ -18,13 +21,27 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private List<MapStation> stations;
 
+    public UnityEvent onMapOpen, onMapClose;
+
     private PlayerMovement playerMovement;
     private PlayerStats playerStats;
 
     private bool isMapOpen = false;
+    private bool isInventoryOpen = false;
 
     private MapStation highlightedStation;
     private MapStation selectedStation;
+
+    public static MapManager instance;
+
+    private void Awake()
+    {
+        // Handle singleton
+        if (instance == null) instance = this;
+        else Destroy(this.gameObject);
+    }
+
+    public void SetInventoryState(bool state) => isInventoryOpen = state;
 
     public void SelectStation(MapStation station)
     {
@@ -35,7 +52,7 @@ public class MapManager : MonoBehaviour
 
     public void PointerEnter(MapStation station)
     {
-        contextMenu.HideContextMenu();
+        ShowContextMenu(station);
         highlightedStation?.Unhighlight();
         highlightedStation = station;
         highlightedStation.Highlight();
@@ -44,13 +61,14 @@ public class MapManager : MonoBehaviour
 
     public void PointerExit()
     {
+        contextMenu.HideContextMenu();
         highlightedStation.Unhighlight();
         highlightedStation = null;
     }
 
     public void PointerClick(MapStation station)
     {
-        ShowContextMenu(station);
+        SelectStation(station);
     }
 
     private void ShowContextMenu(MapStation station)
@@ -68,6 +86,9 @@ public class MapManager : MonoBehaviour
         InputManager.onTogglePause += CloseMap;
         InputManager.onMapOpenPressed += ToggleMapVisibility;
 
+        InventoryProManager.instance.Events.onOpenInventory.AddListener(() => { SetInventoryState(true); });
+        InventoryProManager.instance.Events.onCloseInventory.AddListener(() => { SetInventoryState(false); });
+
         for (int i = 0;i<stations.Count;i++)
         {
             stations[i].Init(this, i);
@@ -77,9 +98,11 @@ public class MapManager : MonoBehaviour
     private void ToggleMapVisibility()
     {
         if (PauseMenu.isPaused || playerStats.IsDead) return;
-
-        if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenMap();
-        else CloseMap();
+        if (!isInventoryOpen)
+        {
+            if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenMap();
+            else CloseMap();
+        }
     }
 
     private void OpenMap()
@@ -93,7 +116,10 @@ public class MapManager : MonoBehaviour
         UIController.instance.crosshair.SetVisibility(false);
 
         mapObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(mapObject);
         SoundManager.Instance.PlaySound(openMapSFX, 0, 0, false, 0);
+
+        onMapOpen?.Invoke();
     }
 
     private void CloseMap()
@@ -107,5 +133,7 @@ public class MapManager : MonoBehaviour
 
         InputManager.ToggleGameControls(true);
         InputManager.ToggleUIControls(false);
+
+        onMapClose?.Invoke();
     }
 }
