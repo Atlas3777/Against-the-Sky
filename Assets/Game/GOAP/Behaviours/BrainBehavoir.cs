@@ -24,7 +24,7 @@ namespace Game.GOAP
             
             // This only applies sto the code demo
             if (this.provider.AgentTypeBehaviour == null)
-                this.provider.AgentType = this.goap.GetAgentType("PatrolAgentВ");
+                this.provider.AgentType = this.goap.GetAgentType("PatrolAgent");
         }
 
         private void Start()

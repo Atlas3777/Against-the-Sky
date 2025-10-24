@@ -8,7 +8,6 @@ namespace Game.GOAP
     {
         public override ICapabilityConfig Create()
         {
-            Debug.Log("creating capability");
             var builder = new CapabilityBuilder("ShootingCapability");
 
             builder.AddGoal<ShootingGoal>()
