@@ -92,10 +92,12 @@ namespace cowsins.Inventory
         // INTERNAL USE & REFERENCES
         private int itemRotation = 0;
         private bool isInventoryOpen;
-        private bool isFavRadialMenuOpen; 
+        private bool isFavRadialMenuOpen;
+        private Vector3 _droppingOffset = new Vector3(0, 1, 0);
         private WeaponController weaponController;
         private PlayerMovement playerMovement;
         private PlayerStats playerStats;
+        private WeightSystem weightSystem;
 
         // PUBLIC ACCESS
         public InventorySlot highlightedSlot;
@@ -154,6 +156,7 @@ namespace cowsins.Inventory
             weaponController = interactManager.GetComponent<WeaponController>();
             playerMovement = interactManager.GetComponent<PlayerMovement>();
             playerStats = interactManager.GetComponent<PlayerStats>();
+            weightSystem = playerStats.WeightSystem;
 
             // Initialize the Pinned Menu for Quick Access if useFavouritesRadialMenu allows it
             if (useFavouritesRadialMenu)
@@ -585,6 +588,7 @@ namespace cowsins.Inventory
                         WeaponPickeable weaponPickeable = (WeaponPickeable)interactManager.HighlightedInteractable;
                         UpdateHotbarSlot(i, weaponPickeable.Barrel, weaponPickeable.Scope, weaponPickeable.Stock, weaponPickeable.Grip, weaponPickeable.Magazine, weaponPickeable.Flashlight,
                             weaponPickeable.Laser);
+                        gridGenerator.UpdateCurrentWeight(weaponPickeable.weapon);
                     }
                 }
                 CalculateTotalBullets(overrideCurrentBullets: true);
@@ -606,10 +610,16 @@ namespace cowsins.Inventory
                         case Laser laser: currentInventorySlot.slotData.laser = attachmentPickeable.attachmentIdentifier; break;
                     }
                 }
+                // OnAddedItem(attachmentPickeable.attachmentIdentifier);
             }
             else if (interactManager.HighlightedInteractable is BulletsPickeable) // Handle Interaction with BulletsPickeable.
             {
+                // var prevBulletsCount = weaponController.id.totalBullets;
                 CalculateTotalBullets(overrideCurrentBullets: false);
+                // weaponController.id.totalBullets = gridGenerator.GatherBulletsInInventory();
+                // Debug.Log($"было {prevBulletsCount} пуль, стало - {weaponController.id.totalBullets}");
+                // OnAddedItem((interactManager.HighlightedInteractable as BulletsPickeable).bulletsSO, weaponController.id.totalBullets - prevBulletsCount);
+                // Debug.Log($"new weight: " + weightSystem.CurrentWeight);
             }
         }
 
@@ -651,6 +661,7 @@ namespace cowsins.Inventory
             Quaternion dropRotation = orientation.rotation;
 
             Pickeable pickeable = InstantiatePickeable(slot, dropPosition, dropRotation);
+            // OnRemoveItem(slot.slotData.item, slot.slotData.amount);
 
 #if SAVE_LOAD_ADD_ON
             if (pickeable != null)
@@ -671,8 +682,10 @@ namespace cowsins.Inventory
         private void OnDropHotbar(Pickeable pick)
         {
             InventorySlot hotbarSlot = HotbarSlots[weaponController.currentWeapon];
+            // OnRemoveItem(hotbarSlot.slotData.item, hotbarSlot.slotData.amount);
             if (useFavouritesRadialMenu) favItemsMenu.UnpinFromFavMenu(hotbarSlot);
-            hotbarSlot.slotData = new SlotData();
+            DeleteItem(hotbarSlot);
+            // hotbarSlot.slotData = new SlotData();
             hotbarSlot.UpdateSlotGraphics();
 
             if (GameDataManager.instance == null) return;
@@ -684,7 +697,7 @@ namespace cowsins.Inventory
         /// Re-calculates the available bullets in the inventory that can be used by weapons with limited magazines
         /// </summary>
         /// <param name="overrideCurrentBullets">Overrides current Weapon Magazine with available bullets.</param>
-        public void CalculateTotalBullets(bool overrideCurrentBullets)
+        public void CalculateTotalBullets(bool overrideCurrentBullets, Item_SO bullet = null)
         {
             if (weaponController.weapon == null || !weaponController.weapon.limitedMagazines) return;
             if (overrideCurrentBullets) weaponController.id.bulletsLeftInMagazine = gridGenerator.HotbarSlots[weaponController.currentWeapon].slotData.bulletsLeftInMagazine;
@@ -716,11 +729,11 @@ namespace cowsins.Inventory
 
         // Instantiates the correct Pickeable based on the slot item type (Weapon_SOs create WeaponPickeables, AttachmentIdentifier_SOs => AttachmentPickeable,
         // BuletsItem_SO => BulletsPickeable, Item_SO => InventoryItemPickeable )
-        private Pickeable InstantiatePickeable(InventorySlot slot, Vector3 position, Quaternion rotation)
+        private Pickeable InstantiatePickeable(InventorySlot slot, Vector3 position, Quaternion rotation) //MYTODO тоже немного хардкода для спавна объектов не по землёй (а спавнятся под землёй они, скорее всего, из-за изменения размера игрока)
         {
             if (slot.IsItemWeapon)
             {
-                var pick = Instantiate(weaponGenericPickeable, position, rotation) as WeaponPickeable;
+                var pick = Instantiate(weaponGenericPickeable, position + _droppingOffset, rotation) as WeaponPickeable;
                 pick.dropped = true;
                 pick.currentBullets = slot.slotData.bulletsLeftInMagazine;
                 pick.totalBullets = slot.slotData.totalBullets;
@@ -731,13 +744,13 @@ namespace cowsins.Inventory
             }
             else if (slot.IsItemBullets)
             {
-                var pick = Instantiate(bulletsGenericPickeable, position, rotation) as BulletsPickeable;
+                var pick = Instantiate(bulletsGenericPickeable, position + _droppingOffset, rotation) as BulletsPickeable;
                 pick.SetBullets((BulletsItem_SO)slot.slotData.item, slot.slotData.amount);
                 return pick;
             }
             else if (slot.IsItemAttachment)
             {
-                var pick = Instantiate(attachmentGenericPickeable, position, rotation) as AttachmentPickeable;
+                var pick = Instantiate(attachmentGenericPickeable, position + _droppingOffset, rotation) as AttachmentPickeable;
                 pick.dropped = true;
                 pick.attachmentIdentifier = (AttachmentIdentifier_SO)slot.slotData.item;
                 pick.GetVisuals();
@@ -745,7 +758,7 @@ namespace cowsins.Inventory
             }
             else
             {
-                var pick = Instantiate(itemGenericPickeable, position, rotation) as InventoryItemPickeable;
+                var pick = Instantiate(itemGenericPickeable, position + _droppingOffset, rotation) as InventoryItemPickeable;
                 pick.SetItem(slot.slotData.item, slot.slotData.amount);
                 return pick;
             }
@@ -764,16 +777,17 @@ namespace cowsins.Inventory
 
             if (slot.slotData.item is BulletsItem_SO)
             {
-                BulletsPickeable pick = Instantiate(bulletsGenericPickeable, orientation.position + orientation.forward * interactManager.DroppingDistance, orientation.rotation) as BulletsPickeable;
+                BulletsPickeable pick = Instantiate(bulletsGenericPickeable, orientation.position + orientation.forward * interactManager.DroppingDistance + _droppingOffset, orientation.rotation) as BulletsPickeable;
                 pick.SetBullets((BulletsItem_SO)slot.slotData.item, amount);
             }
             else
             {
-                InventoryItemPickeable pick = Instantiate(itemGenericPickeable, orientation.position + orientation.forward * interactManager.DroppingDistance, orientation.rotation) as InventoryItemPickeable;
+                InventoryItemPickeable pick = Instantiate(itemGenericPickeable, orientation.position + orientation.forward * interactManager.DroppingDistance + _droppingOffset, orientation.rotation) as InventoryItemPickeable;
                 pick.SetItem(slot.slotData.item, amount);
             }
 
             // Reduce the amount and reflect the changes in the UI
+            gridGenerator.UpdateCurrentWeight(slot.slotData.item, -amount);
             slot.slotData.amount -= amount;
             Vector2Int size = slot.GetItemSize();
             for (int i = 0; i < size.x; i++)
@@ -799,6 +813,8 @@ namespace cowsins.Inventory
         public void DeleteItem(InventorySlot slot)
         {
             SlotData cachedSlotData = slot.slotData;
+            if (!slot.IsChestSlot)
+                gridGenerator.UpdateCurrentWeight(slot.slotData.item, -slot.slotData.amount);
 
             if (slot.IsHotbarSlot)
             {
@@ -1297,7 +1313,15 @@ namespace cowsins.Inventory
             // stack if possible
             int stackableAmount = highlightedItem.maxStack - highlightedSlot.slotData.amount;
             int amountToMove = Mathf.Min(slot.slotData.amount, stackableAmount); // How many items to move
-            Vector2Int itemSize = slot.GetItemSize();
+            //Vector2Int itemSize = slot.GetItemSize();
+
+            if (!slot.IsSlotsInSameInventory(highlightedSlot) /*&& !highlightedSlot.IsChestSlot*/)
+            {
+                if (slot.IsChestSlot)
+                    gridGenerator.UpdateCurrentWeight(slot.slotData.item, amountToMove);
+                else if (highlightedSlot.IsChestSlot)
+                    gridGenerator.UpdateCurrentWeight(highlightedItem, -amountToMove);
+            }
 
             // Add items to the highlighted slot
             highlightedSlot.slotData.amount += amountToMove;
@@ -1323,6 +1347,8 @@ namespace cowsins.Inventory
         /// <param name="targetSlot">The inventory slot to swap items with.</param>
         public void SwapItems(InventorySlot targetSlot, bool playSFX)
         {
+            if (!draggedSlot.IsSlotsInSameInventory(targetSlot))
+                UpdateWeightOnSwap(targetSlot);
             // Check if it's a hotbar slot; handle simple swap if either slot is a hotbar slot
             // Get the sizes of the dragged item and the target item
             Vector2Int draggedItemSize = draggedSlot.GetAnchorSlot().GetItemSize();
@@ -1369,7 +1395,9 @@ namespace cowsins.Inventory
 
                 if (useFavouritesRadialMenu) favItemsMenu.UpdatePinnedFavorites(draggedSlot.GetAnchorSlot(), highlightedSlot.GetAnchorSlot());
             }
-            if(playSFX) SoundManager.Instance.PlaySound(placeItemSFX, 0, 0, false, 0);
+            if (playSFX) SoundManager.Instance.PlaySound(placeItemSFX, 0, 0, false, 0);
+            if ((draggedSlot.IsInventorySlot && targetSlot.IsHotbarSlot) || (draggedSlot.IsHotbarSlot && targetSlot.IsInventorySlot))
+                return;
         }
 
         public void UpdateBulletsHotbar()
@@ -1634,9 +1662,12 @@ namespace cowsins.Inventory
             bool canStack = CanStackItems(draggedSlot.slotData);
             InventorySlot hotbarSlot = isDraggedHotbar ? draggedSlot :
                (isHighlightedHotbar ? highlightedSlot : null);
+            var isSwappingBetweenHotbarAndChest = (draggedSlot.IsHotbarSlot && highlightedSlot.IsChestSlot) || (highlightedSlot.IsHotbarSlot && draggedSlot.IsChestSlot);
 
             if (isDraggedHotbar != isHighlightedHotbar) // Hotbar <-> Inventory swap
             {
+                if (isSwappingBetweenHotbarAndChest)
+                    UpdateWeightOnSwap(highlightedSlot);
                 if (weaponController.Reloading && weaponController.id == weaponController.inventory[hotbarSlot.col])
                     weaponController.StopReload();
 
@@ -1692,6 +1723,15 @@ namespace cowsins.Inventory
         /// Returns whether the style of the Inventory is Grid or Tetris. True if Grid is returned.
         /// </summary>
         public bool IsGridInventory() { return inventoryStyle == InventoryStyle.Grid; }
+
+        private void UpdateWeightOnSwap(InventorySlot targetSlot)
+        {
+            var amount = draggedSlot.slotData.amount;
+            if (targetSlot.IsChestSlot)
+                amount *= -1;
+            gridGenerator.UpdateCurrentWeight(draggedSlot.slotData.item, amount);
+            gridGenerator.UpdateCurrentWeight(targetSlot.slotData.item, amount);
+        }
 
 #if UNITY_EDITOR
         public void SetRightClickEvent(SlotRightClickEvent slotRightClickEvent) => this.slotRightClickEvent = slotRightClickEvent;

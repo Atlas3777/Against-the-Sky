@@ -28,7 +28,8 @@ namespace cowsins
 
         private Interactable highlightedInteractable;
 
-        private bool isForbiddenInteraction = false;    
+        private bool isForbiddenInteraction = false;
+        private Vector3 _droppingOffset = new Vector3(0, 1, 0);
         public Interactable HighlightedInteractable { get { return highlightedInteractable; } }
 
         [Tooltip("Enable this toggle if you want to be able to drop your weapons")] public bool canDrop;
@@ -220,7 +221,7 @@ namespace cowsins
             // Handles weapon dropping by pressing the drop button
             if (weaponController.weapon == null || weaponController.Reloading || inspecting || !PlayerStats.Controllable) return;
 
-            WeaponPickeable pick = Instantiate(weaponGenericPickeable, orientation.position + orientation.forward * droppingDistance + transform.right * randomDropOffset, orientation.rotation) as WeaponPickeable;
+            WeaponPickeable pick = Instantiate(weaponGenericPickeable, orientation.position + orientation.forward * droppingDistance + transform.right * randomDropOffset + _droppingOffset, orientation.rotation) as WeaponPickeable; //MYTODO немного хардкода чтобы оружие не в полу спавнилось
             pick.Drop(weaponController, orientation);
             WeaponIdentification wp = weaponController.inventory[weaponController.currentWeapon]; 
             pick.SetPickeableAttachments(wp.barrel?.attachmentIdentifier, wp.scope?.attachmentIdentifier, wp.stock?.attachmentIdentifier,
@@ -247,7 +248,7 @@ namespace cowsins
         public void DropAttachment(Attachment atc, bool enableDefault)
         {
             // Spawn a new pickeable.
-            AttachmentPickeable pick = Instantiate(attachmentGenericPickeable, orientation.position + orientation.forward * droppingDistance, orientation.rotation) as AttachmentPickeable;
+            AttachmentPickeable pick = Instantiate(attachmentGenericPickeable, orientation.position + orientation.forward * droppingDistance + _droppingOffset, orientation.rotation) as AttachmentPickeable;
             // Assign the appropriate attachment identifier to the spawned pickeable.
             pick.attachmentIdentifier = atc.attachmentIdentifier;
             // Get visuals

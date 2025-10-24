@@ -560,7 +560,7 @@ namespace cowsins.Inventory
 
             if (amount <= 0) amount = 1;
             int availableAmount = amount;
-            float itemWeight = item_SO.weightMultiplier;
+            float itemWeight = item_SO.Weight.Weight;
 
             // First, try to add to existing stacks
             if (item_SO.maxStack > 1)
@@ -654,7 +654,7 @@ namespace cowsins.Inventory
             // If Item is null, return.
             if (weapon_SO == null ) return false;
 
-            float itemWeight = weapon_SO.weightMultiplier;
+            float itemWeight = weapon_SO.Weight.Weight;
 
             // Find empty slots 
             for (int i = 0; i < Rows; i++)
@@ -695,21 +695,35 @@ namespace cowsins.Inventory
             return false;
         }
 
-        private void UpdateCurrentWeight(Item_SO item, int amountToAdd)
+        public void UpdateCurrentWeight(Item_SO item, int amountToAdd = 1)
         {
             if (item == null) return;
-            float weight = item.applyWeight ? item.weightMultiplier : 1;
+            if (G.PlayerStats is null)
+            {
+                Debug.Log("Weight system is null");
+                return;
+            }
+            if (amountToAdd > 0)
+            {
+                G.PlayerStats.WeightSystem.CanPickUp(item.Weight, amountToAdd);
+            }
+            else
+            {
+                G.PlayerStats.WeightSystem.RemoveItems(item.Weight, amountToAdd);
+            }
+            // float weight = item.Weight.Weight;
+            // // float weight = item.applyWeight ? item.weightMultiplier : 1;
 
-            // How many full stacks this addition represents
-            float fullStacks = amountToAdd / item.maxStack;
-            // Total weight added by this operation
-            float weightContribution = (1 - weight) * fullStacks;
-            // Ensure the weight is capped at the max possible weight                          
-            weightContribution /= (Rows * Columns);
+            // // How many full stacks this addition represents
+            // float fullStacks = amountToAdd / item.maxStack;
+            // // Total weight added by this operation
+            // float weightContribution = (1 - weight) * fullStacks;
+            // // Ensure the weight is capped at the max possible weight                          
+            // weightContribution /= (Rows * Columns);
 
-            currentWeight += weightContribution;
+            // currentWeight += weightContribution;
 
-            playerMultipliers.playerWeightMultiplier = Mathf.Clamp(1 - currentWeight, 0.2f, 1.0f);
+            // playerMultipliers.playerWeightMultiplier = Mathf.Clamp(1 - currentWeight, 0.2f, 1.0f);
         }
 
         /// <summary>

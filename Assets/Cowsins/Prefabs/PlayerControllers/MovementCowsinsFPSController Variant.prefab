@@ -1487,6 +1487,10 @@ PrefabInstance:
       propertyPath: 'initialWeapons.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 695c43e720b36ba4ab830fcc20c1e3da, type: 2}
+    - target: {fileID: 1195374612628124359, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: WeightSystem.MaxWeight
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1195374612628124382, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_Enabled
       value: 1

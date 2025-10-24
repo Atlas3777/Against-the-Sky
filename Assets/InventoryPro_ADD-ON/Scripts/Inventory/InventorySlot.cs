@@ -97,7 +97,7 @@ namespace cowsins.Inventory
         /// <param name="row">Vertical Position of the Inventory Slot.</param>
         /// <param name="col">Horizontal Position of the Inventory Slot</param>
         /// <param name="data">Initial SlotData stored.</param>
-        /// <param name="weaponController">Reference to the Player´s WeaponController</param>
+        /// <param name="weaponController">Reference to the Playerï¿½s WeaponController</param>
         /// <param name="inventoryManager">Reference to the InventoryProManager</param>
         public void Initialize(int row, int col, SlotData data, WeaponController weaponController, InventoryProManager inventoryManager)
         {
@@ -170,7 +170,7 @@ namespace cowsins.Inventory
             // First ensure we can show the tooltip ( InventorySlot has a valid Item )
             if (CanShowTooltip())
             {
-                //Always show the tooltip based on the Anchor´s Item
+                //Always show the tooltip based on the Anchorï¿½s Item
                 InventorySlot anchor = GetAnchorSlot();
                 inventoryManager._TooltipManager.SetTooltipVisibility(true, anchor.ItemName, anchor.ItemDescription);
             }
@@ -200,9 +200,9 @@ namespace cowsins.Inventory
                 // This is the anchor slot = origin of the slot
                 if (anchorSlot == this)
                 {
-                    // Update Icon´s sprite & sizing.
+                    // Update Iconï¿½s sprite & sizing.
                     // If Inventory Style is Tetris, GatherSprite can return any size ( ex: 1x1, 2x1, 2x2, etc... )
-                    // If it´s Grid, it can only return 1x1. 
+                    // If itï¿½s Grid, it can only return 1x1. 
                     iconImage.gameObject.SetActive(true);
                     iconImage.sprite = ItemIcon;
                     Vector2Int originalSize = GetItemSize();
@@ -234,7 +234,7 @@ namespace cowsins.Inventory
                 }
                 else
                 {
-                    // This InventorySlot is anchored to a slot that´s not itself. This can only happen in Tetris Inventory.
+                    // This InventorySlot is anchored to a slot thatï¿½s not itself. This can only happen in Tetris Inventory.
                     // Since the Icon is handled by the slot, deactivate Icon Image here.
                     iconImage.sprite = null;
                     iconImage.gameObject.SetActive(false);
@@ -337,6 +337,11 @@ namespace cowsins.Inventory
 
             // Ensure the final scale is exactly the target scale
             inventoryContainer.localScale = targetScale;
+        }
+
+        public bool IsSlotsInSameInventory(InventorySlot other)
+        {
+            return (this.IsChestSlot && other.IsChestSlot) || (this.IsHotbarSlot && other.IsHotbarSlot) || (this.IsInventorySlot && other.IsInventorySlot);
         }
         #endregion
     }
