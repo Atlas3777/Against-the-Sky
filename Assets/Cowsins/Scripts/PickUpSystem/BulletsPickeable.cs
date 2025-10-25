@@ -8,7 +8,7 @@ namespace cowsins
     {
         [Tooltip("How many bullets you will get"), SerializeField, SaveField] private int amountOfBullets;
 
-        [SerializeField] private BulletsItem_SO bulletsSO;
+        [SerializeField] public BulletsItem_SO bulletsSO;
 
         [SerializeField] private Sprite bulletsIcon;
 

@@ -23,13 +23,15 @@ namespace cowsins
         public Sprite irregularItemIcon;
 
 
-        [Tooltip("Velocity will be decreased depending on the weight of the weapon if this is true.")] public bool applyWeight;
-        [Range(.2f, 1)]
-        [Tooltip("Represents the weight of an entire stack of this item.")] public float weightMultiplier = 1f;
+        public ItemWeight Weight;
+        // [Tooltip("Velocity will be decreased depending on the weight of the weapon if this is true.")] public bool applyWeight;
+        // [Range(.2f, 1)]
+        // [Tooltip("Represents the weight of an entire stack of this item.")] public float weightMultiplier = 1f;
 
 #if INVENTORY_PRO_ADD_ON
     public virtual void Use(InventoryProManager inventoryProManager, InventorySlot inventorySlot)
     {
+        inventoryProManager._GridGenerator.UpdateCurrentWeight(inventorySlot.slotData.item, -1);
         InventorySlot anchor = inventorySlot.GetAnchorSlot();
         anchor.slotData.amount -= 1;
         if(anchor.slotData.amount <= 0)
@@ -82,14 +84,14 @@ namespace cowsins
             EditorGUILayout.PropertyField(serializedObject.FindProperty("_name"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("icon"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("pickUpGraphics"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("applyWeight"));
-            if (myScript.applyWeight)
-            {
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("weightMultiplier"));
-                EditorGUI.indentLevel--;
-            }
-            else myScript.weightMultiplier = 1;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("Weight"));
+            // if (myScript.applyWeight)
+            // {
+            //     EditorGUI.indentLevel++;
+            //     EditorGUILayout.PropertyField(serializedObject.FindProperty("weightMultiplier"));
+            //     EditorGUI.indentLevel--;
+            // }
+            // else myScript.weightMultiplier = 1;
 
             GUI.enabled = isInventoryAddonAvailable;
 
@@ -116,7 +118,7 @@ namespace cowsins
 
             EditorGUILayout.Space(15);
             EditorGUILayout.LabelField("SPECIFIC SETTINGS", EditorStyles.boldLabel);
-            DrawPropertiesExcluding(serializedObject, "m_Script", "id", "icon", "_name", "pickUpGraphics", "applyWeight", "weightMultiplier", "maxStack", "itemSize", "irregularItemIcon");
+            DrawPropertiesExcluding(serializedObject, "m_Script", "id", "icon", "_name", "pickUpGraphics", "Weight", /*"weightMultiplier",*/ "maxStack", "itemSize", "irregularItemIcon");
 
             GUI.enabled = true;
 

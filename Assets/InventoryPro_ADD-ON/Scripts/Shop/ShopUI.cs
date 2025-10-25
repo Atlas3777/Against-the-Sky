@@ -48,7 +48,7 @@ namespace cowsins.Inventory
                 damageSlider.value = weapon.shootStyle == ShootStyle.Melee ? weapon.damagePerHit : weapon.damagePerBullet;
                 fireRateSlider.value = weapon.fireRate;
                 magazineSizeSlider.value = weapon.shootStyle == ShootStyle.Melee ? 1 : weapon.magazineSize;
-                speedModifierSlider.value = weapon.applyWeight ? 1 / weapon.weightMultiplier : 1;
+                // speedModifierSlider.value = weapon.applyWeight ? 1 / weapon.weightMultiplier : 1; #MYTODO что-то про скорость от веса, пока отключу, там посмотрим
             }
             else
             {

@@ -180,6 +180,9 @@ namespace cowsins.SaveLoad
                 gameData.maxHealth = playerStats.maxHealth;
                 gameData.maxShield = playerStats.maxShield;
 
+                // Save Weight system
+                gameData.WeightSystem = playerStats.WeightSystem;
+
                 // Save Player Multipliers
                 gameData.damageMultiplier = playerMultipliers.damageMultiplier;
                 gameData.healMultiplier = playerMultipliers.healMultiplier;
@@ -368,6 +371,9 @@ namespace cowsins.SaveLoad
                 }
             }
 
+            // Load Weight system
+            playerStats.WeightSystem = gameData.WeightSystem;
+            
             if (dataPersistenceSettings.SavePlayerStats)
             {
                 // Load Health & Shield

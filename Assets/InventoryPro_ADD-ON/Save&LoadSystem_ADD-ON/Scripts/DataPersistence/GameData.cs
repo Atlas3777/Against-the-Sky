@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace cowsins.SaveLoad
 {
@@ -35,6 +36,7 @@ namespace cowsins.SaveLoad
 
         // PLAYER BASE INVENTORY ( HOTBAR )
         public int currentWeaponInt;
+        public WeightSystem WeightSystem;
 
         // FPS ENGINE INVENTORY PRO ADD-ON
         public int rows, cols;
@@ -49,7 +51,7 @@ namespace cowsins.SaveLoad
             public int amount;
             public int bulletsLeftInMagazine, totalBullets;
             public bool isOriented;
-            // If Null, Ignore it ( don�t add to Json )
+            // If Null, Ignore it ( don�t add to Json )
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public string barrel,
                 scope,
@@ -84,13 +86,14 @@ namespace cowsins.SaveLoad
         }
 
         // GameData Constructor
-        public GameData()
+        public GameData() // #IMPORTANT если меняете стату игрока - здесь надо базу поменять, пока мы это не поправим
         {
             playerTransforms = new Dictionary<string, SerializablePlayerTransforms>();
             playerHealth = 100f;
             playerShield = 50f;
             maxHealth = 100f;
             maxShield = 50f;
+            WeightSystem = new WeightSystem(100, 0);
             damageMultiplier = 1f;
             healMultiplier = 1f;
             totalExperience = 0;

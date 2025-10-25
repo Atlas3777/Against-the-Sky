@@ -1,5 +1,7 @@
+using cowsins;
 using UnityEngine;
 
+[DefaultExecutionOrder(-9999)]
 public class Main : MonoBehaviour
 {
     public GameObject EnemyPrefab;
@@ -8,12 +10,13 @@ public class Main : MonoBehaviour
     public GameObject DeadEnemyPrefab;
     public Transform DeadEnemySpawnPoint;
 
-    private void Start()
+    private void Awake()
     {
         G.Player = Player;
-        
+        G.PlayerStats = G.Player.GetComponent<PlayerStats>();
+
         EnemyFactory.SpawnEnemy(EnemyPrefab, EnemySpawnPoint);
-        
+
         GlobalEventManager.BodyDeath += KillHandler;
         Instantiate(DeadEnemyPrefab, DeadEnemySpawnPoint.position, Quaternion.identity);
     }

@@ -934,7 +934,8 @@ namespace cowsins
             // Only apply the weight modification if the Inventory Pro Manager add-on is not available. If it is available, the weight of the player is calculated by the inventory
             if (isAddonAvailable) return;
 
-            playerMultipliers.playerWeightMultiplier = weapon != null ? weapon.weightMultiplier : 1;
+            playerMultipliers.playerWeightMultiplier = weapon != null ? weapon.Weight.Weight : 1;
+            // playerMultipliers.playerWeightMultiplier = weapon != null ? weapon.weightMultiplier : 1;
         }
         private void GetAttachmentsModifiers()
         {
