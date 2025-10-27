@@ -1,8 +1,9 @@
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
-using UnityEngine;
+using Game.GOAP.Goals;
+using Game.GOAP.Sensors;
 
-namespace Game.GOAP
+namespace Game.GOAP.Capabilities
 {
     public class ShootingCapabilityFactory : CapabilityFactoryBase
     {

@@ -1,8 +1,8 @@
-using UnityEngine;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
+using UnityEngine;
 
-namespace Game.GOAP
+namespace Game.GOAP.Sensors
 {
     [GoapId("ShootingSensor-1")]
     public class ShootingSensor : LocalTargetSensorBase

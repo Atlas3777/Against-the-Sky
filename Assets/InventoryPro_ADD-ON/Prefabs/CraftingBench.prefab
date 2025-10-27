@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa1fdd3b7079e1498caa1e012cf9ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: ccd45936-6b04-42ee-862d-278530b768fd
+  uniqueID: 07c36b31-c99e-4c7a-baa8-0f68eb144aaa
   interactable: 0
   interactText: Craft
   instantInteraction: 0
@@ -397,14 +397,14 @@ MonoBehaviour:
   forbiddenTradeSFX: {fileID: 8300000, guid: 445132955498738499f2f6acec11962e, type: 3}
   craftingUIPrefab: {fileID: 9015084375366614972, guid: 80ef9f7d99cb531469b768e9a3883d67, type: 3}
   availableRecipes:
-  - {fileID: 11400000, guid: b2c6202cfd516814ebb0a947e57e22e7, type: 2}
-  - {fileID: 11400000, guid: dd96751bffae8774b84d86a11ace5877, type: 2}
-  - {fileID: 11400000, guid: a92f258b9d842c747a84fef88e7f7a6e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 11400000, guid: d32f590a48be073458a69c2d7849ebcc, type: 2}
-  - {fileID: 11400000, guid: 994678f41138dc74ca7027a27c0ded08, type: 2}
-  - {fileID: 11400000, guid: cbd7f5f118b51214c804bc8058d95cde, type: 2}
-  - {fileID: 11400000, guid: 769f0d69f0298b04286d50d2bbea24f9, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   startCraftingSFX: {fileID: 8300000, guid: 772f2211bfaad7d4fbdf69d9a67c8d89, type: 3}
 --- !u!1 &8260395269926568329
 GameObject:

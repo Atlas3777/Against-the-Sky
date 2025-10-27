@@ -1,6 +1,7 @@
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
 using Game.GOAP;
+using Game.GOAP.Goals;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +13,7 @@ public class ShootingBehaviour : MonoBehaviour
 
     void Awake()
     {
-        if(this.goap ==null) this.goap = FindObjectOfType<GoapBehaviour>();
+        if(this.goap ==null) this.goap = FindFirstObjectByType<GoapBehaviour>();
         
         if(this.agent is null) agent = this.GetComponent<AgentBehaviour>();
         if (this.provider is null) provider = this.GetComponent<GoapActionProvider>();

@@ -543,7 +543,7 @@ namespace cowsins.Inventory
             }
         }
 
-        private float currentWeight = 0;
+        // private float currentWeight = 0;
 
         /// <summary>
         /// Adds the Given Item to the Inventory. Returns (bool success, int amount): success is true if the entire amount of the item has been successfully added to the Inventory.

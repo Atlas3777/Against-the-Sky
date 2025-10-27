@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.GOAP;
+using Game.GOAP.Behaviours;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -23,7 +24,7 @@ public static class EnemyFactory
         var enemy = Object.Instantiate(enemyPrefab, enemySpawnPoint.position, Quaternion.identity);
 
         if (enemy.TryGetComponent<BrainBehaviour>(out var brainBehaviour))
-            brainBehaviour.myAwake();
+            brainBehaviour.MyAwake();
 
         if(enemy.TryGetComponent<DataPatrolBehaviour>(out var behaviour))
             behaviour.MapAction = mapAction;

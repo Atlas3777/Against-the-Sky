@@ -15,6 +15,11 @@ MonoBehaviour:
   nameSpace: Game.GOAP
   scripts:
     goals:
+    - <Name>k__BackingField: ChasePlayerGoal
+      fullName: Game.GOAP.Goals.ChasePlayerGoal, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Goals/ChasePlayerGoal.cs
+      <Id>k__BackingField: ChasePlayer-e4ff5954-ecd0-4157-a08b-126c9ff3b41b
     - <Name>k__BackingField: IdleGoal
       fullName: Game.GOAP.IdleGoal, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -25,7 +30,17 @@ MonoBehaviour:
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/Goals/PatrollingGoal.cs
       <Id>k__BackingField: Patrolling-30fe2818-628a-49bb-8cf6-71b6ff500311
+    - <Name>k__BackingField: ShootingGoal
+      fullName: Game.GOAP.Goals.ShootingGoal, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Goals/ShootingGoal.cs
+      <Id>k__BackingField: Shooting-324a0988-b14a-44bc-bce0-52a9cda02af0
     actions:
+    - <Name>k__BackingField: ChaseAction
+      fullName: Game.GOAP.ChaseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Actions/ChaseAction.cs
+      <Id>k__BackingField: Chase-cb78b5b0-8637-4750-8f6a-4ff4b90f6961
     - <Name>k__BackingField: IdleAction
       fullName: Game.GOAP.IdleAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -36,7 +51,22 @@ MonoBehaviour:
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/Actions/PatrollingAction.cs
       <Id>k__BackingField: Patrolling-1cb119ea-f609-41f0-bd31-7b2f254e5b42
-    worldSensors: []
+    - <Name>k__BackingField: ShootAction
+      fullName: Game.GOAP.ShootAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Actions/ShootAction.cs
+      <Id>k__BackingField: Shoot-7f680d5f-9a35-4b65-95bb-cdbeae65c6cb
+    worldSensors:
+    - <Name>k__BackingField: AttackRangeSensor
+      fullName: Game.GOAP.Sensors.AttackRangeSensor, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/AttackRangeSensor.cs
+      <Id>k__BackingField: ChaseTargetSensor-9999
+    - <Name>k__BackingField: VisibilityRangeSensor
+      fullName: Game.GOAP.Sensors.VisibilityRangeSensor, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/VisibilityRangeSensor.cs
+      <Id>k__BackingField: ChaseTargetSensor-9999
     worldKeys:
     - <Name>k__BackingField: CountVisitedPoints
       fullName: Game.GOAP.CountVisitedPoints, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -48,17 +78,42 @@ MonoBehaviour:
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/WorldKeys/IsIdle.cs
       <Id>k__BackingField: IsIdle-66d3b958-b4a3-4e91-b82b-d44be762c061
+    - <Name>k__BackingField: IsPlayerHealthEqualsZero
+      fullName: Game.GOAP.IsPlayerHealthEqualsZero, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/WorldKeys/IsPlayerHealthEqualsZero.cs
+      <Id>k__BackingField: IsPlayerHealthEqualsZero-497c3538-7464-4847-9b81-b07d9fc62731
+    - <Name>k__BackingField: IsTargetInShootRange
+      fullName: Game.GOAP.IsTargetInShootRange, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/WorldKeys/IsTargetInShootRange.cs
+      <Id>k__BackingField: IsTargetInShootRange-e79bb195-7f4a-4d24-a02b-35dd958ca7b6
+    - <Name>k__BackingField: IsTargetInVisibilityRange
+      fullName: Game.GOAP.IsTargetInVisibilityRange, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/WorldKeys/IsTargetInVisibilityRange.cs
+      <Id>k__BackingField: IsTargetInVisibilityRange-ac385c5c-dd78-4bc8-96d3-eb3146433611
     targetSensors:
+    - <Name>k__BackingField: ChasingSensor
+      fullName: Game.GOAP.Sensors.ChasingSensor, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/ChasingSensor.cs
+      <Id>k__BackingField: ChasingSensor-9999
     - <Name>k__BackingField: IdleTargetSensor
-      fullName: Game.GOAP.IdleTargetSensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      fullName: Game.GOAP.Sensors.IdleTargetSensor, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/Sensors/IdleTargetSensor.cs
       <Id>k__BackingField: IdleTargetSensor-9999
     - <Name>k__BackingField: PatrollingSensor
-      fullName: Game.GOAP.PatrollingSensor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      fullName: Game.GOAP.Sensors.PatrollingSensor, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/Sensors/PatrollingSensor.cs
       <Id>k__BackingField: PatrollingSensor-9999
+    - <Name>k__BackingField: ShootingSensor
+      fullName: Game.GOAP.Sensors.ShootingSensor, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/Sensors/ShootingSensor.cs
+      <Id>k__BackingField: ShootingSensor-1
     targetKeys:
     - <Name>k__BackingField: IdleTarget
       fullName: Game.GOAP.IdleTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -70,4 +125,14 @@ MonoBehaviour:
         PublicKeyToken=null
       <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/PatrollingPoint.cs
       <Id>k__BackingField: PatrollingPoint-19eff497-1b0a-4567-ac99-6a2da009f472
+    - <Name>k__BackingField: PlayerPos
+      fullName: Game.GOAP.PlayerPos, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/PlayerPos.cs
+      <Id>k__BackingField: PlayerPos-5dc01041-eac2-414e-af57-7425812291e3
+    - <Name>k__BackingField: ShootingPosition
+      fullName: Game.GOAP.ShootingPosition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      <Path>k__BackingField: Assets/Game/GOAP/TargetKeys/ShootingPosition.cs
+      <Id>k__BackingField: ShootingPosition-0efdcdf6-82c8-4309-a921-fe044d769a9e
     multiSensors: []
