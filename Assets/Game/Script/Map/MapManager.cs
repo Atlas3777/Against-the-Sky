@@ -27,7 +27,6 @@ public class MapManager : MonoBehaviour
     private PlayerStats playerStats;
 
     private bool isMapOpen = false;
-    private bool isInventoryOpen = false;
 
     private MapStation highlightedStation;
     private MapStation selectedStation;
@@ -40,8 +39,6 @@ public class MapManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(this.gameObject);
     }
-
-    public void SetInventoryState(bool state) => isInventoryOpen = state;
 
     public void SelectStation(MapStation station)
     {
@@ -86,8 +83,7 @@ public class MapManager : MonoBehaviour
         InputManager.onTogglePause += CloseMap;
         InputManager.onMapOpenPressed += ToggleMapVisibility;
 
-        InventoryProManager.instance.Events.onOpenInventory.AddListener(() => { SetInventoryState(true); });
-        InventoryProManager.instance.Events.onCloseInventory.AddListener(() => { SetInventoryState(false); });
+        InventoryProManager.instance.Events.onOpenInventory.AddListener(CloseMap);
 
         for (int i = 0;i<stations.Count;i++)
         {
@@ -98,16 +94,17 @@ public class MapManager : MonoBehaviour
     private void ToggleMapVisibility()
     {
         if (PauseMenu.isPaused || playerStats.IsDead) return;
-        if (!isInventoryOpen)
-        {
-            if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenMap();
-            else CloseMap();
-        }
+
+        if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenMap();
+        else CloseMap();
+        
     }
 
     private void OpenMap()
     {
         isMapOpen = true;
+
+        onMapOpen?.Invoke();
 
         InputManager.ToggleUIControls(true);
         PauseMenu.Instance.stats.LoseControl();
@@ -118,8 +115,6 @@ public class MapManager : MonoBehaviour
         mapObject.SetActive(true);
         EventSystem.current.SetSelectedGameObject(mapObject);
         SoundManager.Instance.PlaySound(openMapSFX, 0, 0, false, 0);
-
-        onMapOpen?.Invoke();
     }
 
     private void CloseMap()

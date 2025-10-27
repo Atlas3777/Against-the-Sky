@@ -93,7 +93,6 @@ namespace cowsins.Inventory
         private int itemRotation = 0;
         private bool isInventoryOpen;
         private bool isFavRadialMenuOpen;
-        private bool isMapOpen;
         private WeaponController weaponController;
         private PlayerMovement playerMovement;
         private PlayerStats playerStats;
@@ -188,8 +187,7 @@ namespace cowsins.Inventory
             InputManager.onInventoryOpenPressed += ToggleInventoryVisibility;
             InputManager.onInventoryFavOpenPressed += ToggleFavRadialMenu;
 
-            MapManager.instance.onMapOpen.AddListener(() => { SetMapState(true); });
-            MapManager.instance.onMapClose.AddListener(() => { SetMapState(false); });
+            MapManager.instance.onMapOpen.AddListener(CloseInventory);
 
             closeButton.onClick.AddListener(CloseInventory);
             if(allowLootAllChest && lootAllChestButton != null) lootAllChestButton.onClick.AddListener(LootAllChest);
@@ -461,14 +459,11 @@ namespace cowsins.Inventory
         private void ToggleInventoryVisibility()
         {
             if (PauseMenu.isPaused || playerStats.IsDead) return;
-            if (!isMapOpen)
-            {
-                if (!isInventoryOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenInventory();
-                else CloseInventory();
-            }
-        }
 
-        public void SetMapState(bool state) => isMapOpen = state;
+            if (!isInventoryOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenInventory();
+            else CloseInventory();
+            
+        }
 
         /// <summary>
         /// Opens the Inventory & Enables UI
@@ -478,6 +473,8 @@ namespace cowsins.Inventory
             // Fav Pinned Menu & Inventory need to be alternated, both cannot be opened at the same time.
             if (isFavRadialMenuOpen) CloseFavRadialMenu();
             isInventoryOpen = true;
+
+            events.onOpenInventory?.Invoke();
 
             // Player shouldn�t move or perform any UI unrelated action.
             InputManager.ToggleUIControls(true);
@@ -496,7 +493,7 @@ namespace cowsins.Inventory
             draggedSlot = null;
             HighlightSlot(null);
 
-            events.onOpenInventory?.Invoke();
+            
             SoundManager.Instance.PlaySound(openInventorySFX, 0, 0, false, 0);
         }
         /// <summary>

@@ -347,6 +347,15 @@
       },
       "hash": "4990c372164fe7c109299aa38f6e17a2f5523649"
     },
+    "www.nulltale.volfx": {
+      "version": "https://github.com/NeGeterohromat/VolFx.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.6"
+      },
+      "hash": "762f5aa6beb91d5e9e703ddc2cf14605dadae1d1"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
