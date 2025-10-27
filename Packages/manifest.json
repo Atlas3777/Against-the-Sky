@@ -32,6 +32,7 @@
     "com.unity.vectorgraphics": "2.0.0-preview.25",
     "com.unity.visualscripting": "1.9.7",
     "www.nulltale.oldmoviefx": "https://github.com/NeGeterohromat/OldMovieFx.git",
+    "www.nulltale.outlinefilter": "https://github.com/NullTale/OutlineFilter.git",
     "www.nulltale.pixelation": "https://github.com/NullTale/PixelationFx.git",
     "www.nulltale.vhsfx": "https://github.com/NeGeterohromat/VhsFx.git",
     "com.unity.modules.accessibility": "1.0.0",

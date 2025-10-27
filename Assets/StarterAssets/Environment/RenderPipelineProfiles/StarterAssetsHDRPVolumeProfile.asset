@@ -451,7 +451,15 @@ MonoBehaviour:
   m_Name: StarterAssetsHDRPVolumeProfile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 754076555057602528}
+  - {fileID: 7686318427622180703}
+  - {fileID: -1016694868962581565}
+  - {fileID: 7502528774814404555}
+  - {fileID: 7542669330009093999}
+  - {fileID: 1501199423866068322}
+  - {fileID: 5315503232242033309}
+  - {fileID: 1932259527246508038}
+  - {fileID: -8290671188493191910}
+  - {fileID: 198738852298360104}
 --- !u!114 &198738852298360104
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -572,38 +580,6 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   filter:
-    m_OverrideState: 0
-    m_Value: 0
---- !u!114 &754076555057602528
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ad92b2d4441c34c8fc9eb5b2e51fd2, type: 3}
-  m_Name: PixelationVol
-  m_EditorClassIdentifier: Pixelation.Runtime::VolFx.PixelationVol
-  active: 1
-  m_Scale:
-    m_OverrideState: 0
-    m_Value: 1
-  m_Grid:
-    m_OverrideState: 0
-    m_Value: 1
-  m_Roundness:
-    m_OverrideState: 0
-    m_Value: 0.5
-  m_Color:
-    m_OverrideState: 0
-    m_Value: {r: 0, g: 0, b: 0, a: 0}
-    hdr: 0
-  m_Palette:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
-  m_Impact:
     m_OverrideState: 0
     m_Value: 0
 --- !u!114 &1501199423866068322

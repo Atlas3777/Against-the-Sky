@@ -320,6 +320,15 @@
       },
       "hash": "6ff493dddab38e85b7b1ab5603b4cfe43d4731bc"
     },
+    "www.nulltale.outlinefilter": {
+      "version": "https://github.com/NullTale/OutlineFilter.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.6"
+      },
+      "hash": "bd4c42a69450bdcfee16203185df01b932848fc6"
+    },
     "www.nulltale.pixelation": {
       "version": "https://github.com/NullTale/PixelationFx.git",
       "depth": 0,
