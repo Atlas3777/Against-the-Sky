@@ -789,6 +789,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4233948963638586852, guid: 97e214a827eb716448677c42417fe141, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 994274166}
     - target: {fileID: 8498276072834849965, guid: 97e214a827eb716448677c42417fe141, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1072,6 +1076,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5649658c34b2c54eaf4bd18f7dcc91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &994274166 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1195374612628124382, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+  m_PrefabInstance: {fileID: 994274151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994274152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61c6b7c4f1be80418cb3da50d529619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1019266072
@@ -1974,7 +1989,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 998717841558387966, guid: 2776e64487b476d4e8655448297e9237, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 790.1839
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 998717841558387966, guid: 2776e64487b476d4e8655448297e9237, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1982,7 +1997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 998717841558387966, guid: 2776e64487b476d4e8655448297e9237, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5948.419
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 998717841558387966, guid: 2776e64487b476d4e8655448297e9237, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2016,6 +2031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vol
       objectReference: {fileID: 0}
+    - target: {fileID: 5695961678771746641, guid: 2776e64487b476d4e8655448297e9237, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c599f659335de943bf94d5f7540f214, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
