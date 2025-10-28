@@ -21,9 +21,9 @@ namespace Game.GOAP.Sensors
             var distanceToTarget = Vector3.Distance(agent.Transform.position, _player.position);
             var isPlayerDead = G.PlayerStats.health <= 0;
 
-            if (!isPlayerDead && distanceToTarget <= 5f)
-                return new PositionTarget(_player.position);
-            return new PositionTarget(agent.Transform.position);;
+            //if (!isPlayerDead && distanceToTarget <= 5f)
+            return new PositionTarget(_player.position);
+            //return new PositionTarget(agent.Transform.position);
         }
 
         public override void Update()
