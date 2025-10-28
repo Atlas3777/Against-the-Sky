@@ -46972,6 +46972,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2743794975034988950, guid: b280c75fe249d7d4f88e5021dc4abf9e, type: 3}
   m_PrefabInstance: {fileID: 1108584556}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1880537897 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1195374611354653283, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+  m_PrefabInstance: {fileID: 1951279462}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1895915228
 Mesh:
   m_ObjectHideFlags: 0
@@ -47691,9 +47696,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1195374611263023445, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1880537897}
+    - target: {fileID: 1195374611263023445, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195374611263023445, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1195374611354653283, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_BackGroundColor.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195374611354653283, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 262079
       objectReference: {fileID: 0}
     - target: {fileID: 1195374611387908800, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47854,6 +47875,14 @@ PrefabInstance:
     - target: {fileID: 3232353280398666330, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232353280398666330, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.7882004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232353280398666330, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.77859974
       objectReference: {fileID: 0}
     - target: {fileID: 3232353280721614701, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_AnchorMax.x
