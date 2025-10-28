@@ -415,6 +415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kamikaze
       objectReference: {fileID: 0}
+    - target: {fileID: 3866740380417432680, guid: 9b0acd2cd9195f7469510793d9c9fa4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -661,6 +665,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 641bbf9c6dc3bff49b461307ee00cb53, type: 3}
+--- !u!4 &747203413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6a0f7d08abdf059468a536f52a522b50, type: 3}
+  m_PrefabInstance: {fileID: 960404611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &960404611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -903,6 +912,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5649658c34b2c54eaf4bd18f7dcc91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1010107353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3908766995072612748, guid: ad683252b1745c447a7a91fd8f792f1a, type: 3}
+  m_PrefabInstance: {fileID: 1275770112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1019266072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1414,6 +1428,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3739760268281768665, guid: ad683252b1745c447a7a91fd8f792f1a, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 1010107353}
+    - target: {fileID: 3739760268281768665, guid: ad683252b1745c447a7a91fd8f792f1a, type: 3}
+      propertyPath: aimTarget
+      value: 
+      objectReference: {fileID: 747203413}
     - target: {fileID: 3866740380417432680, guid: ad683252b1745c447a7a91fd8f792f1a, type: 3}
       propertyPath: m_Name
       value: ShootingEnemy
@@ -2803,13 +2825,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4206602912584901556, guid: e3dc5a2bdc0c10648bd6e21a8dc89782, type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 3866740380417432680, guid: 9b0acd2cd9195f7469510793d9c9fa4d, type: 3}
     - target: {fileID: 7101910829079986630, guid: e3dc5a2bdc0c10648bd6e21a8dc89782, type: 3}
       propertyPath: m_Name
       value: Action
       objectReference: {fileID: 0}
     - target: {fileID: 7101910829079986630, guid: e3dc5a2bdc0c10648bd6e21a8dc89782, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7192244757157315692, guid: e3dc5a2bdc0c10648bd6e21a8dc89782, type: 3}
       propertyPath: m_LocalPosition.x
