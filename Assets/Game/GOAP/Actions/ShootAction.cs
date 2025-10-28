@@ -46,7 +46,6 @@ namespace Game.GOAP
             var dist = Vector3.Distance(agent.transform.position, data.Target.Position);
             if (dist > data.DistanceStats.AttackRange)
                 return ActionRunState.Stop;
-            Debug.Log(dist);
             RotateToPlayer(agent, data);
             data.Weapon.Fire();
             // StartCoroutine(Fire());
