@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: VolFx
   m_EditorClassIdentifier: VolFx::VolFx.VolFx
   m_Active: 1
-  _event: 0
+  _event: 1000
   _format:
     enabled: 1
     value: 0
@@ -190,15 +190,15 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
   _source:
-    _source: 0
+    _source: 1
     _sourceTex: _inputTex
     _renderTex: {fileID: 0}
     _buffer: {fileID: 0}
     _maskOverride:
-      enabled: 0
+      enabled: 1
       value:
         serializedVersion: 2
-        m_Bits: 0
+        m_Bits: 32
     _output: 0
     _screenOutput: 0
     _outputTex: _outputTex

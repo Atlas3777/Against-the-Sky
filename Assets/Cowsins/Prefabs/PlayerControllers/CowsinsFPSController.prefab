@@ -685,6 +685,9 @@ MonoBehaviour:
   shield: 0
   maxHealth: 100
   maxShield: 50
+  WeightSystem:
+    MaxWeight: 0
+    CurrentWeight: 0
   takesFallDamage: 1
   minimumHeightDifferenceToApplyDamage: 3
   fallDamageMultiplier: 10
@@ -765,6 +768,7 @@ MonoBehaviour:
     onDrop:
       m_PersistentCalls:
         m_Calls: []
+  AttachmentPoints: []
 --- !u!114 &509610509608094595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,7 +1716,7 @@ Transform:
   m_GameObject: {fileID: 4612824605084164852}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000035762787, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
