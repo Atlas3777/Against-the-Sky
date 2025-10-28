@@ -8,8 +8,8 @@ namespace cowsins
         [SerializeField] private Transform orientation; 
         private void Update()
         {
-            transform.position = player.position;
-            transform.rotation = orientation.rotation;
+            // transform.position = player.position;
+            // transform.rotation = orientation.rotation;
         }
     }
 }

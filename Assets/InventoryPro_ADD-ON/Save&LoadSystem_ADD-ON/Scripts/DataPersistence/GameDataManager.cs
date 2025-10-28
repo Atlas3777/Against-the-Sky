@@ -57,6 +57,7 @@ namespace cowsins.SaveLoad
             }
 
             instance = this;
+            G.GameDataManager = instance;
             PopulatePrefabDictionary();
         }
 

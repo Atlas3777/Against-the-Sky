@@ -2,12 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using TMPro;
-using Unity.VisualScripting;
+
 namespace cowsins
 {
-    /// <summary>
-    /// Manages player inputs and broadcasts them to other scripts.
-    /// </summary>
     public class InputManager : MonoBehaviour
     {
         #region events
@@ -275,7 +272,7 @@ namespace cowsins
         {
             y = inputActions.GameControls.Movement.ReadValue<Vector2>().y;
         }
-
+        
         #region others
 
         public static void ToggleGameControls(bool enable)
@@ -483,5 +480,4 @@ namespace cowsins
         }
         #endregion
     }
-
 }

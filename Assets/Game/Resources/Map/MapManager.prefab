@@ -1352,10 +1352,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2900512958175436635}
+  - component: {fileID: 8535761164602548227}
   - component: {fileID: 2477605104312888554}
   - component: {fileID: 371407510762363601}
   - component: {fileID: 8859465412029641618}
-  - component: {fileID: 8535761164602548227}
   m_Layer: 5
   m_Name: MapManager
   m_TagString: Untagged
@@ -1384,6 +1384,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &8535761164602548227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4065629056638581562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49034f844dbfc4440b8ba5303d53d66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapManager
+  interactManager: {fileID: 0}
+  mapObject: {fileID: 7242775406504673466}
+  contextMenu: {fileID: 2063444951221774466}
+  openMapSFX: {fileID: 8300000, guid: 5874bc441a22a0c43a415d907052a119, type: 3}
+  highlightStationSFX: {fileID: 8300000, guid: 301af24d9d9e1b5479cf67cfb8633fc4, type: 3}
+  stations:
+  - {fileID: 7773795057390703033}
+  - {fileID: 1232328428484726119}
+  - {fileID: 8579907102074614428}
+  - {fileID: 2848264192862775396}
+  - {fileID: 876409400383914818}
+  - {fileID: 6575558290167957857}
+  - {fileID: 8103162914415733780}
+  onMapOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  onMapClose:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!223 &2477605104312888554
 Canvas:
   m_ObjectHideFlags: 0
@@ -1447,37 +1478,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8535761164602548227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4065629056638581562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49034f844dbfc4440b8ba5303d53d66f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapManager
-  interactManager: {fileID: 0}
-  mapObject: {fileID: 7242775406504673466}
-  contextMenu: {fileID: 2063444951221774466}
-  openMapSFX: {fileID: 8300000, guid: 5874bc441a22a0c43a415d907052a119, type: 3}
-  highlightStationSFX: {fileID: 8300000, guid: 301af24d9d9e1b5479cf67cfb8633fc4, type: 3}
-  stations:
-  - {fileID: 7773795057390703033}
-  - {fileID: 1232328428484726119}
-  - {fileID: 8579907102074614428}
-  - {fileID: 2848264192862775396}
-  - {fileID: 876409400383914818}
-  - {fileID: 6575558290167957857}
-  - {fileID: 8103162914415733780}
-  onMapOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  onMapClose:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5352935735529856769
 GameObject:
   m_ObjectHideFlags: 0

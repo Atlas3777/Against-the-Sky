@@ -1,55 +1,25 @@
+﻿using System.Collections;
 using cowsins;
 using UnityEngine;
 
-[DefaultExecutionOrder(-9999)]
+[DefaultExecutionOrder(-5000)]
 public class Main : MonoBehaviour
 {
-    public GameObject EnemyPrefab;
-    public Transform EnemySpawnPoint;
-    public GameObject Player;
-    public GameObject DeadEnemyPrefab;
-    public Transform DeadEnemySpawnPoint;
-
     private void Awake()
     {
-        G.Player = Player;
-        G.PlayerStats = G.Player.GetComponent<PlayerStats>();
-
-        EnemyFactory.SpawnEnemy(EnemyPrefab, EnemySpawnPoint);
-
-        GlobalEventManager.BodyDeath += KillHandler;
-        Instantiate(DeadEnemyPrefab, DeadEnemySpawnPoint.position, Quaternion.identity);
+        G.Player = Instantiate(GameResources.MainCharacter.FPSController, G.SpawnPointManager.GetSpawnPosition().position, Quaternion.identity)
+            .GetComponentInChildren<PlayerMovement>().gameObject;
+        G.InventoryManager = Instantiate(GameResources.MainCharacter.InventoryController);
+        G.MapManager = Instantiate(GameResources.Map.MapManager);
     }
 
-    private void Update()
+    private void Start()
     {
-        // if (Input.GetKeyDown(KeyCode.R))
-        //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(StartGame());
     }
 
-    private void KillHandler(DeathInfo deathInfo)
+    private IEnumerator StartGame()
     {
-        deathInfo.attacker.Inventory.AddMoney(50);
+        yield return new WaitForSeconds(0.5f);
     }
-}
-
-public interface IEnemy
-{
-    public void GetComponents();
-    public void Init(GameObject target);
-    public void MyStart();
-}
-
-public class DamageInfo
-{
-    public DamageInfo(float damage, CharacterBody attacker,CharacterBody target)
-    {
-        Damage = damage;
-        Attacker = attacker;
-        Target = target;
-    }
-
-    public float Damage;
-    public CharacterBody Attacker;
-    public CharacterBody Target;
 }

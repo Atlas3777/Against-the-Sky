@@ -97,7 +97,7 @@ MonoBehaviour:
   active: 1
   m_Intencity:
     m_OverrideState: 1
-    m_Value: 21
+    m_Value: 2.4
   m_Scatter:
     m_OverrideState: 0
     m_Value: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
   active: 1
   m_Scale:
     m_OverrideState: 1
-    m_Value: 0.908
+    m_Value: 0.861
   m_Grid:
     m_OverrideState: 1
     m_Value: 0.665

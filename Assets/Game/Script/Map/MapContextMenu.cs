@@ -4,17 +4,8 @@ using UnityEngine.UI;
 
 public class MapContextMenu : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI fuelAmountText;
-    [SerializeField]
-    private TextMeshProUGUI description;
-
-    private MapManager mapManager;
-
-    public void Init(MapManager mapManager)
-    {
-        this.mapManager = mapManager;
-    }
+    [SerializeField] private TextMeshProUGUI fuelAmountText;
+    [SerializeField] private TextMeshProUGUI description;
 
     public void ShowContextMenu(MapStation station, Vector3 position)
     {

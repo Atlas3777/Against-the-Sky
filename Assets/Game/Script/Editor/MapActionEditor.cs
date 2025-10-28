@@ -5,7 +5,6 @@ using UnityEngine;
 [CustomEditor(typeof(MapAction))]
 public class MapActionEditor : Editor
 {
-
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -22,10 +21,10 @@ public class MapActionEditor : Editor
         var mapAction = (MapAction)target;
 
         Handles.color = Color.yellow;
-        Handles.DrawWireDisc(mapAction.transform.position, Vector3.up, mapAction.scanRadius);
+        Handles.DrawWireDisc(mapAction.transform.position, Vector3.up, mapAction.ScanRadius);
         
         Handles.color = Color.red;
-        Handles.DrawWireDisc(mapAction.transform.position, Vector3.up, mapAction.runningRadius);
+        Handles.DrawWireDisc(mapAction.transform.position, Vector3.up, mapAction.ActivateRadius);
     }
 }
 #endif

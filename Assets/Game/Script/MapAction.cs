@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class MapAction : MonoBehaviour
 {
-    public float scanRadius = 20f; // Добавлено для редактора
-    public float runningRadius = 50f;
+    [SerializeField] private ActionPOI[] AllPOI;
+    [SerializeField] private GameObject Enemy;
+    [SerializeField] private Transform[] EnemySpawnPoints;
+    [SerializeField] private List<GameObject> AllEnemy = new();
+    [SerializeField] private GameObject Reward;
     
-    public ActionPOI[] AllPOI;
-    public GameObject Enemy;
-    public Transform[] EnemySpawnPoints;
-    public List<GameObject> AllEnemy = new();
-    public GameObject Reward;
+    [SerializeField] private float scanRadius = 20f;
+    [SerializeField] private float activateRadius = 50f;
     
-
+    public float ScanRadius => scanRadius;
+    public float ActivateRadius => activateRadius;
+    
     private bool _running;
+    public bool IsRunning => _running;
+    
     private int _aliveEnemiesCount;
 
     public void RegisterEnemyDeath()
@@ -30,15 +34,6 @@ public class MapAction : MonoBehaviour
     {
         Debug.Log("Все враги убиты! Создаём награду.");
         Reward.SetActive(true);
-    }
-
-    public void Update()
-    {
-        if(_running)
-            return;
-        
-        if(Vector3.Distance(G.Player.transform.position, this.transform.position) <= runningRadius)
-            StartPointOfInterest();
     }
 
     public void StartPointOfInterest()
@@ -62,7 +57,7 @@ public class MapAction : MonoBehaviour
 
     public void ScanPOIs()
     {
-        var pois = FindObjectsOfType<ActionPOI>()
+        var pois = FindObjectsByType<ActionPOI>(0)
             .Where(poi => Vector3.Distance(poi.transform.position, transform.position) <= scanRadius)
             .ToArray();
 

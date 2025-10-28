@@ -65,6 +65,9 @@ namespace cowsins
 
         private void Start()
         {
+            G.PlayerStats = this;
+            G.WeightSystem = WeightSystem;
+            
             Debug.Log(WeightSystem.MaxWeight);
             GetAllReferences();
             // Apply basic settings 

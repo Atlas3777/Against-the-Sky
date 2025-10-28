@@ -1,11 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GlobalActionManager
 {
-    private MapAction[] mapActions;
-    
-    public void FindAllMapAction()
+    public HashSet<MapAction> mapActions;
+
+    public void RegisterMapAction(MapAction mapAction)
     {
-        mapActions = Object.FindObjectsByType<MapAction>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        if(mapAction == null)
+            return;
+        if (!mapActions.Add(mapAction))
+        {
+            Debug.LogError("MapActionManager is already registered");
+        }
+    }
+    
+    void Update()
+    {
+        foreach (var mapAction in mapActions)
+        {
+            if (!mapAction.IsRunning)
+            {
+                
+            }
+        }
     }
 }

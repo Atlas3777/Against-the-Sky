@@ -144,6 +144,8 @@ namespace cowsins.Inventory
 
         private void Start()
         {
+            interactManager = G.Player.GetComponent<InteractManager>();
+            
             InitializeSettings();
             CloseInventory();
             ToggleDeviceSpecificUI(false);
@@ -187,7 +189,7 @@ namespace cowsins.Inventory
             InputManager.onInventoryOpenPressed += ToggleInventoryVisibility;
             InputManager.onInventoryFavOpenPressed += ToggleFavRadialMenu;
 
-            MapManager.instance.onMapOpen.AddListener(CloseInventory);
+            //MapManager.instance.onMapOpen.AddListener(CloseInventory);
 
             closeButton.onClick.AddListener(CloseInventory);
             if(allowLootAllChest && lootAllChestButton != null) lootAllChestButton.onClick.AddListener(LootAllChest);

@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    [MenuItem("Switch to Scene/Main")]
+    [MenuItem("Switch to Scene/Winter")]
     public static void SwitchToScene1()
     {
-        EditorSceneManager.OpenScene("Assets/Game/Scenes/MainGame.unity", OpenSceneMode.Single);
+        EditorSceneManager.OpenScene("Assets/Game/Scenes/Winter.unity");
     }
-
     [MenuItem("Switch to Scene/Hub")]
     public static void SwitchToScene2()
     {

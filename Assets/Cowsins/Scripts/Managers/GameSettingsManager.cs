@@ -44,6 +44,7 @@ namespace cowsins
             DontDestroyOnLoad(gameObject);
             LoadSettings();
             InitializeUI();
+            G.GameSettingsManager = Instance;
         }
 
         public void SetWindowedScreen() => fullScreen = 0;

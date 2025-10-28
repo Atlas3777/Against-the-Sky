@@ -44,6 +44,7 @@ namespace cowsins.SaveLoad
                 return;
             }
             instance = this;
+            G.DataPersistenceManager = instance;
 
             // Save the original Scene, that corresponds to the scene where the DataPersistenceManager is located, to keep track whenever we come back to such scene.
             originalScene = SceneManager.GetActiveScene().name;

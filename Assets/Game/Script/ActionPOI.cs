@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ActionPOI : MonoBehaviour
 {
-    public Transform BodyPositionTarget;
-    public float timeCooldown = 2f; // Время блокировки после освобождения
+    [SerializeField] private Transform bodyPositionTarget;
+    [SerializeField] private float timeCooldown = 2f;
 
-    private float _releaseTime; // Время, когда точка снова станет доступной
+    private float _releaseTime;
     private bool _isOccupied = false;
-
+    
+    public Transform BodyPositionTarget;
     public bool IsOccupied => _isOccupied;
     public bool IsAvailable => !_isOccupied && Time.time >= _releaseTime;
 
-    // Занять точку
     public void Occupy()
     {
         if (IsAvailable)
@@ -24,7 +25,6 @@ public class ActionPOI : MonoBehaviour
         }
     }
 
-    // Освободить точку (начинается отсчёт cooldown)
     public void Release()
     {
         _isOccupied = false;

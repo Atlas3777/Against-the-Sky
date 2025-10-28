@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+
 namespace cowsins
 {
     public class SoundManager : MonoBehaviour
@@ -17,6 +18,7 @@ namespace cowsins
             else Destroy(this.gameObject);
 
             src = GetComponent<AudioSource>();
+            G.SoundManager = Instance;
         }
 
         public void PlaySound(AudioClip clip, float delay, float pitchAdded, bool randomPitch, float spatialBlend)

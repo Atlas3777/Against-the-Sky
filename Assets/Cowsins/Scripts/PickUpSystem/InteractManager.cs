@@ -73,6 +73,12 @@ namespace cowsins
 
         public bool DuplicateWeaponAddsBullets => duplicateWeaponAddsBullets;
 
+
+        private void Awake()
+        {
+            G.InteractManager = this;
+        }
+
         private void OnEnable()
         {
             // Subscribe to the event

@@ -6,39 +6,20 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class MapManager : MonoBehaviour 
+public class MapManager : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField] private GameObject mapObject;
+    [SerializeField] private MapContextMenu contextMenu;
+    [SerializeField] private AudioClip openMapSFX;
+    [SerializeField] private AudioClip highlightStationSFX;
+    [SerializeField] private List<MapStation> stations;
+    
     private InteractManager interactManager;
-    [SerializeField]
-    private GameObject mapObject;
-    [SerializeField]
-    private MapContextMenu contextMenu;
-    [SerializeField] 
-    private AudioClip openMapSFX;
-    [SerializeField]
-    private AudioClip highlightStationSFX;
-    [SerializeField]
-    private List<MapStation> stations;
-
-    public UnityEvent onMapOpen, onMapClose;
-
-    private PlayerMovement playerMovement;
-    private PlayerStats playerStats;
-
     private bool isMapOpen = false;
-
     private MapStation highlightedStation;
     private MapStation selectedStation;
-
-    public static MapManager instance;
-
-    private void Awake()
-    {
-        // Handle singleton
-        if (instance == null) instance = this;
-        else Destroy(this.gameObject);
-    }
+    
+    public UnityEvent onMapOpen, onMapClose;
 
     public void SelectStation(MapStation station)
     {
@@ -75,29 +56,26 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        playerMovement = interactManager.GetComponent<PlayerMovement>();
-        playerStats = interactManager.GetComponent<PlayerStats>();
-
-        contextMenu.Init(this);
-
+        interactManager = G.InteractManager;
+        
         InputManager.onTogglePause += CloseMap;
         InputManager.onMapOpenPressed += ToggleMapVisibility;
 
         InventoryProManager.instance.Events.onOpenInventory.AddListener(CloseMap);
 
-        for (int i = 0;i<stations.Count;i++)
+        for (int i = 0; i < stations.Count; i++)
         {
-            stations[i].Init(this, i);
+            stations[i].Init(i);
         }
     }
 
     private void ToggleMapVisibility()
     {
-        if (PauseMenu.isPaused || playerStats.IsDead) return;
+        if (PauseMenu.isPaused || G.PlayerStats.IsDead) return;
 
-        if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization || !interactManager.realtimeAttachmentCustomization)) OpenMap();
+        if (!isMapOpen && (!interactManager.inspecting && interactManager.realtimeAttachmentCustomization ||
+                           !interactManager.realtimeAttachmentCustomization)) OpenMap();
         else CloseMap();
-        
     }
 
     private void OpenMap()
@@ -108,7 +86,6 @@ public class MapManager : MonoBehaviour
 
         InputManager.ToggleUIControls(true);
         PauseMenu.Instance.stats.LoseControl();
-        playerMovement.StopSpeedlines();
         UIController.instance.UnlockMouse();
         UIController.instance.crosshair.SetVisibility(false);
 
