@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   uniqueID: 09c9af44-c4e2-46f4-b6db-76fcfb808ef3
 =======
   uniqueID: ad42cde6-aa5e-48e5-8589-f28b2695e706
@@ -145,6 +146,9 @@ MonoBehaviour:
 =======
   uniqueID: b98c5df8-25e3-48cb-b065-c554a53f703f
 >>>>>>> a878897 (added killer agent (shooting and chasing))
+=======
+  uniqueID: f3f96437-325b-4a7c-80a0-38c5813374a9
+>>>>>>> 62afd2e (kamikaze enemy yay)
   maxHealth: 5
   lootInside: {fileID: 0}
   destroyedSFX: {fileID: 8300000, guid: cce208aef373533458de7ea93e504924, type: 3}
