@@ -13,12 +13,14 @@ namespace Game.GOAP
 
         private void Awake()
         {
+            Debug.Log("agent invoked");
             this.agent = this.GetComponent<AgentBehaviour>();
             this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         }
 
         private void OnEnable()
         {
+            Debug.Log("agent enabled");
             this.agent.Events.OnTargetInRange += this.OnTargetInRange;
             this.agent.Events.OnTargetChanged += this.OnTargetChanged;
             this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
@@ -69,6 +71,7 @@ namespace Game.GOAP
 
         private void SetDestination(Vector3 position)
         {
+            Debug.LogWarning("setting destination");
             if (NavMesh.SamplePosition(position, out NavMeshHit hit, 10.0f, NavMesh.AllAreas))
             {
                 this.navMeshAgent.SetDestination(hit.position);

@@ -1,7 +1,8 @@
 ﻿using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
+using Game.GOAP.Sensors;
 
-namespace Game.GOAP
+namespace Game.GOAP.Capabilities
 {
     public class PatrollingCapabilityFactory : CapabilityFactoryBase
     {

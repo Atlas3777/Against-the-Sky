@@ -542,13 +542,9 @@ namespace cowsins.Inventory
                 }
             }
         }
-<<<<<<< HEAD
-        
-=======
 
-        // private float currentWeight = 0;
+        private float currentWeight = 0;
 
->>>>>>> 99d69c0 (added raw chase agent)
         /// <summary>
         /// Adds the Given Item to the Inventory. Returns (bool success, int amount): success is true if the entire amount of the item has been successfully added to the Inventory.
         /// If success is true, amount equals 0. If success is false, amount will return the amount of Items that were not added to the Inventory.
@@ -715,6 +711,19 @@ namespace cowsins.Inventory
             {
                 G.PlayerStats.WeightSystem.RemoveItems(item.Weight, amountToAdd);
             }
+            // float weight = item.Weight.Weight;
+            // // float weight = item.applyWeight ? item.weightMultiplier : 1;
+
+            // // How many full stacks this addition represents
+            // float fullStacks = amountToAdd / item.maxStack;
+            // // Total weight added by this operation
+            // float weightContribution = (1 - weight) * fullStacks;
+            // // Ensure the weight is capped at the max possible weight                          
+            // weightContribution /= (Rows * Columns);
+
+            // currentWeight += weightContribution;
+
+            // playerMultipliers.playerWeightMultiplier = Mathf.Clamp(1 - currentWeight, 0.2f, 1.0f);
         }
 
         /// <summary>
