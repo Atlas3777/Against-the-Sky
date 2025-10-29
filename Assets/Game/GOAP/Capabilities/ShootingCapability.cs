@@ -25,6 +25,9 @@ namespace Game.GOAP.Capabilities
             builder.AddTargetSensor<ShootingSensor>()
                 .SetTarget<ShootingPosition>();
 
+            builder.AddWorldSensor<AttackRangeSensor>()
+                .SetKey<IsTargetInShootRange>();
+
             return builder.Build();
         }
     }

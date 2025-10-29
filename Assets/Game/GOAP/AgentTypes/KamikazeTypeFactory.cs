@@ -9,7 +9,7 @@ namespace Game.GOAP.AgentTypes
         public override IAgentTypeConfig Create()
         {
             var builder = new AgentTypeBuilder("KamikazeAgent");
-            //builder.AddCapability<PatrollingCapabilityFactory>();
+            builder.AddCapability<PatrollingCapabilityFactory>();
             builder.AddCapability<ChaseCapabilityFactory>();
             builder.AddCapability<ShootingCapabilityFactory>();
             return builder.Build();
