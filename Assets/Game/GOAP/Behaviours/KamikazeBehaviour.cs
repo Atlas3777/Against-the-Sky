@@ -29,8 +29,8 @@ namespace Game.GOAP.Behaviours
         {
             Debug.Log("KamikazeBehaviour Start");
             //this._provider.RequestGoal<PatrollingGoal>();
-            this._provider.RequestGoal<ChasePlayerGoal>();
-            //this._provider.RequestGoal<ShootingGoal>();
+            //this._provider.RequestGoal<ChasePlayerGoal>();
+            this._provider.RequestGoal<ShootingGoal>();
         }
     }
 }

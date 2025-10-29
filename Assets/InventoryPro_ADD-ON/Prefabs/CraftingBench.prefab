@@ -372,10 +372,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   uniqueID: 312f5d61-aee3-4bc7-bf03-65742b2ebc87
 =======
   uniqueID: 07c36b31-c99e-4c7a-baa8-0f68eb144aaa
 >>>>>>> 99d69c0 (added raw chase agent)
+=======
+  uniqueID: a286f585-eb39-43ff-91d7-8b06c6e2f375
+>>>>>>> a878897 (added killer agent (shooting and chasing))
   interactable: 0
   interactText: Craft
   instantInteraction: 0

@@ -14,15 +14,16 @@ namespace Game.GOAP.Capabilities
             
             builder.AddGoal<ChasePlayerGoal>()
                 .AddCondition<IsTargetInShootRange>(Comparison.GreaterThanOrEqual, 1)
-                .AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)
+                //.AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)
                 .SetBaseCost(2);
 
             builder.AddAction<ChaseAction>()
                 .AddEffect<IsTargetInShootRange>(EffectType.Increase)
-                .AddEffect<IsTargetInVisibilityRange>(EffectType.Increase)
+                //.AddEffect<IsTargetInVisibilityRange>(EffectType.Increase)
                 .AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)
                 .AddCondition<IsTargetInShootRange>(Comparison.SmallerThan, 1)
-                .SetTarget<PlayerPos>();
+                .SetTarget<PlayerPos>()
+                .SetStoppingDistance(10f); // #IMPORTANT надо задавать здесь радиус обзора ещё раз ручками из-за особенностей реализации GOAP
 
             builder.AddWorldSensor<VisibilityRangeSensor>()
                 .SetKey<IsTargetInVisibilityRange>();

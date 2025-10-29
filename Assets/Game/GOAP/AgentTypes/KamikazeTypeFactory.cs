@@ -11,7 +11,7 @@ namespace Game.GOAP.AgentTypes
             var builder = new AgentTypeBuilder("KamikazeAgent");
             //builder.AddCapability<PatrollingCapabilityFactory>();
             builder.AddCapability<ChaseCapabilityFactory>();
-            //builder.AddCapability<ShootingCapabilityFactory>();
+            builder.AddCapability<ShootingCapabilityFactory>();
             return builder.Build();
         }
     }

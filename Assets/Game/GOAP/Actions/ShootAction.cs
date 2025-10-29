@@ -43,6 +43,10 @@ namespace Game.GOAP
         // This method is required
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
+            var dist = Vector3.Distance(agent.transform.position, data.Target.Position);
+            if (dist > data.DistanceStats.AttackRange)
+                return ActionRunState.Stop;
+            Debug.Log(dist);
             RotateToPlayer(agent, data);
             data.Weapon.Fire();
             // StartCoroutine(Fire());
@@ -77,6 +81,8 @@ namespace Game.GOAP
 
             [GetComponentInChildren]
             public WeaponCont Weapon { get; set; }
+            [GetComponent]
+            public EnemyDistancesStats DistanceStats { get; set; }
         }
 
         private void RotateToPlayer(IMonoAgent agent, Data data)

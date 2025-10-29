@@ -21,7 +21,6 @@ namespace Game.GOAP.Sensors
             var distancesStats = references.GetCachedComponent<EnemyDistancesStats>();
             var targetPos = G.Player.transform.position; // #MYTODO пока что просто G.Player, а не цель
             var currentDistance = Mathf.Abs(Vector3.Distance(agent.Transform.position, targetPos));
-            //Debug.Log("Visibility distance: " + currentDistance);
             return currentDistance <= distancesStats.VisibilityRange ? 1 : 0;
         }
     }
