@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour
     private MapStation selectedStation;
     
     public UnityEvent onMapOpen, onMapClose;
+    
 
     public void SelectStation(MapStation station)
     {
@@ -107,5 +108,16 @@ public class MapManager : MonoBehaviour
         InputManager.ToggleUIControls(false);
 
         onMapClose?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.onTogglePause -= CloseMap;
+        InputManager.onMapOpenPressed -= ToggleMapVisibility;
+
+        if (InventoryProManager.instance != null && InventoryProManager.instance.Events != null)
+        {
+            InventoryProManager.instance.Events.onOpenInventory.RemoveListener(CloseMap);
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace cowsins
         private float targetFOV;
         private float lerpSpeed; 
 
-        private void Start()
+        private void Awake()
         {
             cam = GetComponent<Camera>();
             movement = player.GetComponent<PlayerMovement>();

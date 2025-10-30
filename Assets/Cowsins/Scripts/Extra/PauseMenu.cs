@@ -43,10 +43,13 @@ namespace cowsins
             menu.alpha = 0;
 
             InputManager.onTogglePause += TogglePause;
+        }
 
+        private void Start()
+        {
             if (EventSystem.current == null)
                 Debug.LogError("<color=red>[COWSINS]</color> No <b><color=cyan>EventSystem</color></b> object found in the scene. " +
-                    "Please create a new Empty GameObject and assign the EventSystem component to it to fix this error.");
+                               "Please create a new Empty GameObject and assign the EventSystem component to it to fix this error.");
         }
 
         private void OnDisable()

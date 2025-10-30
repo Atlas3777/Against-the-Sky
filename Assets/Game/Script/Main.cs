@@ -10,6 +10,8 @@ public class Main : MonoBehaviour
         G.Player = Instantiate(GameResources.MainCharacter.FPSController, G.SpawnPointManager.GetSpawnPosition().position, Quaternion.identity)
             .GetComponentInChildren<PlayerMovement>().gameObject;
         G.InventoryManager = Instantiate(GameResources.MainCharacter.InventoryController);
+        
+        G.MapManager = null;
         G.MapManager = Instantiate(GameResources.Map.MapManager);
     }
 
