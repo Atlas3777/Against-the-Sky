@@ -108,4 +108,10 @@ public class MapManager : MonoBehaviour
 
         onMapClose?.Invoke();
     }
+
+    private void OnDisable()
+    {
+        InputManager.onTogglePause -= CloseMap;
+        InputManager.onMapOpenPressed -= ToggleMapVisibility;
+    }
 }

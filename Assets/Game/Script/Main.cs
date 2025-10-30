@@ -11,6 +11,7 @@ public class Main : MonoBehaviour
             .GetComponentInChildren<PlayerMovement>().gameObject;
         G.InventoryManager = Instantiate(GameResources.MainCharacter.InventoryController);
         G.MapManager = Instantiate(GameResources.Map.MapManager);
+        G.Timer = Instantiate(GameResources.Timer);
     }
 
     private void Start()
