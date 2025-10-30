@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Serialization;
 
 public class PlayerRig : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class PlayerRig : MonoBehaviour
 
     [Header("Rig Settings")] public float RigWeightChangeRate = 5.0f;
 
-    private Transform _aimTarget;
-    private GameObject _weapon;
+    [SerializeField] private Transform aimTarget;
+    [SerializeField] private GameObject weapon;
 
     private float _bodyRigTargetWeight;
     private float _weaponRigTargetWeight;
@@ -18,12 +19,13 @@ public class PlayerRig : MonoBehaviour
 
     public void Setup(Transform aimTarget)
     {
-        _aimTarget = aimTarget;
+        this.aimTarget = aimTarget;
+        this.aimTarget.position += Vector3.up;
     }
 
     public void SetWeapon(GameObject weapon)
     {
-        _weapon = weapon;
+        this.weapon = weapon;
     }
 
     public void UpdateRigWeights(bool isAiming)
@@ -32,9 +34,10 @@ public class PlayerRig : MonoBehaviour
         _weaponRigTargetWeight = isAiming ? 1f : 0f;
         _handRigTargetWeight = isAiming ? 1f : 0f;
 
-        if (_weapon != null)
+        if (weapon)
         {
-            _weapon.SetActive(isAiming);
+            Debug.Log("yayayya");   
+            weapon.SetActive(isAiming);
         }
 
         bodyRig.weight = Mathf.Lerp(bodyRig.weight, _bodyRigTargetWeight, Time.deltaTime * RigWeightChangeRate);

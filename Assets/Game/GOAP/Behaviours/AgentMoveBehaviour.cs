@@ -3,51 +3,53 @@ using CrashKonijn.Agent.Runtime;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.GOAP
+namespace Game.GOAP.Behaviours
 {
     public class AgentMoveBehaviour : MonoBehaviour
     {
-        private AgentBehaviour agent;
-        private ITarget currentTarget;
-        private NavMeshAgent navMeshAgent;
+        private AgentBehaviour _agent;
+        private ITarget _currentTarget;
+        private NavMeshAgent _navMeshAgent;
 
         private void Awake()
         {
-            this.agent = this.GetComponent<AgentBehaviour>();
-            this.navMeshAgent = this.GetComponent<NavMeshAgent>();
+            Debug.Log("agent invoked");
+            this._agent = this.GetComponent<AgentBehaviour>();
+            this._navMeshAgent = this.GetComponent<NavMeshAgent>();
         }
 
         private void OnEnable()
         {
-            this.agent.Events.OnTargetInRange += this.OnTargetInRange;
-            this.agent.Events.OnTargetChanged += this.OnTargetChanged;
-            this.agent.Events.OnTargetNotInRange += this.TargetNotInRange;
-            this.agent.Events.OnTargetLost += this.TargetLost;
+            Debug.Log("agent enabled");
+            this._agent.Events.OnTargetInRange += this.OnTargetInRange;
+            this._agent.Events.OnTargetChanged += this.OnTargetChanged;
+            this._agent.Events.OnTargetNotInRange += this.TargetNotInRange;
+            this._agent.Events.OnTargetLost += this.TargetLost;
         }
 
         private void OnDisable()
         {
-            this.agent.Events.OnTargetInRange -= this.OnTargetInRange;
-            this.agent.Events.OnTargetChanged -= this.OnTargetChanged;
-            this.agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
-            this.agent.Events.OnTargetLost -= this.TargetLost;
+            this._agent.Events.OnTargetInRange -= this.OnTargetInRange;
+            this._agent.Events.OnTargetChanged -= this.OnTargetChanged;
+            this._agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
+            this._agent.Events.OnTargetLost -= this.TargetLost;
         }
 
         private void TargetLost()
         {
-            this.currentTarget = null;
-            this.navMeshAgent.ResetPath(); // Останавливаем движение
+            this._currentTarget = null;
+            this._navMeshAgent.ResetPath(); // Останавливаем движение
         }
 
         private void OnTargetInRange(ITarget target)
         {
             // Цель в зоне действия — останавливаем движение
-            this.navMeshAgent.ResetPath();
+            this._navMeshAgent.ResetPath();
         }
 
         private void OnTargetChanged(ITarget target, bool inRange)
         {
-            this.currentTarget = target;
+            this._currentTarget = target;
 
             if (target != null && !inRange)
             {
@@ -55,7 +57,7 @@ namespace Game.GOAP
             }
             else
             {
-                this.navMeshAgent.ResetPath();
+                this._navMeshAgent.ResetPath();
             }
         }
 
@@ -69,9 +71,10 @@ namespace Game.GOAP
 
         private void SetDestination(Vector3 position)
         {
+            Debug.LogWarning("setting destination");
             if (NavMesh.SamplePosition(position, out NavMeshHit hit, 10.0f, NavMesh.AllAreas))
             {
-                this.navMeshAgent.SetDestination(hit.position);
+                this._navMeshAgent.SetDestination(hit.position);
             }
             else
             {
@@ -81,10 +84,10 @@ namespace Game.GOAP
 
         private void OnDrawGizmos()
         {
-            if (this.currentTarget == null)
+            if (this._currentTarget == null)
                 return;
 
-            Gizmos.DrawLine(this.transform.position, this.currentTarget.Position);
+            Gizmos.DrawLine(this.transform.position, this._currentTarget.Position);
         }
     }
 }

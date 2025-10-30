@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace Game.GOAP
+namespace Game.GOAP.Sensors
 {
     [GoapId("PatrollingSensor-9999")]
     public class PatrollingSensor : LocalTargetSensorBase
     {
         public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
         {
+            Debug.Log("PatrollingSensor: Sense");
             var dataPatrolBehaviour = references.GetCachedComponent<DataPatrolBehaviour>();
             var poi = dataPatrolBehaviour.MapAction.GetNearFreePOI(agent.Transform);
         
