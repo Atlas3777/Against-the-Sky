@@ -92,7 +92,7 @@ namespace FAE
                 }
                 else
                 {
-                    windZone = FindObjectOfType<WindZone>();
+                    windZone = FindFirstObjectByType<WindZone>();
                 }
             }
         }

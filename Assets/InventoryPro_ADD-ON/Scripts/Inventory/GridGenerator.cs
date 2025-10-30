@@ -542,13 +542,7 @@ namespace cowsins.Inventory
                 }
             }
         }
-<<<<<<< HEAD
         
-=======
-
-        // private float currentWeight = 0;
-
->>>>>>> 99d69c0 (added raw chase agent)
         /// <summary>
         /// Adds the Given Item to the Inventory. Returns (bool success, int amount): success is true if the entire amount of the item has been successfully added to the Inventory.
         /// If success is true, amount equals 0. If success is false, amount will return the amount of Items that were not added to the Inventory.

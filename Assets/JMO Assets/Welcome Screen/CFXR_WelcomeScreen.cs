@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -35,6 +36,7 @@ namespace CartoonFX
             window.maxSize = new Vector2(516, 370);
         }
 
+        [Obsolete("Obsolete")]
         private void CreateGUI()
         {
             VisualElement root = rootVisualElement;

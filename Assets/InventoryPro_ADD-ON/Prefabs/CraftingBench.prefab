@@ -371,19 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa1fdd3b7079e1498caa1e012cf9ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   uniqueID: 312f5d61-aee3-4bc7-bf03-65742b2ebc87
-=======
-  uniqueID: 07c36b31-c99e-4c7a-baa8-0f68eb144aaa
->>>>>>> 99d69c0 (added raw chase agent)
-=======
-  uniqueID: a286f585-eb39-43ff-91d7-8b06c6e2f375
->>>>>>> a878897 (added killer agent (shooting and chasing))
-=======
-  uniqueID: 6936febe-4888-4967-a20d-a2cdcf1c07b2
->>>>>>> 62afd2e (kamikaze enemy yay)
   interactable: 0
   interactText: Craft
   instantInteraction: 0
