@@ -24,6 +24,7 @@ public class Timer : MonoBehaviour
         Func<bool> stopper = () => isFinalTimerEnds;
         Func<bool> deleteMain = () => 
         {
+            if (isFinalTimerEnds) return true;
             if (!(deleteWith is null))
             {
                 if (deleteWith())
@@ -34,7 +35,7 @@ public class Timer : MonoBehaviour
             }
             return false;
         };
-        RecursionTimer(countdownEvent, countDownDelay, Time.time-countDownDelay, stopper,deleteWith);
+        RecursionTimer(countdownEvent, countDownDelay, Time.time-countDownDelay, stopper);
         AddTimer(() => { finalEvent(); isFinalTimerEnds = true; }, timeInSeconds,deleteMain);
     }
 
@@ -56,7 +57,7 @@ public class Timer : MonoBehaviour
         if (timers.Count > 0)
         {
             List<(Action Event, float Start, float Seconds)> timersToDelete = new();
-            foreach (var t in timers.OrderBy(ti=>ti.Start).ToArray())
+            foreach (var t in timers.ToArray())
             {
                 if (t.Start+t.Seconds <= Time.time)
                 {
@@ -64,7 +65,7 @@ public class Timer : MonoBehaviour
                     t.Event.Invoke();
                 }
             }
-            foreach (var d in deleters)
+            foreach (var d in deleters.OrderBy(ti => ti.Timer.Start))
             {
                 if (d.deleter())
                     timersToDelete.Add(d.Timer);
@@ -76,7 +77,9 @@ public class Timer : MonoBehaviour
     private void DeleteTimers(List<(Action Event, float Start, float Seconds)> timersToDelete)
     {
         foreach (var t in timersToDelete)
+        {
             timers.Remove(t);
+        }
     }
 
     private void OnDisable()

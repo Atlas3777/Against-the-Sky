@@ -69,7 +69,6 @@ public class EvacuationManager : MonoBehaviour
     private void UpdateZoneTimer()
     {
         evacuationCountdown--;
-        print("aaaaaa");
         UIEnemyTimerUpdater.SetTimeWithPhrase(evacuationCountdown, "teleport after:");
     }
 
@@ -78,15 +77,15 @@ public class EvacuationManager : MonoBehaviour
         isEvacuationCountdownStart = false;
     }
 
-    private void StartFirstEvacuationStage()
+    private void StartFirstWaitingStage()
     {
-        timer.AddTimerWithCountDown(EndEvacuationStage, firstStageTimeInSeconds, () => UpdateBaseTimer(), 1);
+        timer.AddTimerWithCountDown(EndWaitingStage, firstStageTimeInSeconds, () => UpdateBaseTimer(), 1);
     }
 
     private void ActiveEvacuationZones()
     {
         isEvacuationZonesActive = true;
-        timer.AddTimerWithCountDown(StartNextEvacuationStage,evacuationZoneActiveTimeInSeconds,()=>UpdateBaseTimer("active zones:"),1);
+        timer.AddTimerWithCountDown(EndEvacuationZoneStage,evacuationZoneActiveTimeInSeconds,()=>UpdateBaseTimer("active zones:"),1);
     }
 
     private void UpdateBaseTimer(string phrase=null)
@@ -98,22 +97,34 @@ public class EvacuationManager : MonoBehaviour
         }
     }
 
-    private void EndEvacuationStage()
+    private void EndWaitingStage()
     {
         if (!isEvacuationZonesActive)
         {
             countdown = evacuationZoneActiveTimeInSeconds;
-            enemies.Add(Instantiate(enemyTypeDictionary[EnemyType.First], enemySpawnPoints[0]));
-            enemies.Add(Instantiate(enemyTypeDictionary[EnemyType.First], enemySpawnPoints[0]));
             ActiveEvacuationZones();
         }
     }
 
-    private void StartNextEvacuationStage()
+    private void EndEvacuationZoneStage()
     {
         isEvacuationZonesActive = false;
+        isEvacuationCountdownStart = false;
+        SpawnEnemy(EnemyType.First);
+        SpawnEnemy(EnemyType.First);
+        StartNextEvacuationStage();
+    }
+
+    private void SpawnEnemy(EnemyType type)
+    {
+        var spawn = enemySpawnPoints.OrderBy(p => Vector3.Distance(p.position,G.Player.transform.position)).Last();
+        enemies.Add(Instantiate(enemyTypeDictionary[type],spawn.position,spawn.rotation));
+    }
+
+    private void StartNextEvacuationStage()
+    {
         countdown = nextStagesTimeInSeconds;
-        timer.AddTimerWithCountDown(EndEvacuationStage, nextStagesTimeInSeconds, () => UpdateBaseTimer(), 1);
+        timer.AddTimerWithCountDown(EndWaitingStage, nextStagesTimeInSeconds, () => UpdateBaseTimer(), 1);
     }
 
     private void Start()
@@ -124,7 +135,7 @@ public class EvacuationManager : MonoBehaviour
         evacuationCountdown = evacuationCountdownTimeInSeconds;
         G.PlayerStats.events.OnDamage.AddListener(() => { isDamageRecivedToggle(true); });
         if (gameObject.scene.name == "Winter 1")
-            StartFirstEvacuationStage();
+            StartFirstWaitingStage();
     }
 
     [Serializable]

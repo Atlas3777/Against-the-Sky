@@ -90,6 +90,8 @@ namespace cowsins
             if (!takesFallDamage || player.Climbing || stats.isDead) return;
             ManageFallDamage();
         }
+
+        public void DDD(float d) => Damage(d, false);
         /// <summary>
         /// Our Player Stats is IDamageable, which means it can be damaged
         /// If so, call this method to damage the player
