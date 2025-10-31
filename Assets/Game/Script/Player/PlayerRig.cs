@@ -36,7 +36,6 @@ public class PlayerRig : MonoBehaviour
 
         if (weapon)
         {
-            Debug.Log("yayayya");   
             weapon.SetActive(isAiming);
         }
 

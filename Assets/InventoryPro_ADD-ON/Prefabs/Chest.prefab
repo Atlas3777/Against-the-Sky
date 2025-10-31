@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e9be900b2e5654cbc9ac4f0d3aed4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: c9bfd7af-f9ee-40e3-a7ea-7136e8e5f8f2
+  uniqueID: 93f8291e-8096-4f16-b7b4-e808b752356b
   interactable: 0
   interactText: Open Chest
   instantInteraction: 0
