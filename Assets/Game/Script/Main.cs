@@ -12,6 +12,8 @@ public class Main : MonoBehaviour
         G.InventoryManager = Instantiate(GameResources.MainCharacter.InventoryController);
         G.MapManager = Instantiate(GameResources.Map.MapManager);
         G.Timer = Instantiate(GameResources.Timer);
+        G.EvacuationManager = Instantiate(GameResources.EvacuationManager);
+        UIEnemyTimerUpdater.RecalculateTimeInHUD();
     }
 
     private void Start()
