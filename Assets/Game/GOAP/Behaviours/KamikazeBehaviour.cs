@@ -40,7 +40,11 @@ namespace Game.GOAP.Behaviours
 
         void Update()
         {
-            if (Vector3.Distance(_agent.transform.position, G.Player.transform.position) < _distancesStats.VisibilityRange)
+            var playerPos = G.Player.transform.position;
+            if (Vector3.Distance(_agent.transform.position, playerPos)
+                < _distancesStats.VisibilityRange
+                && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.ViewAngle)
+                && Utils.HasClearView(_agent.Transform, playerPos))
             {
                 playerRig.UpdateRigWeights(true);
                 this._provider.RequestGoal<ShootingGoal>();

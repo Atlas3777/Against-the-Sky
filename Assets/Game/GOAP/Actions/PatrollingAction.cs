@@ -10,6 +10,8 @@ namespace Game.GOAP
     [GoapId("Patrolling-1cb119ea-f609-41f0-bd31-7b2f254e5b42")]
     public class PatrollingAction : GoapActionBase<PatrollingAction.Data>
     {
+        private float _rotationSpeed = 360f;
+        private bool _isRotationFinished;
         // This method is called when the action is created
         // This method is optional and can be removed
         public override void Created()
@@ -28,8 +30,15 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void Start(IMonoAgent agent, Data data)
         {
-            data.DataPatrolBehaviour.currentPOI.Occupy();
-            data.Timer = 4f;
+            var waypoint = data.DataPatrolBehaviour.CurrWaypoint;
+            if (!waypoint)
+            {
+                Debug.LogWarning("Patrolling action could not start with waypoint " + waypoint);
+                return;
+            }
+
+            _isRotationFinished = false;
+            data.Timer = waypoint.NeedsStop ? waypoint.WaitTime : 0;
         }
 
         // This method is called once before the action is performed
@@ -42,14 +51,17 @@ namespace Game.GOAP
         // This method is required
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            if (data.Timer <= 0f)
-                // Return completed to stop the action
+            if (!data.DataPatrolBehaviour.CurrWaypoint.NeedsStop || data.Timer <= 0f)
                 return ActionRunState.Completed;
-
-            // Lower the timer for the next frame
+            
+            var waypoint = data.DataPatrolBehaviour.CurrWaypoint;
+            if (!_isRotationFinished)
+            {
+                _isRotationFinished = RotateAgent(agent.transform, waypoint.transform.forward, _rotationSpeed, context.DeltaTime);
+                return ActionRunState.Continue;
+            }
             data.Timer -= context.DeltaTime;
 
-            // Return continue to keep the action running
             return ActionRunState.Continue;
         }
 
@@ -69,7 +81,19 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void End(IMonoAgent agent, Data data)
         {
-            data.DataPatrolBehaviour.currentPOI.Release();
+        }
+        
+        // rotationSpeed принимается в аргументах временно, потом можно будет приписать врагам уникальные скорости
+        private bool RotateAgent(Transform agentTransform, Vector3 rotation, float rotationSpeed, float deltaTime)
+        {
+            rotation.y = 0f;
+            if (rotation.sqrMagnitude < 0.001f)
+                return true; // нет направления — считаем завершённым
+
+            Quaternion targetRotation = Quaternion.LookRotation(rotation);
+            agentTransform.rotation = Quaternion.RotateTowards(agentTransform.rotation, targetRotation, rotationSpeed * deltaTime);
+            
+            return Quaternion.Angle(agentTransform.rotation, targetRotation) < 0.5f;
         }
 
         // The action class itself must be stateless!

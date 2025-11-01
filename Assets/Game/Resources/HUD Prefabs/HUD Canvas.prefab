@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2555005786366131219}
   - component: {fileID: 3227463936219332012}
   - component: {fileID: 2982087869984881413}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HUD Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,6 +986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottom health decor
       objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 2d9d1e4deed49764f8bbb9cb72fc0ad6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1087,6 +1091,10 @@ PrefabInstance:
     - target: {fileID: 5567868813287497981, guid: 3310dc6029ba7a04d9e79476a96d2aa8, type: 3}
       propertyPath: m_Name
       value: Health count window
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 3310dc6029ba7a04d9e79476a96d2aa8, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1190,6 +1198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tasks background
       objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 7cd20d43879e13d4d8e0f138b919d414, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1291,6 +1303,10 @@ PrefabInstance:
     - target: {fileID: 5567868813287497981, guid: 7dc927f0b25fff349925df0f1e3971af, type: 3}
       propertyPath: m_Name
       value: Gun image
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 7dc927f0b25fff349925df0f1e3971af, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1394,6 +1410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Partitions
       objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: d40359a740f9139429fc0d547f0e1499, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1496,6 +1516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Line
       objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: f1486cd666adc98459aa0eeb93e7e210, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1597,6 +1621,10 @@ PrefabInstance:
     - target: {fileID: 5567868813287497981, guid: d6bf86d6c2602b44792eaa328810ca27, type: 3}
       propertyPath: m_Name
       value: Upper health decor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: d6bf86d6c2602b44792eaa328810ca27, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1712,6 +1740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health progress
       objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 6d9059ed3a06dc2458714e2cb69d8bfe, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1826,6 +1858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun background
       objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 297e4e4aacc5f3c449af8f196f351c31, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1927,6 +1963,10 @@ PrefabInstance:
     - target: {fileID: 5567868813287497981, guid: 285a5a72116ec1d42b42cc872ab54191, type: 3}
       propertyPath: m_Name
       value: Bottom decor frame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 285a5a72116ec1d42b42cc872ab54191, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2041,6 +2081,10 @@ PrefabInstance:
     - target: {fileID: 5567868813287497981, guid: 0438aee75ca805d438cb62436b1ab9bd, type: 3}
       propertyPath: m_Name
       value: Health background
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567868813287497981, guid: 0438aee75ca805d438cb62436b1ab9bd, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

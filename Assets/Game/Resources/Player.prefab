@@ -398,9 +398,6 @@ GameObject:
   - component: {fileID: 7515796172659396405}
   - component: {fileID: 2666998618669958575}
   - component: {fileID: 6768909540521815338}
-  - component: {fileID: 1916421535624510330}
-  - component: {fileID: 358508865119594273}
-  - component: {fileID: 824435758687753355}
   - component: {fileID: 1254794080903999666}
   m_Layer: 4
   m_Name: Player
@@ -509,6 +506,8 @@ MonoBehaviour:
   weaponRig: {fileID: 6917104784405564651}
   handRig: {fileID: 3600939734391134662}
   RigWeightChangeRate: 20
+  aimTarget: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!143 &4121384377994074833
 CharacterController:
   m_ObjectHideFlags: 0
@@ -558,7 +557,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e087ecce43ebbff45a1b360637807d93, type: 3}
   m_Name: 
@@ -578,7 +577,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -637,7 +636,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 427880fdd9ea457287655c98b8db54e1, type: 3}
   m_Name: 
@@ -653,7 +652,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f1db61447da4c9384c6595643eb8f5b, type: 3}
   m_Name: 
@@ -670,7 +669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 118db378ad8943ffacdbd31836f609f9, type: 3}
   m_Name: 
@@ -680,58 +679,6 @@ MonoBehaviour:
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
---- !u!114 &1916421535624510330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8135ce6fb7344e29b636ffe4f5f9be3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementComponent: {fileID: 2666998618669958575}
-  cameraController: {fileID: 7515796172659396405}
-  aimController: {fileID: 5653274168578152022}
-  animationController: {fileID: 8351817535727068633}
-  rigController: {fileID: 3739760268281768665}
-  audioController: {fileID: 6768909540521815338}
-  characterBody: {fileID: 358508865119594273}
-  heathSystem: {fileID: 824435758687753355}
-  CinemachineCameraTarget: {fileID: 887371128773470863}
-  aimTarget: {fileID: 0}
-  weapon: {fileID: 1693400157510081706}
-  MoveTarget: {fileID: 0}
---- !u!114 &358508865119594273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60577cde22174993bdec4ceccdda928c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heathSystem: {fileID: 824435758687753355}
---- !u!114 &824435758687753355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3866740380417432680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 575446e6e689b04408ab92aafddd3a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterBody: {fileID: 358508865119594273}
-  MaxHealth: 100
-  CurrentHeath: 100
 --- !u!195 &1254794080903999666
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -989,20 +936,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abdd52f9b4b40e5a0b4474b40e1f17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterBody: {fileID: 0}
-  inputs: {fileID: 6786150510687559209}
   ShotsPerSecond: 10
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   ImpactEffect: {fileID: 161002, guid: 489aba68c9dfe9342accb1f3a0be4e5b, type: 3}
   HitEffect: {fileID: 142740, guid: ce4fb833f44504e48b46c3474bc747fc, type: 3}
   ImpactEffectTransform: {fileID: 7766684068185008774}
   shootSound: {fileID: 8300000, guid: f348486e17131524daf8d26a135fbbec, type: 3}
   impactShootSound: {fileID: 8300000, guid: 98ea45a5ccb89b14e80357d8b0ea8cfb, type: 3}
-  bulletPrefab: {fileID: 1866657824718261864, guid: 36d893c6e4fad0e48ae31a9b9226f910, type: 3}
-  smokeTrailPrefab: {fileID: 7329845158802601835, guid: 98f6e22e46dbc91488ffdd33b6c45445, type: 3}
-  maxQueryDistance: 50
+  damagePerBullet: 10
+  timeBetweenShots: 1
   tracerSpeed: 3
-  useGravity: 0
-  applyStrobeOffset: 1
+  _nextFireTime: 0
 --- !u!82 &312128096879958342
 AudioSource:
   m_ObjectHideFlags: 0

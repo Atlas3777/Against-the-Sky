@@ -33,7 +33,8 @@
 
 # Visual Studio cache directory
 .vs/
-.vscode
+.vscode/
+.vsconfig/ 
 
 # Rider
 .idea/
@@ -104,3 +105,7 @@ InitTestScene*.unity*
 
 # Auto-generated backups scene when unity crash
 /[Aa]ssets/_Recovery/
+
+# Our favorite explosive barrel prefab <3
+/[Aa]ssets/Cowsins/Prefabs/DragAndDropExtras/ExplosiveBarrel.prefab
+/[Aa]ssets/Cowsins/Prefabs/DragAndDropExtras/ExplosiveBarrel.prefab.meta

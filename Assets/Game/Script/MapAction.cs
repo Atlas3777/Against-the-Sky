@@ -42,8 +42,8 @@ public class MapAction : MonoBehaviour
         _running = true;
         foreach (var spawnPoint in EnemySpawnPoints)
         {
-            var e = EnemyFactory.SpawnEnemy(Enemy, spawnPoint, this);
-            AllEnemy.Add(e);
+            //var e = EnemyFactory.SpawnEnemy(Enemy, spawnPoint, this);
+            //AllEnemy.Add(e);
         }
     }
 

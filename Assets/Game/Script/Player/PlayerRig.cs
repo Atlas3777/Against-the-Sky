@@ -20,7 +20,6 @@ public class PlayerRig : MonoBehaviour
     public void Setup(Transform aimTarget)
     {
         this.aimTarget = aimTarget;
-        this.aimTarget.position += Vector3.up;
     }
 
     public void SetWeapon(GameObject weapon)
@@ -36,7 +35,6 @@ public class PlayerRig : MonoBehaviour
 
         if (weapon)
         {
-            Debug.Log("yayayya");   
             weapon.SetActive(isAiming);
         }
 

@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 5075447687820685727}
   - component: {fileID: -2176353516543194254}
   - component: {fileID: -7274366385008433855}
+  - component: {fileID: 8455257864456390287}
   m_Layer: 4
   m_Name: Kamikaze
   m_TagString: Player
@@ -654,8 +655,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0eddc7e80b4ddb9a9e5a4978118024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.GOAP.DataPatrolBehaviour
+  rawRoute: {fileID: 7367311250156740996, guid: c29bb3438e50a114f94a96b7f08381f1, type: 3}
   MapAction: {fileID: 0}
   currentPOI: {fileID: 0}
+--- !u!114 &8455257864456390287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3866740380417432680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5890fdf64f390414bb1e5dbe4986e4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::cowsins.EnemyHealth
+  uniqueID: e69d54a1-e3d0-44c1-8e54-a7a764f3e7a0
+  _name: Kamikaze
+  health: 0
+  shield: 0
+  maxHealth: 150
+  maxShield: 0
+  destroyOnDie: 0
+  deathEffect: {fileID: 0}
+  healthSlider: {fileID: 0}
+  shieldSlider: {fileID: 0}
+  showUI: 0
+  showDamagePopUps: 0
+  showKillFeed: 0
+  dieSFX: {fileID: 0}
+  events:
+    OnSpawn:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDamaged:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDeath:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &4127889509668589450
 GameObject:
   m_ObjectHideFlags: 0
