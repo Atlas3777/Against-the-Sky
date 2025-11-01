@@ -1,3 +1,4 @@
+using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using Game.GOAP.Goals;
@@ -20,6 +21,7 @@ namespace Game.GOAP.Capabilities
             builder.AddAction<ShootAction>()
                 .AddEffect<IsPlayerHealthEqualsZero>(EffectType.Decrease)
                 .AddCondition<IsTargetInShootRange>(Comparison.GreaterThanOrEqual, 1)
+                .SetMoveMode(ActionMoveMode.PerformWhileMoving)
                 .SetTarget<ShootingPosition>();
 
             builder.AddTargetSensor<ShootingSensor>()

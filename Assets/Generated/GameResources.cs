@@ -36,8 +36,10 @@ public static class GameResources
     public static GameObject MovementCowsinsFPSController => Resources.Load<GameObject>("MovementCowsinsFPSController");
     public static RigBuilder Player => Resources.Load<RigBuilder>("Player");
     public static RigBuilder P_Enemy => Resources.Load<RigBuilder>("P_Enemy");
+    public static RigBuilder P_ShootingEnemy => Resources.Load<RigBuilder>("P_ShootingEnemy");
     public static SaveTrigger SaveTrigger => Resources.Load<SaveTrigger>("SaveTrigger");
     public static RigBuilder ShootingEnemy => Resources.Load<RigBuilder>("ShootingEnemy");
     public static SwitchAndSaveSceneTrigger SwitchSceneTrigger => Resources.Load<SwitchAndSaveSceneTrigger>("SwitchSceneTrigger");
     public static Timer Timer => Resources.Load<Timer>("Timer");
+    public static Waypoint Waypoint => Resources.Load<Waypoint>("Waypoint");
 }

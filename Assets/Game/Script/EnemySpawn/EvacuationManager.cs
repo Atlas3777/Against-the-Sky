@@ -134,7 +134,7 @@ public class EvacuationManager : MonoBehaviour
         countdown = firstStageTimeInSeconds;
         evacuationCountdown = evacuationCountdownTimeInSeconds;
         G.PlayerStats.events.OnDamage.AddListener(() => { isDamageRecivedToggle(true); });
-        if (gameObject.scene.name == "Winter 1")
+        if (gameObject.scene.name == "Winter")
             StartFirstWaitingStage();
     }
 

@@ -3,9 +3,15 @@
 public class EnemyAim : MonoBehaviour
 {
     [Header("Aim Settings")]
-    public float MaxGazeDistance = 100f;
-    public Transform aimTarget;
-    public Transform target;
+    [SerializeField] private float maxGazeDistance = 100f;
+    [SerializeField] private Transform aimTarget;
+    [SerializeField] private  Transform target;
+    public Transform Target { get; private set; }
+
+    void Start()
+    {
+        target = G.Player.transform;
+    }
 
     private void Update()
     {
@@ -17,9 +23,9 @@ public class EnemyAim : MonoBehaviour
         aimTarget.position = targetChest;
 
         // Ограничение расстояния
-        if (Vector3.Distance(transform.position, target.position) > MaxGazeDistance)
+        if (Vector3.Distance(transform.position, target.position) > maxGazeDistance)
         {
-            aimTarget.position = transform.position + direction * MaxGazeDistance;
+            aimTarget.position = transform.position + direction * maxGazeDistance;
         }
     }
 }

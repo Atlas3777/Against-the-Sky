@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5890fdf64f390414bb1e5dbe4986e4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.EnemyHealth
-  uniqueID: bdae1bdf-df51-42d8-b38d-346cb2ea9da0
+  uniqueID: 4821b512-13e3-49fe-86ec-e653e909258e
   _name: Mutant
   health: 0
   shield: 0
@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0eddc7e80b4ddb9a9e5a4978118024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.GOAP.TestGOAPEnemy
+  rawRoute: {fileID: 0}
   MapAction: {fileID: 0}
   currentPOI: {fileID: 0}
 --- !u!136 &1525720041068759825

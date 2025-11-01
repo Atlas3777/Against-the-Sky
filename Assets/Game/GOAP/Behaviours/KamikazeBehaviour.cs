@@ -12,7 +12,7 @@ namespace Game.GOAP.Behaviours
         private GoapActionProvider _provider;
         private GoapBehaviour _goap;
         private EnemyDistancesStats _distancesStats;
-        [SerializeField] private PlayerRig playerRig;
+        [SerializeField] private EnemyRig enemyRig;
 
         void Awake()
         {
@@ -27,8 +27,8 @@ namespace Game.GOAP.Behaviours
             _distancesStats = GetComponent<EnemyDistancesStats>();
             if (!this._provider.AgentTypeBehaviour)
                 this._provider.AgentType = this._goap.GetAgentType("KamikazeAgent");
-            playerRig = GetComponent<PlayerRig>();
-            playerRig.Setup(G.Player.transform);
+            enemyRig = GetComponent<EnemyRig>();
+            enemyRig.Setup(/*G.Player.transform*/);
         }
 
         void Start()
@@ -46,12 +46,12 @@ namespace Game.GOAP.Behaviours
                 && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.ViewAngle)
                 && Utils.HasClearView(_agent.Transform, playerPos))
             {
-                playerRig.UpdateRigWeights(true);
+                enemyRig.UpdateRigWeights(true);
                 this._provider.RequestGoal<ShootingGoal>();
             }
             else
             {
-                playerRig.UpdateRigWeights(false);
+                enemyRig.UpdateRigWeights(false);
                 this._provider.RequestGoal<PatrollingGoal>();
             }
         }

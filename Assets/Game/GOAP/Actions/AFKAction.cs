@@ -1,18 +1,12 @@
-using cowsins;
 using CrashKonijn.Agent.Core;
-using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
-using Game.Script;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Game.GOAP
 {
-    [GoapId("Shoot-7f680d5f-9a35-4b65-95bb-cdbeae65c6cb")]
-    public class ShootAction : GoapActionBase<ShootAction.Data>
+    [GoapId("AFK-ec054b4a-a41f-45b5-8ea5-e998425ee9ae")]
+    public class AFKAction : GoapActionBase<AFKAction.Data>
     {
-        private NavMeshAgent _navMeshAgent;
         // This method is called when the action is created
         // This method is optional and can be removed
         public override void Created()
@@ -31,30 +25,19 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void Start(IMonoAgent agent, Data data)
         {
-            _navMeshAgent = agent.GetComponent<NavMeshAgent>();
         }
 
         // This method is called once before the action is performed
         // This method is optional and can be removed
         public override void BeforePerform(IMonoAgent agent, Data data)
         {
-            _navMeshAgent.ResetPath();
         }
 
         // This method is called every frame while the action is running
         // This method is required
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            var dist = Vector3.Distance(agent.transform.position, data.Target.Position);
-            if (dist > data.DistanceStats.AttackRange)
-                return ActionRunState.Stop;
-            RotateToPlayer(agent, data);
-            // Debug.Log("я стреляю тутуту");
-            data.Weapon.Fire();
-            // StartCoroutine(Fire());
-            if (G.PlayerStats.health <= 0)
-                return ActionRunState.Completed;
-            return ActionRunState.Continue;
+            return ActionRunState.Completed;
         }
 
         // This method is called when the action is completed
@@ -80,20 +63,6 @@ namespace Game.GOAP
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
-
-            [GetComponentInChildren]
-            public WeaponCont Weapon { get; set; }
-            [GetComponent]
-            public EnemyDistancesStats DistanceStats { get; set; }
-        }
-
-        private void RotateToPlayer(IMonoAgent agent, Data data)
-        {
-            if (G.Player.transform is null)
-                return;
-            var dir = (G.Player.transform.position - agent.transform.position).normalized;
-            dir.y = 0;
-            agent.transform.rotation = Quaternion.LookRotation(dir);
         }
     }
 }

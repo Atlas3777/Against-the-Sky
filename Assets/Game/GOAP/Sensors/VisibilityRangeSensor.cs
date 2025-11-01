@@ -23,7 +23,6 @@ namespace Game.GOAP.Sensors
             var currentDistance = Mathf.Abs(Vector3.Distance(agent.Transform.position, targetPos));
             if (currentDistance > distancesStats.VisibilityRange)
                 return 0;
-            //Debug.Log("in visibility range");
             if (!Utils.IsTargetWithinAngle(agent.Transform, G.Player.transform.position, distancesStats.ViewAngle))
                 return 0;
             if (!Utils.HasClearView(agent.Transform, targetPos))

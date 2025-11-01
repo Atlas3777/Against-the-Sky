@@ -18,6 +18,7 @@ namespace Game.Script
         public int damagePerBullet = 10;
         public float timeBetweenShots = 1f;
         private bool _isReload;
+        private float _raycastDistance;
 
         [Header("Tracer Prefabs")]
         [SerializeField]
@@ -58,6 +59,7 @@ namespace Game.Script
             {
                 audioSource = gameObject.AddComponent<AudioSource>();
             }
+            
         }
 
         private void Update()
@@ -81,9 +83,9 @@ namespace Game.Script
                 yield break;
             HitscanShot();
             _isReload = true;
-             yield return new WaitForSeconds(timeBetweenShots);
+            Debug.Log("i am fiiiireeeee~~");
+            yield return new WaitForSeconds(timeBetweenShots);
             _isReload = false;
-            // Debug.Log("i am fiiiireeeee~~");
             /// Determine wether we are sending a raycast, aka hitscan weapon, we are spawning a projectile or melee attacking
             // int style = (int)weapon.shootStyle;
 
@@ -139,22 +141,24 @@ namespace Game.Script
             // events.OnShoot.Invoke();
             // if (resizeCrosshair && UIController.instance.crosshair != null) UIController.instance.crosshair.Resize(weapon.crosshairResize * 10);
 
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
             Transform hitObj;
 
             //This defines the first hit on the object
             // Vector3 dir = CowsinsUtilities.GetSpreadDirection(spread, mainCamera);
-            var dir = transform.forward;
-            Ray ray = new Ray(transform.position, dir);
+            var dir = ImpactEffectTransform.forward;
+            Ray ray = new Ray(ImpactEffectTransform.position, dir);
 
-            if (Physics.Raycast(ray, out var hit, 10, hitLayer))
+            if (Physics.Raycast(ray, out var hit, 15, hitLayer))
             {
+                Debug.Log("target hitted");
                 float dmg = damagePerBullet/* * multipliers.damageMultiplier*/;
                 Hit(hit.collider.gameObject.layer, dmg, hit, true);
                 hitObj = hit.collider.transform;
 
                 if (hit.transform.TryGetComponent(out Rigidbody rb))
                 {
-                    rb.AddForceAtPosition(ray.direction * 10, hit.point, ForceMode.Impulse);
+                    rb.AddForceAtPosition(ray.direction * 15, hit.point, ForceMode.Impulse);
                 }
 
                 //Handle Penetration
@@ -245,6 +249,7 @@ namespace Game.Script
             // Check if the collision just comes from the parent
             else if (h.collider.GetComponent<IDamageable>() != null)
             {
+                Debug.Log("damage recieved");
                 h.collider.GetComponent<IDamageable>().Damage(damage, false);
             }
         }

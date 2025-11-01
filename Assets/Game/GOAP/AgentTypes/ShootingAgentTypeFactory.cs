@@ -10,6 +10,7 @@ namespace Game.GOAP.AgentTypes
         {
             var factory = new AgentTypeBuilder("ShootingAgent");
             factory.AddCapability<ShootingCapabilityFactory>();
+            factory.AddCapability<AFKCapabilityFactory>();
 
             return factory.Build();
         }

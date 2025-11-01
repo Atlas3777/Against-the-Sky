@@ -6,7 +6,8 @@ public static class Utils
     {
         var toTarget = (targetPosition - objTransform.position).normalized;
         var angleToTarget = Vector3.Angle(objTransform.forward, toTarget);
-        return angleToTarget <= angle / 2f;
+        //Debug.Log($"angleToTarget: {angleToTarget}, angle: {angle}, tvar: {angleToTarget <= (angle / 2f)}");
+        return angleToTarget <= (angle / 2f);
     }
     
     public static bool HasClearView(Transform observer, Vector3 targetPosition)
