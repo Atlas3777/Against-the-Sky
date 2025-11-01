@@ -34,6 +34,7 @@ public static class GameResources
     public static LoadTrigger LoadTrigger => Resources.Load<LoadTrigger>("LoadTrigger");
     public static GameObject MovementCowsinsFPSController => Resources.Load<GameObject>("MovementCowsinsFPSController");
     public static RigBuilder Player => Resources.Load<RigBuilder>("Player");
+    public static RigBuilder P_Enemy => Resources.Load<RigBuilder>("P_Enemy");
     public static SaveTrigger SaveTrigger => Resources.Load<SaveTrigger>("SaveTrigger");
     public static RigBuilder ShootingEnemy => Resources.Load<RigBuilder>("ShootingEnemy");
     public static SwitchSceneTrigger SwitchSceneTrigger => Resources.Load<SwitchSceneTrigger>("SwitchSceneTrigger");
