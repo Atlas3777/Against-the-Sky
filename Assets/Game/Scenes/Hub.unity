@@ -687,7 +687,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4110815160591854887, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: SceneToLoad
-      value: Winter
+      value: Winter 1
       objectReference: {fileID: 0}
     - target: {fileID: 7069110091711120375, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_Name

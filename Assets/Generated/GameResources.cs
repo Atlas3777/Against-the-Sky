@@ -30,6 +30,7 @@ public static class GameResources
     {
         public static InventoryItemPickeable ItemGenericPickeable => Resources.Load<InventoryItemPickeable>("Prefabs/ItemGenericPickeable");
     }
+    public static EvacuationManager EvacuationManager => Resources.Load<EvacuationManager>("EvacuationManager");
     public static RigBuilder Kamikaze => Resources.Load<RigBuilder>("Kamikaze");
     public static LoadTrigger LoadTrigger => Resources.Load<LoadTrigger>("LoadTrigger");
     public static GameObject MovementCowsinsFPSController => Resources.Load<GameObject>("MovementCowsinsFPSController");
@@ -38,4 +39,5 @@ public static class GameResources
     public static SaveTrigger SaveTrigger => Resources.Load<SaveTrigger>("SaveTrigger");
     public static RigBuilder ShootingEnemy => Resources.Load<RigBuilder>("ShootingEnemy");
     public static SwitchSceneTrigger SwitchSceneTrigger => Resources.Load<SwitchSceneTrigger>("SwitchSceneTrigger");
+    public static Timer Timer => Resources.Load<Timer>("Timer");
 }

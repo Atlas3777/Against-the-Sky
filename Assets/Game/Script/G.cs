@@ -23,5 +23,6 @@ public static class G
     public static SpawnPointManager SpawnPointManager;
 
     public static Camera MainCamera;
-
+    public static Timer Timer;
+    public static EvacuationManager EvacuationManager;
 }

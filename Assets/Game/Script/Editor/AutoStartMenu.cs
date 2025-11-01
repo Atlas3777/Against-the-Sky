@@ -8,6 +8,7 @@ namespace Game.Script.Editor
     public static class AutoStartScene
     {
         private const string StartScenePath = "Assets/InventoryPro_ADD-ON/Scenes/MainMenu_Inventory.unity";
+        //private const string StartScenePath = "Assets/Game/Scenes/MainGameKamikazeCopy.unity";
         private static string _previousScenePath;
 
         static AutoStartScene()
