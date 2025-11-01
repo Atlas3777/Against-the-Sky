@@ -38,6 +38,6 @@ public static class GameResources
     public static RigBuilder P_Enemy => Resources.Load<RigBuilder>("P_Enemy");
     public static SaveTrigger SaveTrigger => Resources.Load<SaveTrigger>("SaveTrigger");
     public static RigBuilder ShootingEnemy => Resources.Load<RigBuilder>("ShootingEnemy");
-    public static SwitchSceneTrigger SwitchSceneTrigger => Resources.Load<SwitchSceneTrigger>("SwitchSceneTrigger");
+    public static SwitchAndSaveSceneTrigger SwitchSceneTrigger => Resources.Load<SwitchAndSaveSceneTrigger>("SwitchSceneTrigger");
     public static Timer Timer => Resources.Load<Timer>("Timer");
 }

@@ -390,6 +390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaveTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 1011581021303840307, guid: 1f18231d502ad0047a1c46c5932164ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7027920279758481984, guid: 1f18231d502ad0047a1c46c5932164ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.09
@@ -687,15 +691,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4110815160591854887, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: SceneToLoad
-      value: Winter 1
+      value: Winter
       objectReference: {fileID: 0}
     - target: {fileID: 7069110091711120375, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_Name
-      value: SwitchSceneTrigger
+      value: SwitchAndSaveSceneTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 8868354563300206797, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.91
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 8868354563300206797, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -703,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8868354563300206797, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.9925766
+      value: 7.54
       objectReference: {fileID: 0}
     - target: {fileID: 8868354563300206797, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_LocalRotation.w
