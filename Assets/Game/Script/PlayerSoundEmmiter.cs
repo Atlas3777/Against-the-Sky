@@ -38,13 +38,13 @@ public class PlayerSoundEmmiter : MonoBehaviour
         var behaviour = other.GetComponent<IAgentBehaviour>();
         _enemiesInRange.Add(new AgentInfo( other.gameObject, behaviour));
         other.gameObject.GetComponent<EnemyHealth>()?.events.OnDeath.AddListener(() => RemoveEnemy(other.gameObject));
-        // Debug.LogWarning("игрок в зоне слышимости");
+        Debug.LogWarning("игрок в зоне слышимости");
     }
 
     void RemoveEnemy(GameObject go)
     {
         _enemiesInRange.RemoveWhere(x => x.Agent == go);
-        // Debug.Log($"Враг {go.name} удалён из зоны слышимости");
+        Debug.Log($"Враг {go.name} удалён из зоны слышимости");
     }
 
     void OnTriggerExit(Collider other)
@@ -52,7 +52,7 @@ public class PlayerSoundEmmiter : MonoBehaviour
         if (!other.CompareTag("Enemy"))
             return;
         RemoveEnemy(other.gameObject);
-        // Debug.LogWarning("игрок не в зоне слышимости");
+        Debug.LogWarning("игрок не в зоне слышимости");
 
     }
     

@@ -23,7 +23,11 @@ namespace Game.GOAP.Sensors
             var currentDistance = Mathf.Abs(Vector3.Distance(agent.Transform.position, targetPos));
             if (currentDistance > distancesStats.AttackRange)
                 return 0;
-            if (!Utils.IsTargetWithinAngle(agent.Transform, G.Player.transform.position, distancesStats.ViewAngle))
+            if (!Utils.IsTargetWithinAngle(agent.Transform, G.Player.transform.position,
+                    distancesStats.HorizontalViewAngle))
+                return 0;
+            if (!Utils.IsTargetWithinAngle(agent.Transform, G.Player.transform.position,
+                    distancesStats.VerticalViewAngle))
                 return 0;
             if (!Utils.HasClearView(agent.Transform, targetPos))
                 return 0;

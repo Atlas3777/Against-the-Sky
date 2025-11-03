@@ -36,18 +36,23 @@ namespace Game.GOAP.Behaviours
         void Start()
         {
             this._provider.RequestGoal<PatrollingGoal>();
-            //this._provider.RequestGoal<ChasePlayerGoal>();
         }
 
         void Update()
         {
             var playerPos = G.Player.transform.position;
+            Debug.Log($"dist: {Vector3.Distance(_agent.transform.position, playerPos) < _distancesStats.VisibilityRange}");
+            Debug.Log($"horAngle: {Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.HorizontalViewAngle)}");
+            Debug.Log($"vertAngle: {Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.VerticalViewAngle)}");
+            Debug.Log($"clearView: {Utils.HasClearView(_agent.Transform, playerPos)}");
             if (Vector3.Distance(_agent.transform.position, playerPos)
                 < _distancesStats.VisibilityRange
-                && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.ViewAngle)
+                && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.HorizontalViewAngle)
+                && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.VerticalViewAngle)
                 && Utils.HasClearView(_agent.Transform, playerPos))
             {
                 enemyRig.UpdateRigWeights(true);
+                Debug.Log("shooting goal requested");
                 this._provider.RequestGoal<ShootingGoal>();
                 ShouldAgentInvestigateSound = false;
             }
@@ -65,7 +70,6 @@ namespace Game.GOAP.Behaviours
         public void SwitchAgentSoundInvestigation(bool state)
         {
             ShouldAgentInvestigateSound = state;
-            Debug.Log("услышал тебя родной");
         }
     }
 }

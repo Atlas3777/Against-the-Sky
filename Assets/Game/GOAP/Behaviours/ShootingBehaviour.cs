@@ -44,7 +44,8 @@ public class ShootingBehaviour : MonoBehaviour
         // Debug.Log($"time: {Time.time}, HasClearView {Utils.HasClearView(_agent.Transform, playerPos)}");
         if (Vector3.Distance(_agent.transform.position, playerPos)
             < _distancesStats.VisibilityRange
-            && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.ViewAngle)
+            && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.HorizontalViewAngle)
+            && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.VerticalViewAngle)
             && Utils.HasClearView(_agent.Transform, playerPos))
         {
             // Debug.Log("RfrFRFRFFR");
