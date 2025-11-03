@@ -71,7 +71,6 @@ namespace Game.GOAP.Behaviours
 
         private void SetDestination(Vector3 position)
         {
-            Debug.LogWarning("setting destination");
             if (NavMesh.SamplePosition(position, out NavMeshHit hit, 10.0f, NavMesh.AllAreas))
             {
                 this._navMeshAgent.SetDestination(hit.position);

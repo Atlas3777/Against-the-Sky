@@ -1,3 +1,4 @@
+using cowsins;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
 using Game.GOAP.Goals;
@@ -6,13 +7,14 @@ using UnityEngine.Serialization;
 
 namespace Game.GOAP.Behaviours
 {
-    public class KamikazeBehaviour : MonoBehaviour
+    public class KamikazeBehaviour : MonoBehaviour, IAgentBehaviour
     {
         private AgentBehaviour _agent;
         private GoapActionProvider _provider;
         private GoapBehaviour _goap;
         private EnemyDistancesStats _distancesStats;
         [SerializeField] private EnemyRig enemyRig;
+        public bool ShouldAgentInvestigateSound { get; private set; }
 
         void Awake()
         {
@@ -33,7 +35,6 @@ namespace Game.GOAP.Behaviours
 
         void Start()
         {
-            Debug.Log("KamikazeBehaviour Start");
             this._provider.RequestGoal<PatrollingGoal>();
             //this._provider.RequestGoal<ChasePlayerGoal>();
         }
@@ -48,12 +49,23 @@ namespace Game.GOAP.Behaviours
             {
                 enemyRig.UpdateRigWeights(true);
                 this._provider.RequestGoal<ShootingGoal>();
+                ShouldAgentInvestigateSound = false;
+            }
+            else if (ShouldAgentInvestigateSound)
+            {
+                this._provider.RequestGoal<InvestigateSoundGoal>();
             }
             else
             {
                 enemyRig.UpdateRigWeights(false);
                 this._provider.RequestGoal<PatrollingGoal>();
             }
+        }
+
+        public void SwitchAgentSoundInvestigation(bool state)
+        {
+            ShouldAgentInvestigateSound = state;
+            Debug.Log("услышал тебя родной");
         }
     }
 }

@@ -83,7 +83,7 @@ namespace Game.Script
                 yield break;
             HitscanShot();
             _isReload = true;
-            Debug.Log("i am fiiiireeeee~~");
+            // Debug.Log("i am fiiiireeeee~~");
             yield return new WaitForSeconds(timeBetweenShots);
             _isReload = false;
             /// Determine wether we are sending a raycast, aka hitscan weapon, we are spawning a projectile or melee attacking
@@ -141,7 +141,6 @@ namespace Game.Script
             // events.OnShoot.Invoke();
             // if (resizeCrosshair && UIController.instance.crosshair != null) UIController.instance.crosshair.Resize(weapon.crosshairResize * 10);
 
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
             Transform hitObj;
 
             //This defines the first hit on the object

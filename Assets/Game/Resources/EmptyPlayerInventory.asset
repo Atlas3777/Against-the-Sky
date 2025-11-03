@@ -19,8 +19,8 @@ MonoBehaviour:
     horizontal: 0
     vertical: 0
   inventoryInitialData:
-  - item: {fileID: 0}
-    amount: 0
+  - item: {fileID: 11400000, guid: 907aa7bd70f532947bfa1d5f3ce12fa9, type: 2}
+    amount: 1
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
@@ -31,8 +31,8 @@ MonoBehaviour:
     laser: {fileID: 0}
     bulletsLeftInMagazine: 0
     totalBullets: 0
-  - item: {fileID: 0}
-    amount: 0
+  - item: {fileID: 11400000, guid: e088ca662720b6743b16dee584dcee54, type: 2}
+    amount: 64
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
