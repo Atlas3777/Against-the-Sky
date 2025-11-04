@@ -6740,7 +6740,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4612824605049336406, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 262047
+      value: 786431
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612824605049336407, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
+      propertyPath: m_ShowToolkit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612824605049336407, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4612824605082341566, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
       propertyPath: m_SizeDelta.y
@@ -7315,9 +7323,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4612824603642630890, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6949025592852234106}
-    - targetCorrespondingSourceObject: {fileID: 4612824603642630890, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1550849946212805707}
   m_SourcePrefab: {fileID: 100100000, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
 --- !u!4 &1195374611760318915 stripped
@@ -7362,27 +7367,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4612824603642630890, guid: fa4cc848e07107e459dce4ea99d04302, type: 3}
   m_PrefabInstance: {fileID: 5805941918662991925}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &6949025592852234106
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195374612628124383}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1550849946212805707
 MonoBehaviour:
   m_ObjectHideFlags: 0

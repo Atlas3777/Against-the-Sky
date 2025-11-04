@@ -357,10 +357,10 @@ namespace cowsins.SaveLoad
                 if (gameData.playerTransforms != null && gameData.playerTransforms.ContainsKey(currentSceneName))
                 {
                     SerializablePlayerTransforms serializablePlayerTransforms = gameData.playerTransforms[currentSceneName];
-                    Vector3 playerPosition = new Vector3(serializablePlayerTransforms.playerPosition[0], serializablePlayerTransforms.playerPosition[1], serializablePlayerTransforms.playerPosition[2]);
-                    Quaternion playerRotation = new Quaternion(serializablePlayerTransforms.playerRotation[0], serializablePlayerTransforms.playerRotation[1], serializablePlayerTransforms.playerRotation[2], serializablePlayerTransforms.playerRotation[3]);
+                    //Vector3 playerPosition = new Vector3(serializablePlayerTransforms.playerPosition[0], serializablePlayerTransforms.playerPosition[1], serializablePlayerTransforms.playerPosition[2]);
+                    //Quaternion playerRotation = new Quaternion(serializablePlayerTransforms.playerRotation[0], serializablePlayerTransforms.playerRotation[1], serializablePlayerTransforms.playerRotation[2], serializablePlayerTransforms.playerRotation[3]);
 
-                    playerMovement.TeleportPlayer(playerPosition, playerRotation);
+                    //playerMovement.TeleportPlayer(playerPosition, playerRotation);
 
                     // Handle Crouch State
                     if (serializablePlayerTransforms.isCrouching)

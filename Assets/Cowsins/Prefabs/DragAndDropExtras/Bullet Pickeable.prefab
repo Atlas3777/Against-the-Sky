@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18840827a8f682c489a156fbd47c5fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: f8a7ba05-5772-4e9a-9d33-7ea65f784a6f
+  uniqueID: 6c89d5a9-ac18-4e3b-b3a2-148274f23595
   interactable: 0
   interactText: 'Pick up. '
   instantInteraction: 0

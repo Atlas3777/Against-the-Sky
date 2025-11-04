@@ -693,9 +693,21 @@ PrefabInstance:
       propertyPath: SceneToLoad
       value: Winter
       objectReference: {fileID: 0}
+    - target: {fileID: 4110815160591854887, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
+      propertyPath: ignoredLayers.m_Bits
+      value: 262144
+      objectReference: {fileID: 0}
     - target: {fileID: 7069110091711120375, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_Name
       value: SwitchAndSaveSceneTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069110091711120375, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750756127751952089, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8868354563300206797, guid: 782fc7a62d3e47342aaaad4ced51f0fe, type: 3}
       propertyPath: m_LocalPosition.x
