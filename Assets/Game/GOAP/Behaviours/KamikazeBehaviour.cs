@@ -41,10 +41,10 @@ namespace Game.GOAP.Behaviours
         void Update()
         {
             var playerPos = G.Player.transform.position;
-            Debug.Log($"dist: {Vector3.Distance(_agent.transform.position, playerPos) < _distancesStats.VisibilityRange}");
-            Debug.Log($"horAngle: {Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.HorizontalViewAngle)}");
-            Debug.Log($"vertAngle: {Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.VerticalViewAngle)}");
-            Debug.Log($"clearView: {Utils.HasClearView(_agent.Transform, playerPos)}");
+            // Debug.Log($"dist: {Vector3.Distance(_agent.transform.position, playerPos) < _distancesStats.VisibilityRange}");
+            // Debug.Log($"horAngle: {Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.HorizontalViewAngle)}");
+            // Debug.Log($"vertAngle: {Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.VerticalViewAngle)}");
+            // Debug.Log($"clearView: {Utils.HasClearView(_agent.Transform, playerPos)}");
             if (Vector3.Distance(_agent.transform.position, playerPos)
                 < _distancesStats.VisibilityRange
                 && Utils.IsTargetWithinAngle(_agent.transform, playerPos, _distancesStats.HorizontalViewAngle)
@@ -52,7 +52,7 @@ namespace Game.GOAP.Behaviours
                 && Utils.HasClearView(_agent.Transform, playerPos))
             {
                 enemyRig.UpdateRigWeights(true);
-                Debug.Log("shooting goal requested");
+                // Debug.Log("shooting goal requested");
                 this._provider.RequestGoal<ShootingGoal>();
                 ShouldAgentInvestigateSound = false;
             }

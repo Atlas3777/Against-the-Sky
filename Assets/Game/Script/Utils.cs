@@ -16,10 +16,10 @@ public static class Utils
         float distance = Vector3.Distance(observer.position, targetPosition);
         if (Physics.Raycast(observer.position, direction, out RaycastHit hit, distance))
         {
-            Debug.Log("ray");
+            // Debug.Log("ray");
             if (!hit.collider.CompareTag("Player"))
             {
-                Debug.Log("not to player");
+                //Debug.Log("not to player");
                 return false;
             }
         }

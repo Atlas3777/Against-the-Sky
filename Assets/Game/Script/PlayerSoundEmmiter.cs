@@ -1,82 +1,41 @@
-using System.Collections.Generic;
+using System.Linq;
 using cowsins;
-using Game.GOAP;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
-public class PlayerSoundEmmiter : MonoBehaviour
+public class PlayerSoundEmitter : MonoBehaviour
 {
-    private class AgentInfo
+    [SerializeField] private GameObject SoundSpheres;
+    private PlayerSoundSphere _shootSphere;
+    private PlayerSoundSphere _walkSphere;
+    private PlayerSoundSphere _crouchSphere;
+    private PlayerMovement _movement;
+
+    private float _lastWalkEmitTime;
+    [SerializeField] private float stepSoundCooldown = 0.5f;
+
+    private void Start()
     {
-        public readonly GameObject Agent;
-        public readonly IAgentBehaviour AgentBehaviour;
+        var spheres = SoundSpheres.GetComponentsInChildren<PlayerSoundSphere>();
+        _shootSphere = spheres.FirstOrDefault(s => s.SoundType == SoundType.Shooting);
+        _walkSphere = spheres.FirstOrDefault(s => s.SoundType == SoundType.Walking);
+        _crouchSphere = spheres.FirstOrDefault(s => s.SoundType == SoundType.Crouching);
+        var weapon = G.Player.GetComponent<WeaponController>();
+        weapon.events.OnShoot.AddListener(() => _shootSphere.NotifyEnemies());
 
-        public AgentInfo(GameObject agent, IAgentBehaviour agentBehaviour)
-        {
-            Agent = agent;
-            AgentBehaviour = agentBehaviour;
-        }
-
-        public override bool Equals(object other)
-        {
-            return other is AgentInfo otherAgent && Agent == otherAgent.Agent;
-        }
-
-        public override int GetHashCode()
-        {
-            return Agent != null ? Agent.GetHashCode() : 0;
-        }
+        _movement = G.Player.GetComponent<PlayerMovement>();
+        _movement.events.OnMove.AddListener(OnMove);
     }
-    
-    [SerializeField] private SphereCollider SphereCollider;
-    private HashSet<AgentInfo> _enemiesInRange = new();
 
-    void OnTriggerEnter(Collider other)
+    private void OnMove()
     {
-        if (!other.CompareTag("Enemy"))
+        if (Time.time - _lastWalkEmitTime < stepSoundCooldown)
             return;
-        var behaviour = other.GetComponent<IAgentBehaviour>();
-        _enemiesInRange.Add(new AgentInfo( other.gameObject, behaviour));
-        other.gameObject.GetComponent<EnemyHealth>()?.events.OnDeath.AddListener(() => RemoveEnemy(other.gameObject));
-        Debug.LogWarning("игрок в зоне слышимости");
-    }
+        
+        _lastWalkEmitTime = Time.time;
 
-    void RemoveEnemy(GameObject go)
-    {
-        _enemiesInRange.RemoveWhere(x => x.Agent == go);
-        Debug.Log($"Враг {go.name} удалён из зоны слышимости");
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Enemy"))
-            return;
-        RemoveEnemy(other.gameObject);
-        Debug.LogWarning("игрок не в зоне слышимости");
-
-    }
-    
-    void Start()
-    {
-        G.Player.GetComponent<WeaponController>().events.OnShoot.AddListener(OnPlayerShoot);
-    }
-
-    private void OnPlayerShoot()
-    {
-        if (_enemiesInRange.Count == 0)
-            return;
-        AgentInfo nearestAgent = null;
-        float distance = float.MaxValue;
-        foreach (var agent in _enemiesInRange)
-        {
-            var distToAgent = Vector3.Distance(transform.position, agent.Agent.transform.position);
-            if (distToAgent < distance)
-            {
-                distance = distToAgent;
-                nearestAgent = agent;
-            }
-        }
-
-        if (nearestAgent != null) nearestAgent.AgentBehaviour?.SwitchAgentSoundInvestigation(true);
+        if (_movement.isCrouching)
+            _crouchSphere?.NotifyEnemies();
+        else
+            _walkSphere?.NotifyEnemies();
     }
 }

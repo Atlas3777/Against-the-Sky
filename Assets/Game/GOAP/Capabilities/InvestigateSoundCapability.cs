@@ -11,7 +11,8 @@ namespace Game.GOAP.Capabilities
             var builder = new CapabilityBuilder("InvestigateSoundCapability");
             
             builder.AddGoal<InvestigateSoundGoal>()
-                .AddCondition<IsSoundInvectigated>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsSoundInvectigated>(Comparison.GreaterThanOrEqual, 1)
+                .SetBaseCost(5);
             
             builder.AddAction<InvestigateSoundAction>()
                 .AddEffect<IsSoundInvectigated>(EffectType.Increase)
