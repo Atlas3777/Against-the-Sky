@@ -164,7 +164,6 @@ namespace Game.Script
 
             if (Physics.Raycast(ray, out var hit, 15, hitLayer))
             {
-                Debug.Log("target hitted");
                 float dmg = damagePerBullet /* * multipliers.damageMultiplier*/;
                 Hit(hit.collider.gameObject.layer, dmg, hit, true);
                 hitObj = hit.collider.transform;
@@ -246,7 +245,6 @@ namespace Game.Script
             // Apply damage
             if (Random.Range(0f, 1f) < 0.75f)
             {
-                Debug.Log("missed!");
                 return;
             }
 

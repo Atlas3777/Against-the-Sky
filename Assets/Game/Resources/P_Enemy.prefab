@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5890fdf64f390414bb1e5dbe4986e4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.EnemyHealth
-  uniqueID: e3e0dfc4-fbb4-4887-bd92-f91e72b922f3
+  uniqueID: 101505a6-10a1-48ad-bbc8-b05586e3ac13
   _name: P_Enemy
   health: 0
   shield: 0
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: f348486e17131524daf8d26a135fbbec, type: 3}
   impactShootSound: {fileID: 8300000, guid: 98ea45a5ccb89b14e80357d8b0ea8cfb, type: 3}
   damagePerBullet: 10
-  timeBetweenShots: 1
+  timeBetweenShots: 0.1
   tracerSpeed: 3
   _nextFireTime: 0
 --- !u!82 &312128096879958342

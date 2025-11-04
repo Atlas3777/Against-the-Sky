@@ -979,7 +979,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: f348486e17131524daf8d26a135fbbec, type: 3}
   impactShootSound: {fileID: 8300000, guid: 98ea45a5ccb89b14e80357d8b0ea8cfb, type: 3}
   damagePerBullet: 10
-  timeBetweenShots: 1
+  timeBetweenShots: 0.1
   tracerSpeed: 3
   _nextFireTime: 0
 --- !u!82 &312128096879958342
