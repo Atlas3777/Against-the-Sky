@@ -657,7 +657,7 @@ MonoBehaviour:
   maxHealth: 120
   maxShield: 0
   destroyOnDie: 1
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 3866740380417432680, guid: 73fd5fdde73ec69428363d9d3b98d388, type: 3}
   healthSlider: {fileID: 0}
   shieldSlider: {fileID: 0}
   showUI: 0

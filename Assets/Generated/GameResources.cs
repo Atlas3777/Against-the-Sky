@@ -30,6 +30,7 @@ public static class GameResources
     {
         public static InventoryItemPickeable ItemGenericPickeable => Resources.Load<InventoryItemPickeable>("Prefabs/ItemGenericPickeable");
     }
+    public static RigBuilder DeadEnemy => Resources.Load<RigBuilder>("DeadEnemy");
     public static EvacuationManager EvacuationManager => Resources.Load<EvacuationManager>("EvacuationManager");
     public static RigBuilder Kamikaze => Resources.Load<RigBuilder>("Kamikaze");
     public static LoadTrigger LoadTrigger => Resources.Load<LoadTrigger>("LoadTrigger");
