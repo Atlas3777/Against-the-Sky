@@ -13,7 +13,10 @@ namespace cowsins.Inventory
         private ShopItemData shopItemData;
         private ShopUI shopUI;
         private int price;
+        private bool isInShopMode = true;
         public ShopItemData ShopItemData => shopItemData;
+
+        public void SetShopMode(bool isInShopMode) => this.isInShopMode = isInShopMode;
 
         // Initialize Basic References & Settings
         public void Initialize(ShopUI shopUI, ShopItemData shopItem, TradeHub shop, bool available)
@@ -60,35 +63,10 @@ namespace cowsins.Inventory
             // Gather final Coins to pay based on the amount of items we want to buy
             int finalPrice = price * currentAmount;
 
-            // Decline Purchase if the Player hasn´t got enough currency or if the Item is Locked.
-            if (!CoinManager.Instance.CheckIfEnoughCoins(finalPrice) || lockedContainer.activeSelf)
-            {
-                tradeHub.Events.onDeclinedTrade?.Invoke();
-                SoundManager.Instance.PlaySound(tradeHub.ForbiddenTradeSFX, 0, 0, false, 0);
-                return;
-            }
-
-            // Decline Purchase if the Item cannot be stored in the Inventory
-            if (!AddItemToInventory(shopItemData.item, currentAmount).Item1)
-            {
-                if (ToastManager.Instance.ShowToastOnInsufficientSpace)
-                {
-                    ToastManager.Instance.ShowToast(ToastManager.Instance.InventoryIsFullMsg);
-                }
-                SoundManager.Instance.PlaySound(tradeHub.ForbiddenTradeSFX, 0, 0, false, 0);
-                return;
-            }
-
-            // Process Payment
-            CoinManager.Instance.RemoveCoins(finalPrice);
-
-            // Handle Notifications with Toast Manager
-            if (ToastManager.Instance.ShowToastOnTrade)
-            {
-                string message = ToastManager.Instance.ShowAmountTraded ? $"x{currentAmount} " : "";
-                message += $"{shopItemData.item._name} {ToastManager.Instance.PurchaseMsg}";
-                ToastManager.Instance.ShowToast(message);
-            }
+            if (isInShopMode)
+                TryBuyItem(finalPrice);
+            else
+                TrySoldItem(finalPrice);
 
             // Refresh all items. Based on the updated currency, update the visuals to display whether the player can purchase the items or not.
             Shop shop = (Shop)tradeHub;
@@ -172,6 +150,43 @@ namespace cowsins.Inventory
             if (shopItemData.price <= 0) callToActionText.text = "Free";
         }
 
+        private void TryBuyItem(int finalPrice)
+        {
+            // Decline Purchase if the Player hasn´t got enough currency or if the Item is Locked.
+            if (!CoinManager.Instance.CheckIfEnoughCoins(finalPrice) || lockedContainer.activeSelf)
+            {
+                tradeHub.Events.onDeclinedTrade?.Invoke();
+                SoundManager.Instance.PlaySound(tradeHub.ForbiddenTradeSFX, 0, 0, false, 0);
+                return;
+            }
+
+            // Decline Purchase if the Item cannot be stored in the Inventory
+            if (!AddItemToInventory(shopItemData.item, currentAmount).Item1)
+            {
+                if (ToastManager.Instance.ShowToastOnInsufficientSpace)
+                {
+                    ToastManager.Instance.ShowToast(ToastManager.Instance.InventoryIsFullMsg);
+                }
+                SoundManager.Instance.PlaySound(tradeHub.ForbiddenTradeSFX, 0, 0, false, 0);
+                return;
+            }
+
+            // Process Payment
+            CoinManager.Instance.RemoveCoins(finalPrice);
+
+            // Handle Notifications with Toast Manager
+            if (ToastManager.Instance.ShowToastOnTrade)
+            {
+                string message = ToastManager.Instance.ShowAmountTraded ? $"x{currentAmount} " : "";
+                message += $"{shopItemData.item._name} {ToastManager.Instance.PurchaseMsg}";
+                ToastManager.Instance.ShowToast(message);
+            }
+        }
+
+        private void TrySoldItem(int finalPrice)
+        {
+
+        }
     }
 
 }

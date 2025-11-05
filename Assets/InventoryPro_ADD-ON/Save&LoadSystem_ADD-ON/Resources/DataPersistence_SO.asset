@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42e751c39a4e254e9c37b130a1c0500, type: 3}
   m_Name: DataPersistence_SO
   m_EditorClassIdentifier: 
-  firstLevelScene: {fileID: 102900000, guid: 3c161764fe7a23b40bc1074391ab27d4, type: 3}
-  firstLevelName: Hub
+  firstLevelScene: {fileID: 102900000, guid: f0062fdbc431c0d47aaf80ab682fc41d, type: 3}
+  firstLevelName: Hub 1
   fileName: data
   savePlayerStats: 1
   saveExperience: 1
