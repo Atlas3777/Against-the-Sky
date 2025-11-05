@@ -6,14 +6,19 @@ namespace Game.GOAP
     public class DataPatrolBehaviour : MonoBehaviour
     {
         private float _replanningTimeout = 0f;
-        [SerializeField] private GameObject rawRoute;
+        // [SerializeField] private GameObject rawRoute;
         private PatrolRoute _route;
         private int _currTargetIndex = -1;
         public Waypoint CurrWaypoint { get; private set; }
 
-        void Awake()
+        // void Awake()
+        // {
+        //     _route = rawRoute.GetComponent<PatrolRoute>();
+        // }
+
+        public void SetRawRoute(PatrolRoute route)
         {
-            _route = rawRoute.GetComponent<PatrolRoute>();
+            this._route = route;
         }
 
         void Update()

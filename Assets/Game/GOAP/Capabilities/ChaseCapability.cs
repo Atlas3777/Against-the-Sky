@@ -17,6 +17,12 @@ namespace Game.GOAP.Capabilities
                 //.AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)
                 .SetBaseCost(2);
 
+            // builder.AddAction<NoticePlayerAction>()
+            //     .AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)
+            //     .AddCondition<IsTargetInShootRange>(Comparison.SmallerThanOrEqual, 0)
+            //     .AddEffect<IsTargetInShootRange>(EffectType.Increase)
+            //     .SetTarget<PlayerPos>();
+
             builder.AddAction<ChaseAction>()
                 .AddEffect<IsTargetInShootRange>(EffectType.Increase)
                 //.AddEffect<IsTargetInVisibilityRange>(EffectType.Increase)

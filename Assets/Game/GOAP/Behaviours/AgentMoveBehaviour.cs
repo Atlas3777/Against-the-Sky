@@ -48,25 +48,43 @@ namespace Game.GOAP.Behaviours
             // }
         }
 
-        void Update()
+        private void Update()
         {
             if (!_navMeshAgent || !_animator)
                 return;
+
+            // Если цель видна, но ещё вне атаки — стоим на месте
+            var targetStats = _agent.GetComponent<EnemyStats>();
+            var targetPos = G.Player.transform.position;
+            var distance = Vector3.Distance(transform.position, targetPos);
+            var canSee = distance <= targetStats.VisibilityRange
+                         && Utils.IsTargetWithinAngle(transform, targetPos, targetStats.HorizontalViewAngle)
+                         && Utils.IsTargetWithinAngle(transform, targetPos, targetStats.VerticalViewAngle)
+                         && Utils.HasClearView(transform, targetPos);
+
+            if (canSee && distance > targetStats.AttackRange)
+            {
+                _navMeshAgent.ResetPath(); // стоим на месте
+                _animator.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+                _animator.SetFloat("Vertical", 0f, 0.1f, Time.deltaTime);
+                return;
+            }
+
+            // Обычная логика движения
             var velocity = _navMeshAgent.velocity;
             var speed = velocity.magnitude;
-
             if (speed < 0.05f)
             {
                 _animator.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
                 _animator.SetFloat("Vertical", 0f, 0.1f, Time.deltaTime);
                 return;
             }
-            
+
             var localVel = transform.InverseTransformDirection(velocity.normalized);
-            
             _animator.SetFloat("Horizontal", localVel.x, 0.1f, Time.deltaTime);
             _animator.SetFloat("Vertical", localVel.z, 0.1f, Time.deltaTime);
         }
+
 
         private void TargetLost()
         {
