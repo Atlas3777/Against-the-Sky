@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8706388967314585411}
   - component: {fileID: 771058912560475267}
   - component: {fileID: 744221438042373906}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: LoadTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +148,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 67c6deaa965d2314bacbb96d0d9f4c7d, type: 3}
       propertyPath: m_Name
       value: TriggerCylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 67c6deaa965d2314bacbb96d0d9f4c7d, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

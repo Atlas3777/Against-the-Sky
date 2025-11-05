@@ -8,6 +8,9 @@ namespace Game.GOAP.Sensors
     [GoapId("ChaseTargetSensor-9999")]
     public class VisibilityRangeSensor : LocalWorldSensorBase
     {
+        private float visibleTime = 0f;
+        private const float requiredVisibleTime = 3f;
+
         public override void Created()
         {
         }
@@ -21,13 +24,26 @@ namespace Game.GOAP.Sensors
             var distancesStats = references.GetCachedComponent<EnemyDistancesStats>();
             var targetPos = G.Player.transform.position; // #MYTODO пока что просто G.Player, а не цель
             var currentDistance = Mathf.Abs(Vector3.Distance(agent.Transform.position, targetPos));
-            if (currentDistance > distancesStats.VisibilityRange)
-                return 0;
-            if (!Utils.IsTargetWithinAngle(agent.Transform, G.Player.transform.position, distancesStats.ViewAngle))
-                return 0;
-            if (!Utils.HasClearView(agent.Transform, targetPos))
-                return 0;
-            return 1;
+
+            var isInRange = currentDistance <= distancesStats.VisibilityRange;
+            var inHorizontalAngle = Utils.IsTargetWithinAngle(agent.Transform, targetPos, distancesStats.HorizontalViewAngle);
+            var inVerticalAngle = Utils.IsTargetWithinAngle(agent.Transform, targetPos, distancesStats.VerticalViewAngle);
+            var hasClearView = Utils.HasClearView(agent.Transform, targetPos);
+
+            if (isInRange && inHorizontalAngle && inVerticalAngle && hasClearView)
+            {
+                visibleTime += Time.deltaTime;
+                if (visibleTime >= requiredVisibleTime)
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                visibleTime = 0f;
+            }
+
+            return 0;
         }
     }
 }

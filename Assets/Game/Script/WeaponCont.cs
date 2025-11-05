@@ -16,7 +16,7 @@ namespace Game.Script
         public AudioClip shootSound; // Аудиоклип для звука выстрела
         public AudioClip impactShootSound; // для попадания
         public int damagePerBullet = 10;
-        public float timeBetweenShots = 1f;
+        public float timeBetweenShots = 0.1f;
         private bool _isReload;
         private float _raycastDistance;
 
@@ -38,14 +38,15 @@ namespace Game.Script
         // [Tooltip("The speed of the tracer graphics.")]
         [Range(1, 10)]
         private int tracerSpeed = 3;
-        [SerializeField]
-        [Tooltip("Should tracer graphics use gravity while moving?")]
+
+        [SerializeField] [Tooltip("Should tracer graphics use gravity while moving?")]
         // private bool useGravity = true;
         // [SerializeField]
         // [Tooltip("If enabled, a random offset is applied to the spawn point to eliminate the \"Wagon-Wheel\" effect.")]
         // private bool applyStrobeOffset = true;
 
         private float _nextFireTime;
+
         private AudioSource audioSource; // Компонент для воспроизведения звука
 
         // Calculate tracer speed based on tracerSpeed value
@@ -59,7 +60,7 @@ namespace Game.Script
             {
                 audioSource = gameObject.AddComponent<AudioSource>();
             }
-            
+
         }
 
         private void Update()
@@ -71,7 +72,7 @@ namespace Game.Script
             // _nextFireTime = Time.time + (1f / ShotsPerSecond);
             // }
         }
-        
+
         public void Fire()
         {
             StartCoroutine(PerformShoot());
@@ -81,9 +82,22 @@ namespace Game.Script
         {
             if (_isReload)
                 yield break;
+
+            // Воспроизведение эффекта у ствола
+            if (ImpactEffect != null && ImpactEffectTransform != null)
+            {
+                Instantiate(ImpactEffect, ImpactEffectTransform.position, ImpactEffectTransform.rotation);
+            }
+
+            // Воспроизведение звука выстрела
+            if (audioSource != null && shootSound != null)
+            {
+                audioSource.PlayOneShot(shootSound);
+            }
+
             HitscanShot();
+
             _isReload = true;
-            Debug.Log("i am fiiiireeeee~~");
             yield return new WaitForSeconds(timeBetweenShots);
             _isReload = false;
             /// Determine wether we are sending a raycast, aka hitscan weapon, we are spawning a projectile or melee attacking
@@ -96,7 +110,7 @@ namespace Game.Script
 
             // if (style == 1)
             // {
-                // yield return new WaitForSeconds(weapon.shootDelay);
+            // yield return new WaitForSeconds(weapon.shootDelay);
             // }
 
 
@@ -104,32 +118,32 @@ namespace Game.Script
             // int i = 0;
             // while (i < bulletsPerFire)
             // {
-                // if (weapon == null) yield break;
-                // shooting = true;
+            // if (weapon == null) yield break;
+            // shooting = true;
 
-                // CamShake.instance.ShootShake(camShakeAmount * aimingCamShakeMultiplier * crouchingCamShakeMultiplier);
-                // if (weapon.useProceduralShot) ProceduralShot.Instance.Shoot(weapon.proceduralShotPattern);
+            // CamShake.instance.ShootShake(camShakeAmount * aimingCamShakeMultiplier * crouchingCamShakeMultiplier);
+            // if (weapon.useProceduralShot) ProceduralShot.Instance.Shoot(weapon.proceduralShotPattern);
 
-                // Determine if we want to add an effect for FOV
-                // if (weapon.applyFOVEffectOnShooting)
-                // {
-                    // float fovAdjustment = isAiming ? weapon.AimingFOVValueToSubtract : weapon.FOVValueToSubtract;
-                    // cameraFOVManager.ForceAddFOV(-fovAdjustment);
-                // }
-                // foreach (var p in firePoint)
-                // {
-                    // if (muzzleVFX != null)
-                        // Instantiate(p.position, transform.rotation, transform); // VFX
-                // }
-                // CowsinsUtilities.ForcePlayAnim("shooting", inventory[currentWeapon].GetComponentInChildren<Animator>());
-                // if (weapon.timeBetweenShots > float.Epsilon) SoundManager.Instance.PlaySound(fireSFX, 0, weapon.pitchVariationFiringSFX, true, 0);
+            // Determine if we want to add an effect for FOV
+            // if (weapon.applyFOVEffectOnShooting)
+            // {
+            // float fovAdjustment = isAiming ? weapon.AimingFOVValueToSubtract : weapon.FOVValueToSubtract;
+            // cameraFOVManager.ForceAddFOV(-fovAdjustment);
+            // }
+            // foreach (var p in firePoint)
+            // {
+            // if (muzzleVFX != null)
+            // Instantiate(p.position, transform.rotation, transform); // VFX
+            // }
+            // CowsinsUtilities.ForcePlayAnim("shooting", inventory[currentWeapon].GetComponentInChildren<Animator>());
+            // if (weapon.timeBetweenShots > float.Epsilon) SoundManager.Instance.PlaySound(fireSFX, 0, weapon.pitchVariationFiringSFX, true, 0);
 
-                // ProgressRecoil();
+            // ProgressRecoil();
 
-                // HitscanShot();
+            // HitscanShot();
             // else if (style == 1) ProjectileShot();
 
-                // i++;
+            // i++;
             // }
             // shooting = false;
             // yield break;
@@ -141,7 +155,6 @@ namespace Game.Script
             // events.OnShoot.Invoke();
             // if (resizeCrosshair && UIController.instance.crosshair != null) UIController.instance.crosshair.Resize(weapon.crosshairResize * 10);
 
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
             Transform hitObj;
 
             //This defines the first hit on the object
@@ -151,15 +164,15 @@ namespace Game.Script
 
             if (Physics.Raycast(ray, out var hit, 15, hitLayer))
             {
-                Debug.Log("target hitted");
-                float dmg = damagePerBullet/* * multipliers.damageMultiplier*/;
+                float dmg = damagePerBullet /* * multipliers.damageMultiplier*/;
                 Hit(hit.collider.gameObject.layer, dmg, hit, true);
                 hitObj = hit.collider.transform;
 
-                if (hit.transform.TryGetComponent(out Rigidbody rb))
-                {
-                    rb.AddForceAtPosition(ray.direction * 15, hit.point, ForceMode.Impulse);
-                }
+                // Если выстрелы частые - полный кошмар
+                // if (hit.transform.TryGetComponent(out Rigidbody rb))
+                // {
+                //     rb.AddForceAtPosition(ray.direction * 15, hit.point, ForceMode.Impulse);
+                // }
 
                 //Handle Penetration
                 // Ray newRay = new Ray(hit.point, ray.direction);
@@ -185,7 +198,7 @@ namespace Game.Script
                 // }
             }
         }
-        
+
         private void Hit(LayerMask layer, float damage, RaycastHit h, bool damageTarget)
         {
             // events.OnHit.Invoke();
@@ -230,6 +243,11 @@ namespace Game.Script
             // }
 
             // Apply damage
+            if (Random.Range(0f, 1f) < 0.75f)
+            {
+                return;
+            }
+
             if (!damageTarget)
             {
                 return;
@@ -239,7 +257,8 @@ namespace Game.Script
             // Check if a head shot was landed
             if (h.collider.gameObject.CompareTag("Critical"))
             {
-                CowsinsUtilities.GatherDamageableParent(h.collider.transform).Damage(damage, true/*finalDamage * weapon.criticalDamageMultiplier, true*/);
+                CowsinsUtilities.GatherDamageableParent(h.collider.transform).Damage(damage,
+                    true /*finalDamage * weapon.criticalDamageMultiplier, true*/);
             }
             // Check if a body shot was landed ( for children colliders )
             else if (h.collider.gameObject.CompareTag("BodyShot"))
@@ -249,7 +268,7 @@ namespace Game.Script
             // Check if the collision just comes from the parent
             else if (h.collider.GetComponent<IDamageable>() != null)
             {
-                Debug.Log("damage recieved");
+                // Debug.Log("damage recieved");
                 h.collider.GetComponent<IDamageable>().Damage(damage, false);
             }
         }

@@ -12,6 +12,7 @@ namespace Game.GOAP.AgentTypes
             builder.AddCapability<PatrollingCapabilityFactory>();
             builder.AddCapability<ChaseCapabilityFactory>();
             builder.AddCapability<ShootingCapabilityFactory>();
+            builder.AddCapability<InvestigateSoundCapability>();
             return builder.Build();
         }
     }

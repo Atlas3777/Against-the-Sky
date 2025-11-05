@@ -109,3 +109,5 @@ InitTestScene*.unity*
 # Our favorite explosive barrel prefab <3
 /[Aa]ssets/Cowsins/Prefabs/DragAndDropExtras/ExplosiveBarrel.prefab
 /[Aa]ssets/Cowsins/Prefabs/DragAndDropExtras/ExplosiveBarrel.prefab.meta
+build
+build.zip

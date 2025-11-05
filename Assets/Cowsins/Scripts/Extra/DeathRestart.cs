@@ -6,7 +6,7 @@ namespace cowsins
     {
         private void Update()
         {
-            if (InputManager.reloading) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (InputManager.reloading) SceneManager.LoadScene("Game/Scenes/Hub"); // #MYTODO пока чуть-чуть говнокод на перезапуске игры с хаба, потом можно будет поменять (хотя будто бы пофиг)
         }
     }
 }

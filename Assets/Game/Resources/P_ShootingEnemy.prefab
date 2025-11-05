@@ -429,9 +429,10 @@ GameObject:
   - component: {fileID: 3725536020254065107}
   - component: {fileID: -2511306348932576921}
   - component: {fileID: 4178272176234483192}
+  - component: {fileID: 8098638301476994742}
   m_Layer: 0
   m_Name: P_ShootingEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -633,9 +634,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3278d77f1dffbc94eb681024035fe8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDistancesStats
-  attackRange: 15
-  visibilityRange: 20
-  viewAngle: 160
+  attackRange: 10
+  visibilityRange: 15
+  horizontalViewAngle: 90
+  verticalViewAngle: 75
 --- !u!114 &3725536020254065107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,14 +650,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5890fdf64f390414bb1e5dbe4986e4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.EnemyHealth
-  uniqueID: 60b11172-2bda-4f59-bce7-d51816db3916
+  uniqueID: 91190253-a40d-45f4-94bf-c6b9c793e6b4
   _name: P_ShootingEnemy
   health: 0
   shield: 0
   maxHealth: 120
   maxShield: 0
   destroyOnDie: 1
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 3866740380417432680, guid: 73fd5fdde73ec69428363d9d3b98d388, type: 3}
   healthSlider: {fileID: 0}
   shieldSlider: {fileID: 0}
   showUI: 0
@@ -708,6 +710,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootingBehaviour
   enemyRig: {fileID: 942869493823673685}
+--- !u!114 &8098638301476994742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3866740380417432680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3edda4f2ec7ce547a4b1eaffa5612c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyGizmos
+  distancesStats: {fileID: 1645781523765257864}
+  player: {fileID: 0}
+  horizontalFov: 90
+  verticalFov: 75
+  viewDistance: 15
+  immediateDetectRadius: 10
+  timeToNotice: 3
+  connectionPoints: []
+  viewFrustumWire: {r: 0, g: 0, b: 0, a: 0.6}
+  farPlaneFill: {r: 1, g: 0.65, b: 0, a: 0.1}
+  nearPlaneFill: {r: 0, g: 0.5, b: 1, a: 0.25}
+  connectionColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &4127889509668589450
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,7 +979,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: f348486e17131524daf8d26a135fbbec, type: 3}
   impactShootSound: {fileID: 8300000, guid: 98ea45a5ccb89b14e80357d8b0ea8cfb, type: 3}
   damagePerBullet: 10
-  timeBetweenShots: 1
+  timeBetweenShots: 0.1
   tracerSpeed: 3
   _nextFireTime: 0
 --- !u!82 &312128096879958342

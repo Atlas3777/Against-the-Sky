@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class EnemyDistancesStats : MonoBehaviour
 {
-    [SerializeField] private float attackRange = 3f;
+    [SerializeField] private float attackRange = 10;
     public float AttackRange => attackRange;
-    [SerializeField] private float visibilityRange = 10f;
+    [SerializeField] private float visibilityRange = 15;
     public float VisibilityRange => visibilityRange;
-    [SerializeField] private float viewAngle = 160f;
-    public float ViewAngle => viewAngle;
+    [SerializeField] private float horizontalViewAngle = 90;
+    public float HorizontalViewAngle => horizontalViewAngle;
+    [SerializeField] private float verticalViewAngle = 75;
+    public float VerticalViewAngle => verticalViewAngle;
 }
