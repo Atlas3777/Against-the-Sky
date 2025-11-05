@@ -16,7 +16,8 @@ namespace Game.GOAP.Capabilities
             
             builder.AddAction<InvestigateSoundAction>()
                 .AddEffect<IsSoundInvectigated>(EffectType.Increase)
-                .SetTarget<NoisePoint>();
+                .SetTarget<NoisePoint>()
+                .SetStoppingDistance(1);
             
             builder.AddTargetSensor<InvestigatingSoundSensor>()
                 .SetTarget<NoisePoint>();

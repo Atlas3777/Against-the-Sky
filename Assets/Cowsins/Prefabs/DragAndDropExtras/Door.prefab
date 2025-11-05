@@ -136,11 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d683c5ccfb0c4274695ec1b537855e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  uniqueID: cda252ed-070e-44fc-bf1e-e11d77ff2396
-=======
-  uniqueID: 1a7a3e62-8408-42c9-96f2-3246aec731f7
->>>>>>> e611d84e55bd67c79fddadcaba2d1b2cf77c1e2f
+  uniqueID: 66950d5a-cc12-4f2e-ba62-f2d2c1f4d784
   interactable: 0
   interactText: Must be null for this example
   instantInteraction: 0

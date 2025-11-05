@@ -1,11 +1,8 @@
 using cowsins;
 using cowsins.SaveLoad;
 using UnityEngine;
-<<<<<<< HEAD
 using UnityEngine.AI;
-=======
 using UnityEngine.SceneManagement;
->>>>>>> e611d84e55bd67c79fddadcaba2d1b2cf77c1e2f
 
 public static class Utils
 {
@@ -48,7 +45,6 @@ public static class Utils
 
         return true;
     }
-<<<<<<< HEAD
     
     public static float GetNavMeshDistance(Vector3 start, Vector3 end)
     {
@@ -63,6 +59,3 @@ public static class Utils
         return Mathf.Infinity;
     }
 }
-=======
-}
->>>>>>> e611d84e55bd67c79fddadcaba2d1b2cf77c1e2f

@@ -4321,7 +4321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 814.99994
+      value: 934.5477
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6798,7 +6798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 449.99994
+      value: 569.5477
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7726,7 +7726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1545
+      value: 1664.5477
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8306,7 +8306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1180
+      value: 1299.5477
       objectReference: {fileID: 0}
     - target: {fileID: 196123434215402148, guid: 02c9985461f21264daf97734b9198f20, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13650,8 +13650,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Continue Last Saved Game using the Save & Load Features.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -23840,7 +23840,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -23880,7 +23880,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -24630,8 +24630,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Test Inventory Pro Add-On Features Only.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
