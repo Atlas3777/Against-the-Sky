@@ -84,7 +84,7 @@ namespace Game.GOAP
             [GetComponentInChildren]
             public WeaponCont Weapon { get; set; }
             [GetComponent]
-            public EnemyDistancesStats DistanceStats { get; set; }
+            public EnemyStats DistanceStats { get; set; }
         }
 
         private void RotateToPlayer(IMonoAgent agent, Data data)

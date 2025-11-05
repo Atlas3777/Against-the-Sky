@@ -10,17 +10,17 @@ namespace Game.GOAP.Behaviours
         private AgentBehaviour _agent;
         private ITarget _currentTarget;
         private NavMeshAgent _navMeshAgent;
+        private Animator _animator;
 
         private void Awake()
         {
-            Debug.Log("agent invoked");
             this._agent = this.GetComponent<AgentBehaviour>();
             this._navMeshAgent = this.GetComponent<NavMeshAgent>();
+            this._animator = this.GetComponent<Animator>();
         }
 
         private void OnEnable()
         {
-            Debug.Log("agent enabled");
             this._agent.Events.OnTargetInRange += this.OnTargetInRange;
             this._agent.Events.OnTargetChanged += this.OnTargetChanged;
             this._agent.Events.OnTargetNotInRange += this.TargetNotInRange;
@@ -33,6 +33,39 @@ namespace Game.GOAP.Behaviours
             this._agent.Events.OnTargetChanged -= this.OnTargetChanged;
             this._agent.Events.OnTargetNotInRange -= this.TargetNotInRange;
             this._agent.Events.OnTargetLost -= this.TargetLost;
+        }
+        
+        public void OnFootstep(AnimationEvent animationEvent)
+        {
+            // if (animationEvent.animatorClipInfo.weight > 0.5f)
+            // {
+            //     if (FootstepAudioClips.Length > 0)
+            //     {
+            //         var index = Random.Range(0, FootstepAudioClips.Length);
+            //         AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center),
+            //             FootstepAudioVolume);
+            //     }
+            // }
+        }
+
+        void Update()
+        {
+            if (!_navMeshAgent || !_animator)
+                return;
+            var velocity = _navMeshAgent.velocity;
+            var speed = velocity.magnitude;
+
+            if (speed < 0.05f)
+            {
+                _animator.SetFloat("Horizontal", 0f, 0.1f, Time.deltaTime);
+                _animator.SetFloat("Vertical", 0f, 0.1f, Time.deltaTime);
+                return;
+            }
+            
+            var localVel = transform.InverseTransformDirection(velocity.normalized);
+            
+            _animator.SetFloat("Horizontal", localVel.x, 0.1f, Time.deltaTime);
+            _animator.SetFloat("Vertical", localVel.z, 0.1f, Time.deltaTime);
         }
 
         private void TargetLost()
