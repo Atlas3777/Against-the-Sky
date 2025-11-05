@@ -7,6 +7,15 @@
             "id": "8e11a806-753d-41d8-af38-51876e9ea8b1",
             "actions": [
                 {
+                    "name": "MapOpen",
+                    "type": "Button",
+                    "id": "8df4ee36-3570-472b-820d-e079ae218df3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jumping",
                     "type": "Value",
                     "id": "8df4ee36-3570-472b-820d-e079ae218de2",
@@ -197,6 +206,17 @@
                 }
             ],
             "bindings": [
+                {
+                    "name": "MapOpen",
+                    "id": "7fb153e5-a0bc-4b9b-8152-4d9f63e47816",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MapOpen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "",
                     "id": "39848753-f13e-4d1b-a875-330621b40463",
