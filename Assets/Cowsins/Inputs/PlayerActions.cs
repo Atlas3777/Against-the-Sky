@@ -92,11 +92,11 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             ""name"": ""GameControls"",
             ""id"": ""8e11a806-753d-41d8-af38-51876e9ea8b1"",
             ""actions"": [
-		{
+                {
                     ""name"": ""MapOpen"",
                     ""type"": ""Button"",
                     ""id"": ""8df4ee36-3570-472b-820d-e079ae218df3"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -293,8 +293,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""39848753-f13e-4d1b-a875-330621b40474"",
+                    ""name"": ""MapOpen"",
+                    ""id"": ""7fb153e5-a0bc-4b9b-8152-4d9f63e47816"",
                     ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1603,6 +1603,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     // GameControls
     private readonly InputActionMap m_GameControls;
     private List<IGameControlsActions> m_GameControlsActionsCallbackInterfaces = new List<IGameControlsActions>();
+    private readonly InputAction m_GameControls_MapOpen;
     private readonly InputAction m_GameControls_Jumping;
     private readonly InputAction m_GameControls_Dashing;
     private readonly InputAction m_GameControls_Reloading;
@@ -1624,7 +1625,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameControls_InventoryFavOpen;
     private readonly InputAction m_GameControls_ToggleTipsCanvas;
     private readonly InputAction m_GameControls_SelectWeaponSlot;
-    private readonly InputAction m_GameControls_MapOpen;
     /// <summary>
     /// Provides access to input actions defined in input action map "GameControls".
     /// </summary>

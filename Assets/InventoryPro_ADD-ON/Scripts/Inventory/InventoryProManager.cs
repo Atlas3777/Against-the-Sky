@@ -189,7 +189,7 @@ namespace cowsins.Inventory
             InputManager.onInventoryOpenPressed += ToggleInventoryVisibility;
             InputManager.onInventoryFavOpenPressed += ToggleFavRadialMenu;
 
-            //MapManager.instance.onMapOpen.AddListener(CloseInventory);
+            G.MapManager.onMapOpen.AddListener(CloseInventory);
 
             closeButton.onClick.AddListener(CloseInventory);
             if(allowLootAllChest && lootAllChestButton != null) lootAllChestButton.onClick.AddListener(LootAllChest);
