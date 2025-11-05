@@ -12,7 +12,7 @@ namespace Game.GOAP.Behaviours
         private AgentBehaviour _agent;
         private GoapActionProvider _provider;
         private GoapBehaviour _goap;
-        private EnemyDistancesStats _distancesStats;
+        private EnemyStats _distancesStats;
         [SerializeField] private EnemyRig enemyRig;
         public bool ShouldAgentInvestigateSound { get; private set; }
 
@@ -26,7 +26,7 @@ namespace Game.GOAP.Behaviours
             if (!this._goap) _goap = FindFirstObjectByType<GoapBehaviour>();
             if (!this._agent) _agent = this.GetComponent<AgentBehaviour>();
             if (!this._provider) _provider = this.GetComponent<GoapActionProvider>();
-            _distancesStats = GetComponent<EnemyDistancesStats>();
+            _distancesStats = GetComponent<EnemyStats>();
             if (!this._provider.AgentTypeBehaviour)
                 this._provider.AgentType = this._goap.GetAgentType("KamikazeAgent");
             enemyRig = GetComponent<EnemyRig>();

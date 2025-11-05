@@ -1,7 +1,25 @@
+using cowsins;
+using cowsins.SaveLoad;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class Utils
 {
+    public static void SwitchAndSaveScene(string SceneToLoad)
+    {
+        if (DataPersistenceManager.instance == null)
+        {
+            ToastManager.Instance?.ShowToast(ToastManager.Instance?.DataPersistenceManagerNotAvailableMsg);
+            Debug.Log("<color=red>[COWSINS]</color> Data Persistence Manager Not Found! To Save & Load your game, " +
+                      "load the scene from the MainMenu or any other scene that includes DataPersistenceManager.");
+            return;
+        }
+
+        DataPersistenceManager.instance.SaveGame();
+        Debug.Log("<color=green>[COWSINS]</color> Game successfully saved!");
+        SceneManager.LoadScene(SceneToLoad);
+    }
+
     public static bool IsTargetWithinAngle(Transform objTransform, Vector3 targetPosition, float angle)
     {
         var toTarget = (targetPosition - objTransform.position).normalized;
@@ -9,7 +27,7 @@ public static class Utils
         //Debug.Log($"angleToTarget: {angleToTarget}, angle: {angle}, tvar: {angleToTarget <= (angle / 2f)}");
         return angleToTarget <= (angle / 2f);
     }
-    
+
     public static bool HasClearView(Transform observer, Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - observer.position).normalized;
@@ -23,6 +41,7 @@ public static class Utils
                 return false;
             }
         }
+
         return true;
     }
 }

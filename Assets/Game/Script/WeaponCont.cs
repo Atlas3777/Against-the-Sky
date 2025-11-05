@@ -3,22 +3,23 @@ using Andtech.ProTracer;
 using cowsins;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Script
 {
     public class WeaponCont : MonoBehaviour
     {
-        public float ShotsPerSecond = 7.0f; // Matches rateOfFire from TracerDemo
+        public float shotsPerSecond = 7.0f; // Matches rateOfFire from TracerDemo
         public LayerMask hitLayer;
         public GameObject ImpactEffect; // Эффект у ствола
-        public GameObject HitEffect; // Эффект попадания
-        public Transform ImpactEffectTransform;
+        public GameObject hitEffect; // Эффект попадания
+        public Transform impactEffectTransform;
         public AudioClip shootSound; // Аудиоклип для звука выстрела
         public AudioClip impactShootSound; // для попадания
-        public int damagePerBullet = 10;
         public float timeBetweenShots = 0.1f;
         private bool _isReload;
         private float _raycastDistance;
+        private EnemyStats _stats;
 
         [Header("Tracer Prefabs")]
         [SerializeField]
@@ -39,15 +40,15 @@ namespace Game.Script
         [Range(1, 10)]
         private int tracerSpeed = 3;
 
-        [SerializeField] [Tooltip("Should tracer graphics use gravity while moving?")]
+        [FormerlySerializedAs("_nextFireTime")] [SerializeField] [Tooltip("Should tracer graphics use gravity while moving?")]
         // private bool useGravity = true;
         // [SerializeField]
         // [Tooltip("If enabled, a random offset is applied to the spawn point to eliminate the \"Wagon-Wheel\" effect.")]
         // private bool applyStrobeOffset = true;
 
-        private float _nextFireTime;
+        private float nextFireTime;
 
-        private AudioSource audioSource; // Компонент для воспроизведения звука
+        private AudioSource _audioSource; // Компонент для воспроизведения звука
 
         // Calculate tracer speed based on tracerSpeed value
         private float Speed => 10.0F + (tracerSpeed - 1) * 50.0F;
@@ -55,12 +56,12 @@ namespace Game.Script
         private void Awake()
         {
             // Получаем или добавляем AudioSource
-            audioSource = GetComponent<AudioSource>();
-            if (audioSource == null)
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
             {
-                audioSource = gameObject.AddComponent<AudioSource>();
+                _audioSource = gameObject.AddComponent<AudioSource>();
             }
-
+            _stats = GetComponentInParent<EnemyStats>();
         }
 
         private void Update()
@@ -78,21 +79,23 @@ namespace Game.Script
             StartCoroutine(PerformShoot());
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private IEnumerator PerformShoot()
         {
             if (_isReload)
                 yield break;
-
+            
+            GameObject impactEffect = null;
             // Воспроизведение эффекта у ствола
-            if (ImpactEffect != null && ImpactEffectTransform != null)
+            if (ImpactEffect && impactEffectTransform)
             {
-                Instantiate(ImpactEffect, ImpactEffectTransform.position, ImpactEffectTransform.rotation);
+                impactEffect = Instantiate(ImpactEffect, impactEffectTransform.position, impactEffectTransform.rotation);
             }
 
             // Воспроизведение звука выстрела
-            if (audioSource != null && shootSound != null)
+            if (_audioSource && shootSound)
             {
-                audioSource.PlayOneShot(shootSound);
+                _audioSource.PlayOneShot(shootSound);
             }
 
             HitscanShot();
@@ -100,6 +103,10 @@ namespace Game.Script
             _isReload = true;
             yield return new WaitForSeconds(timeBetweenShots);
             _isReload = false;
+            if (ImpactEffect && impactEffectTransform)
+            {
+                Destroy(impactEffect);
+            }
             /// Determine wether we are sending a raycast, aka hitscan weapon, we are spawning a projectile or melee attacking
             // int style = (int)weapon.shootStyle;
 
@@ -159,14 +166,14 @@ namespace Game.Script
 
             //This defines the first hit on the object
             // Vector3 dir = CowsinsUtilities.GetSpreadDirection(spread, mainCamera);
-            var dir = ImpactEffectTransform.forward;
-            Ray ray = new Ray(ImpactEffectTransform.position, dir);
+            var dir = impactEffectTransform.forward;
+            Ray ray = new Ray(impactEffectTransform.position, dir);
 
             if (Physics.Raycast(ray, out var hit, 15, hitLayer))
             {
-                float dmg = damagePerBullet /* * multipliers.damageMultiplier*/;
-                Hit(hit.collider.gameObject.layer, dmg, hit, true);
+                float dmg = _stats.DamagePerBullet /* * multipliers.damageMultiplier*/;
                 hitObj = hit.collider.transform;
+                Hit(hit.collider.gameObject.layer, dmg, hit, true, hitObj);
 
                 // Если выстрелы частые - полный кошмар
                 // if (hit.transform.TryGetComponent(out Rigidbody rb))
@@ -199,7 +206,7 @@ namespace Game.Script
             }
         }
 
-        private void Hit(LayerMask layer, float damage, RaycastHit h, bool damageTarget)
+        private void Hit(LayerMask layer, float damage, RaycastHit h, bool damageTarget, Transform target)
         {
             // events.OnHit.Invoke();
             // GameObject impact = null, impactBullet = null;
@@ -243,10 +250,8 @@ namespace Game.Script
             // }
 
             // Apply damage
-            if (Random.Range(0f, 1f) < 0.75f)
-            {
+            if (CheckMiss(target))
                 return;
-            }
 
             if (!damageTarget)
             {
@@ -283,5 +288,16 @@ namespace Game.Script
         }
 
         private float CalculateStroboscopicOffset(float speed) => speed * Time.smoothDeltaTime;
+
+        private bool CheckMiss(Transform target)
+        {
+            var randomNumber = Random.Range(0f, 1f);
+            var distToTarget = Vector3.Distance(transform.position, target.position);
+            var missChanceIncreaseRate = (int)distToTarget * 0.005;
+            if (randomNumber < _stats.MissChance + missChanceIncreaseRate ||
+                (!_stats.DoesDistanceAffectHitting && randomNumber < _stats.MissChance))
+                return true;
+            return false;
+        }
     }
 }

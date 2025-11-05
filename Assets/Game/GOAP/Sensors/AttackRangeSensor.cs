@@ -18,7 +18,7 @@ namespace Game.GOAP.Sensors
 
         public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
         {
-            var distancesStats = references.GetCachedComponent<EnemyDistancesStats>();
+            var distancesStats = references.GetCachedComponent<EnemyStats>();
             var targetPos = G.Player.transform.position; // #MYTODO пока что просто G.Player, а не цель
             var currentDistance = Mathf.Abs(Vector3.Distance(agent.Transform.position, targetPos));
             if (currentDistance > distancesStats.AttackRange)
