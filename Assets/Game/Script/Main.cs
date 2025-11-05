@@ -14,7 +14,6 @@ public class Main : MonoBehaviour
         G.MapManager = null;
         G.MapManager = Instantiate(GameResources.Map.MapManager);
         G.Timer = Instantiate(GameResources.Timer);
-        G.EvacuationManager = Instantiate(GameResources.EvacuationManager);
         UIEnemyTimerUpdater.RecalculateTimeInHUD();
     }
 
