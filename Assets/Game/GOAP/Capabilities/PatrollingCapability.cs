@@ -12,7 +12,7 @@ namespace Game.GOAP.Capabilities
 
             builder.AddGoal<PatrollingGoal>()
                 .AddCondition<CountVisitedPoints>(Comparison.GreaterThanOrEqual, 1)
-                .SetBaseCost(2);
+                .SetBaseCost(5);
 
             builder.AddAction<PatrollingAction>()
                 .AddEffect<CountVisitedPoints>(EffectType.Increase)

@@ -636,7 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5890fdf64f390414bb1e5dbe4986e4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.EnemyHealth
-  uniqueID: 7ecbc7e8-1f9f-462d-b4c1-e923a0ddd829
+  uniqueID: 68051283-140b-404c-8c00-7bd0dec8ac4e
   _name: P_Enemy
   health: 0
   shield: 0
@@ -672,7 +672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0eddc7e80b4ddb9a9e5a4978118024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.GOAP.DataPatrolBehaviour
-  rawRoute: {fileID: 1965708117366246492, guid: 74beec3957cdc374f8501392b8536b04, type: 3}
   MapAction: {fileID: 0}
   currentPOI: {fileID: 0}
 --- !u!136 &-2511306348932576921

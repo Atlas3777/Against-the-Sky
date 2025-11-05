@@ -12,7 +12,7 @@ namespace Game.GOAP.Capabilities
             
             builder.AddGoal<InvestigateSoundGoal>()
                 .AddCondition<IsSoundInvectigated>(Comparison.GreaterThanOrEqual, 1)
-                .SetBaseCost(5);
+                .SetBaseCost(2);
             
             builder.AddAction<InvestigateSoundAction>()
                 .AddEffect<IsSoundInvectigated>(EffectType.Increase)

@@ -16,7 +16,7 @@ namespace Game.GOAP.Capabilities
             builder.AddGoal<ShootingGoal>()
                 //.AddCondition<IsTargetInShootRange>(Comparison.GreaterThanOrEqual, 1)
                 .AddCondition<IsPlayerHealthEqualsZero>(Comparison.SmallerThanOrEqual, 0)
-                .SetBaseCost(2);
+                .SetBaseCost(1);
 
             builder.AddAction<ShootAction>()
                 .AddEffect<IsPlayerHealthEqualsZero>(EffectType.Decrease)

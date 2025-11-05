@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using cowsins;
 using Game.GOAP;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(SphereCollider))]
 public class PlayerSoundSphere : MonoBehaviour
@@ -48,20 +49,20 @@ public class PlayerSoundSphere : MonoBehaviour
         if (_enemiesInRange.Count == 0)
             return;
 
-        // реагирует только ближайший враг — как в твоей оригинальной логике
         IAgentBehaviour nearest = null;
-        float minDist = float.MaxValue;
+        var minDist = float.MaxValue;
 
         foreach (var enemy in _enemiesInRange)
         {
-            float dist = Vector3.Distance(transform.position, ((MonoBehaviour)enemy).transform.position);
+            var dist = Utils.GetNavMeshDistance(((MonoBehaviour)enemy).transform.position, transform.position);
             if (dist < minDist)
             {
                 minDist = dist;
                 nearest = enemy;
             }
         }
-
+        
+        
         nearest?.SwitchAgentSoundInvestigation(true);
         Debug.Log($"[{soundType}] услышал ближайший враг на расстоянии {minDist:F1} м");
     }

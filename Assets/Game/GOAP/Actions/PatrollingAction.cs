@@ -23,6 +23,9 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override bool IsValid(IActionReceiver agent, Data data)
         {
+            var behaviour = (agent as MonoBehaviour)?.GetComponent<IAgentBehaviour>();
+            if (behaviour is not null && behaviour.ShouldAgentInvestigateSound)
+                return false;
             return true;
         }
 

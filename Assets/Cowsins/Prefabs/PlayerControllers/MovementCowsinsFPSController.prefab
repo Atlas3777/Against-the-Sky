@@ -4880,7 +4880,7 @@ GameObject:
   - component: {fileID: 7113088732998613795}
   m_Layer: 18
   m_Name: CrouchSphere
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5073,7 +5073,7 @@ GameObject:
   - component: {fileID: 8067486235620941996}
   m_Layer: 18
   m_Name: SoundSpheres
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5109,7 +5109,7 @@ GameObject:
   - component: {fileID: 7360594202638312486}
   m_Layer: 18
   m_Name: StepsSphere
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5176,7 +5176,7 @@ GameObject:
   - component: {fileID: 6866773531936856819}
   m_Layer: 18
   m_Name: ShootSphere
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

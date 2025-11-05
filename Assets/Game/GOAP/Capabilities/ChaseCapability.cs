@@ -15,7 +15,7 @@ namespace Game.GOAP.Capabilities
             builder.AddGoal<ChasePlayerGoal>()
                 .AddCondition<IsTargetInShootRange>(Comparison.GreaterThanOrEqual, 1)
                 //.AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)
-                .SetBaseCost(2);
+                .SetBaseCost(1);
 
             // builder.AddAction<NoticePlayerAction>()
             //     .AddCondition<IsTargetInVisibilityRange>(Comparison.GreaterThanOrEqual, 1)

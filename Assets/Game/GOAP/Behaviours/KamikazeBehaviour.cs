@@ -14,7 +14,8 @@ namespace Game.GOAP.Behaviours
         private GoapBehaviour _goap;
         private EnemyStats _distancesStats;
         [SerializeField] private EnemyRig enemyRig;
-        public bool ShouldAgentInvestigateSound { get; private set; }
+
+        public bool ShouldAgentInvestigateSound { get; set; }
 
         void Awake()
         {
