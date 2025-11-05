@@ -636,7 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5890fdf64f390414bb1e5dbe4986e4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cowsins.EnemyHealth
-  uniqueID: 7ecbc7e8-1f9f-462d-b4c1-e923a0ddd829
+  uniqueID: 23222778-73a8-45e7-8b2a-685404e83438
   _name: P_Enemy
   health: 0
   shield: 0

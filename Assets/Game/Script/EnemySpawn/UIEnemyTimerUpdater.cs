@@ -33,4 +33,9 @@ public static class UIEnemyTimerUpdater
         int s = seconds % 60;
         timeInHUD.text = string.Format("{0:d2}:{1:d2}", m, s);
     }
+
+    public static void StopVisual()
+    {
+        text.gameObject.SetActive(false);
+    }
 }
