@@ -32,17 +32,16 @@ namespace Game.GOAP.Sensors
 
             if (isInRange && inHorizontalAngle && inVerticalAngle && hasClearView)
             {
-                return 1;
-                // visibleTime += Time.deltaTime;
-                // if (visibleTime >= requiredVisibleTime)
-                // {
-                //     return 1;
-                // }
+                visibleTime += Time.deltaTime;
+                if (visibleTime >= requiredVisibleTime)
+                {
+                    return 1;
+                }
             }
-            // else
-            // {
-            //     visibleTime = 0f;
-            // }
+            else
+            {
+                visibleTime = 0f;
+            }
 
             return 0;
         }
