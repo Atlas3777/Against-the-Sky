@@ -16,6 +16,9 @@ public static class GameResources
         public static CanvasScaler HUD_Canvas => Resources.Load<CanvasScaler>("HUD Prefabs/HUD Canvas");
         public static Volume Vol => Resources.Load<Volume>("HUD Prefabs/Vol");
     }
+    public static class inventoryes
+    {
+    }
     public static class MainCharacter
     {
         public static GameObject FPSController => Resources.Load<GameObject>("MainCharacter/FPSController");
