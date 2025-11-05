@@ -11,7 +11,7 @@ public class ShootingBehaviour : MonoBehaviour
     private GoapActionProvider _provider;
     private GoapBehaviour _goap;
     [SerializeField] private EnemyRig enemyRig;
-    private EnemyDistancesStats _distancesStats;
+    private EnemyStats _distancesStats;
 
     void Awake()
     {
@@ -19,7 +19,7 @@ public class ShootingBehaviour : MonoBehaviour
         
         if(this._agent is null) _agent = this.GetComponent<AgentBehaviour>();
         if (this._provider is null) _provider = this.GetComponent<GoapActionProvider>();
-        _distancesStats = GetComponent<EnemyDistancesStats>();
+        _distancesStats = GetComponent<EnemyStats>();
 
 
         if (this._provider.AgentTypeBehaviour == null)

@@ -6,7 +6,7 @@ using UnityEditor;
 [ExecuteAlways]
 public class EnemyGizmos : MonoBehaviour
 {
-    [SerializeField] private EnemyDistancesStats distancesStats;
+    [SerializeField] private EnemyStats distancesStats;
     [Header("Target")]
     public Transform player;
 

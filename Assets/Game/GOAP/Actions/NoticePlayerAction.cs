@@ -1,18 +1,16 @@
-using cowsins;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
-using Game.Script;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.GOAP
+namespace Game.GOAP.Actions
 {
-    [GoapId("Shoot-7f680d5f-9a35-4b65-95bb-cdbeae65c6cb")]
-    public class ShootAction : GoapActionBase<ShootAction.Data>
+    [GoapId("NoticePlayer-74aa328f-6e79-4b01-a3b5-098e493b6c34")]
+    public class NoticePlayerAction : GoapActionBase<NoticePlayerAction.Data>
     {
         private NavMeshAgent _navMeshAgent;
+        private Animator _animator;
         // This method is called when the action is created
         // This method is optional and can be removed
         public override void Created()
@@ -31,28 +29,32 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void Start(IMonoAgent agent, Data data)
         {
-            _navMeshAgent = agent.GetComponent<NavMeshAgent>();
+            if (!_navMeshAgent)
+                _navMeshAgent = agent.GetComponent<NavMeshAgent>();
+            if (!_animator)
+                _animator = agent.GetComponent<Animator>();
+            
+            _navMeshAgent.isStopped = true;
+            _navMeshAgent.ResetPath();
+            data.Timer = 0f;
+            
+            _animator.SetFloat("Horizontal", 0); //MYTODO прям щас проверь
+            _animator.SetFloat("Vertical", 0);
         }
 
         // This method is called once before the action is performed
         // This method is optional and can be removed
         public override void BeforePerform(IMonoAgent agent, Data data)
         {
-            _navMeshAgent.ResetPath();
         }
 
         // This method is called every frame while the action is running
         // This method is required
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            var dist = Vector3.Distance(agent.transform.position, data.Target.Position);
-            if (dist > data.DistanceStats.AttackRange)
-                return ActionRunState.Stop;
-            RotateToPlayer(agent, data);
-            // Debug.Log("я стреляю тутуту");
-            data.Weapon.Fire();
-            // StartCoroutine(Fire());
-            if (G.PlayerStats.health <= 0)
+            data.Timer += Time.deltaTime;
+            
+            if (data.Timer >= 3f)
                 return ActionRunState.Completed;
             return ActionRunState.Continue;
         }
@@ -61,6 +63,7 @@ namespace Game.GOAP
         // This method is optional and can be removed
         public override void Complete(IMonoAgent agent, Data data)
         {
+            _navMeshAgent.isStopped = false;
         }
 
         // This method is called when the action is stopped
@@ -79,21 +82,13 @@ namespace Game.GOAP
         // All data should be stored in the data class
         public class Data : IActionData
         {
+            public float Timer;
             public ITarget Target { get; set; }
-
-            [GetComponentInChildren]
-            public WeaponCont Weapon { get; set; }
-            [GetComponent]
-            public EnemyStats DistanceStats { get; set; }
-        }
-
-        private void RotateToPlayer(IMonoAgent agent, Data data)
-        {
-            if (G.Player.transform is null)
-                return;
-            var dir = (G.Player.transform.position - agent.transform.position).normalized;
-            dir.y = 0;
-            agent.transform.rotation = Quaternion.LookRotation(dir);
+            
+            // [GetComponent]
+            // public UnityEngine.AI.NavMeshAgent NavMeshAgent { get; set; }
+            // [GetComponent]
+            // public Animator Animator { get; set; }
         }
     }
 }

@@ -130,7 +130,7 @@ namespace Game.GOAP.Actions
             public ITarget Target { get; set; }
             
             [GetComponent]
-            public EnemyDistancesStats DistancesStats { get; set; }
+            public EnemyStats DistancesStats { get; set; }
         }
     }
 }

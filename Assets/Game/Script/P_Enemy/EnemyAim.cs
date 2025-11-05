@@ -17,7 +17,7 @@ public class EnemyAim : MonoBehaviour
     {
         if (!aimTarget || !target) return;
 
-        Vector3 targetChest = target.position + Vector3.up * 1.2f;
+        Vector3 targetChest = target.position + Vector3.up;
         Vector3 direction = (targetChest - transform.position).normalized;
         
         aimTarget.position = targetChest;

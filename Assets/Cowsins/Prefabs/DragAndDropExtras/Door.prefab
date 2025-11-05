@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d683c5ccfb0c4274695ec1b537855e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: 9781980d-a2a7-4802-b1b9-387a35610f29
+  uniqueID: dffe1cd7-68a4-41d9-a7c1-55f3769f6117
   interactable: 0
   interactText: Must be null for this example
   instantInteraction: 0
@@ -309,7 +309,6 @@ GameObject:
   - component: {fileID: 6380541041569130822}
   - component: {fileID: 5998293919235988475}
   - component: {fileID: 3665316608323209795}
-  - component: {fileID: 1085555389145990391}
   m_Layer: 13
   m_Name: Door
   m_TagString: Untagged
@@ -411,22 +410,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.01850676, y: 0.021125844, z: 0.0017619492}
   m_Center: {x: -0.00074661954, y: 9.2747234e-11, z: -7.1035455e-11}
---- !u!208 &1085555389145990391
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4103432225245170634}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.01, y: 0.01, z: 0.00001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &5858308044080816225
 GameObject:
   m_ObjectHideFlags: 0
