@@ -38,6 +38,8 @@ namespace cowsins
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("maxHealth"));
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("maxShield"));
                         EditorGUILayout.PropertyField(serializedObject.FindProperty("WeightSystem")); // MYTODO
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("hpSlider"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("hpText"));
                         break;
                     case "Fall Damage":
                         EditorGUILayout.LabelField("FALL DAMAGE", EditorStyles.boldLabel);

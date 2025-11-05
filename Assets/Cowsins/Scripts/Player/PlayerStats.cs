@@ -4,6 +4,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using cowsins;
+using UnityEngine.UI;
+using TMPro;
 namespace cowsins
 {
     [System.Serializable]
@@ -43,6 +45,9 @@ namespace cowsins
 
         [SerializeField] private float restartAutoHealTime;
 
+        [SerializeField] Slider hpSlider;
+        [SerializeField] TextMeshProUGUI hpText;
+
         // Internal use
 
         public float? height = null;
@@ -74,6 +79,11 @@ namespace cowsins
             health = maxHealth;
             shield = maxShield;
 
+            UIEvents.basicHealthUISetUp += UpdateHPSlider;
+            UIEvents.basicHealthUISetUp += UpdateHPText;
+            UIEvents.onHealthChanged += UpdateHPSlider;
+            UIEvents.onHealthChanged += UpdateHPText;
+
             UIEvents.basicHealthUISetUp?.Invoke(health, shield, maxHealth, maxShield);
 
             GrantControl();
@@ -89,6 +99,24 @@ namespace cowsins
             // Manage fall damage
             if (!takesFallDamage || player.Climbing || stats.isDead) return;
             ManageFallDamage();
+        }
+
+        private void UpdateHPSlider(float health, float shield, bool smth) =>
+            UpdateHPSlider(health, shield, MaxHealth, MaxShield);
+
+        private void UpdateHPText(float health, float shield, bool smth) =>
+            UpdateHPText(health, shield, MaxHealth, MaxShield);
+
+        private void UpdateHPSlider(float health, float shield, float maxHealth, float maxShield)
+        {
+            hpSlider.minValue = 0;
+            hpSlider.maxValue = maxHealth;
+            hpSlider.value = health;
+        }
+
+        private void UpdateHPText(float health, float shield, float maxHealth, float maxShield)
+        {
+            hpText.text = health.ToString();
         }
 
         public void DDD(float d) => Damage(d, false);
