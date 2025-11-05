@@ -117,7 +117,7 @@ public class EvacuationManager : MonoBehaviour
 
     private void SpawnEnemy(EnemyType type)
     {
-        var spawn = enemySpawnPoints.OrderBy(p => Vector3.Distance(p.position,G.Player.transform.position)).Last();
+            var spawn = enemySpawnPoints.OrderBy(p => Vector3.Distance(p.position,G.Player.transform.position)).Last();
         enemies.Add(Instantiate(enemyTypeDictionary[type],spawn.position,spawn.rotation));
     }
 
