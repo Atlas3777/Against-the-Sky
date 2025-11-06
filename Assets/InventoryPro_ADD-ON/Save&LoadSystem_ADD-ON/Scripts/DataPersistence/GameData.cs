@@ -90,9 +90,9 @@ namespace cowsins.SaveLoad
         {
             playerTransforms = new Dictionary<string, SerializablePlayerTransforms>();
             playerHealth = 100f;
-            playerShield = 50f;
+            playerShield = 0f;
             maxHealth = 100f;
-            maxShield = 50f;
+            maxShield = 0f;
             WeightSystem = new WeightSystem(100, 0);
             damageMultiplier = 1f;
             healMultiplier = 1f;

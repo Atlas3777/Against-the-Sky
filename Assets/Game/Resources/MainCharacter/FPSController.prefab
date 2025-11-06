@@ -1813,6 +1813,14 @@ PrefabInstance:
       propertyPath: m_ClearFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1195374611263023440, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 5112804240618948481}
+    - target: {fileID: 1195374611263023440, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
+      propertyPath: healthTextDisplay
+      value: 
+      objectReference: {fileID: 3454645745178235723}
     - target: {fileID: 1195374611263023445, guid: 8472a9cdac198684a9b2426ac2dd66c3, type: 3}
       propertyPath: m_Camera
       value: 

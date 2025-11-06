@@ -19,8 +19,8 @@ MonoBehaviour:
     horizontal: 0
     vertical: 0
   inventoryInitialData:
-  - item: {fileID: 0}
-    amount: 0
+  - item: {fileID: 11400000, guid: c86e20b76badbe5469143250c928aa68, type: 2}
+    amount: 99
     isOriented: 1
     barrel: {fileID: 0}
     scope: {fileID: 0}
