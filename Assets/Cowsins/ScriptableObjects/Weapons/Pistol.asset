@@ -37,7 +37,7 @@ MonoBehaviour:
   explosionForce: 5
   explosionVFX: {fileID: 5018994898019192216, guid: ab977a440365d1c4092c15552e5ff157, type: 3}
   continuousFire: 0
-  fireRate: 0.35
+  fireRate: 0.66
   reloadTime: 2
   coolSpeed: 0.3
   cooledPercentageAfterOverheat: 0.6
@@ -135,7 +135,7 @@ MonoBehaviour:
   applyDifferentRecoilOnAiming: 1
   xRecoilAmountOnAiming: 40
   yRecoilAmountOnAiming: 2
-  damagePerBullet: 20
+  damagePerBullet: 40
   applyDamageReductionBasedOnDistance: 0
   minimumDistanceToApplyDamageReduction: 40.3
   damageReductionMultiplier: 1

@@ -640,7 +640,7 @@ MonoBehaviour:
   _name: P_Enemy
   health: 0
   shield: 0
-  maxHealth: 120
+  maxHealth: 100
   maxShield: 0
   destroyOnDie: 1
   deathEffect: {fileID: 3866740380417432680, guid: 73fd5fdde73ec69428363d9d3b98d388, type: 3}

@@ -579,7 +579,7 @@ MonoBehaviour:
     OnInteract:
       m_PersistentCalls:
         m_Calls: []
-  initialInventoryGridData: {fileID: 11400000, guid: 5c78369d168208a429132918460f7498, type: 2}
+  initialInventoryGridData: {fileID: 11400000, guid: a261e2f4a15b5e04aa169aee14f0b202, type: 2}
 --- !u!136 &2431623575977828815
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -838,19 +838,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abdd52f9b4b40e5a0b4474b40e1f17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShotsPerSecond: 10
+  shotsPerSecond: 7
   hitLayer:
     serializedVersion: 2
     m_Bits: 131072
   ImpactEffect: {fileID: 161002, guid: 489aba68c9dfe9342accb1f3a0be4e5b, type: 3}
-  HitEffect: {fileID: 142740, guid: ce4fb833f44504e48b46c3474bc747fc, type: 3}
-  ImpactEffectTransform: {fileID: 7766684068185008774}
+  hitEffect: {fileID: 0}
+  impactEffectTransform: {fileID: 0}
   shootSound: {fileID: 8300000, guid: f348486e17131524daf8d26a135fbbec, type: 3}
   impactShootSound: {fileID: 8300000, guid: 98ea45a5ccb89b14e80357d8b0ea8cfb, type: 3}
-  damagePerBullet: 10
   timeBetweenShots: 0.1
   tracerSpeed: 3
-  _nextFireTime: 0
+  nextFireTime: 0
 --- !u!82 &312128096879958342
 AudioSource:
   m_ObjectHideFlags: 0
