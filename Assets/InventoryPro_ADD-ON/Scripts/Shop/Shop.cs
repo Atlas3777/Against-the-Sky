@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace cowsins.Inventory
 {
@@ -6,6 +7,7 @@ namespace cowsins.Inventory
     {
         [SerializeField, Title("SHOP", upMargin = 10)] private ShopUI shopUIPrefab;
         [Tooltip("If enabled, Available Amount will decrease as the Player purchases the available stock.")] public bool decreaseAvailableAmountOnPurchase = true;
+        [SerializeField, Tooltip("Stores all Items sold to this Shop")] private ShopItemData[] soldItems;
         [SerializeField, Tooltip("Stores all Items sold in this Shop")] private ShopItemData[] shopItems;
 
         // INTERNAL USE + GETTERS
@@ -18,7 +20,7 @@ namespace cowsins.Inventory
         {
             base.OpenHub();
             shopUIInstance = Instantiate(shopUIPrefab);
-            shopUIInstance.InitializeUI(shopItems, this, CloseHub);
+            shopUIInstance.InitializeUI(shopItems, soldItems, this, CloseHub);
         }
 
         // Gets called on closing the Shop

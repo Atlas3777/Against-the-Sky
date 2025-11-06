@@ -72,6 +72,55 @@ MonoBehaviour:
   forbiddenTradeSFX: {fileID: 8300000, guid: 445132955498738499f2f6acec11962e, type: 3}
   shopUIPrefab: {fileID: -444980802790784812, guid: dd1fa5c4ab6a5fd44b263193cfc43f9b, type: 3}
   decreaseAvailableAmountOnPurchase: 1
+  soldItems:
+  - item: {fileID: 11400000, guid: 1d20e1aeca53c9449a1d7219d9022761, type: 2}
+    amountAvailable: 1
+    price: 160
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: c259d6fd3ab632a4980785deebd26164, type: 2}
+    amountAvailable: 1
+    price: 400
+    minLevelRequired: 1
+  - item: {fileID: 11400000, guid: ec0ba93a70f0df74592f3bc2f44a642a, type: 2}
+    amountAvailable: 5
+    price: 45
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: 56ff5d58ca988ff49bcf83c2a05d1030, type: 2}
+    amountAvailable: 5
+    price: 2
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: 6553d6d464f4c3d489647f8005b06c2e, type: 2}
+    amountAvailable: 1
+    price: 350
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: f9bd1959fbb50de438241c9e9bd94547, type: 2}
+    amountAvailable: 5
+    price: 100
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: d674e63c7a9dfa24bbbbca2673258283, type: 2}
+    amountAvailable: 5
+    price: 35
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: 80da6c1185b9c6744b9452ea80dee4b3, type: 2}
+    amountAvailable: 1
+    price: 100
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: f8b063ebcbdaf354299a57ee188cfc0d, type: 2}
+    amountAvailable: 99
+    price: 25
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: c86e20b76badbe5469143250c928aa68, type: 2}
+    amountAvailable: 99
+    price: 35
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: f8110a67dba02304b869897fd2a4d47d, type: 2}
+    amountAvailable: 99
+    price: 15
+    minLevelRequired: 0
+  - item: {fileID: 11400000, guid: 6251d21743b1c5f44a879277aa89a7d2, type: 2}
+    amountAvailable: 99
+    price: 5
+    minLevelRequired: 0
   shopItems:
   - item: {fileID: 11400000, guid: 1d20e1aeca53c9449a1d7219d9022761, type: 2}
     amountAvailable: 1

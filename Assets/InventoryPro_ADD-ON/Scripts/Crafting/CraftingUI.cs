@@ -156,7 +156,7 @@ namespace cowsins.Inventory
 
             craftingBench.StartCraftingProcess(recipe, craftAmount);
 
-            return InventoryProManager.instance._GridGenerator.PayIngredients(recipe, craftAmount); ;
+            return InventoryProManager.instance._GridGenerator.PayIngredients(recipe, craftAmount);
         }
 
         public bool IsCrafting(Recipe_SO recipe)

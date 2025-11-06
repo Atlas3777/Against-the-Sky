@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace cowsins.Inventory
@@ -16,16 +18,15 @@ namespace cowsins.Inventory
         private bool isInShopMode = true;
         public ShopItemData ShopItemData => shopItemData;
 
-        public void SetShopMode(bool isInShopMode) => this.isInShopMode = isInShopMode;
-
         // Initialize Basic References & Settings
-        public void Initialize(ShopUI shopUI, ShopItemData shopItem, TradeHub shop, bool available)
+        public void Initialize(ShopUI shopUI, ShopItemData shopItem, TradeHub shop, bool available, bool isInShopMode)
         {
             // Required References
             this.shopUI = shopUI;
             this.tradeHub = shop;
             this.shopItemData = shopItem;
             this.price = shopItem.price;
+            this.isInShopMode = isInShopMode;
             // Pass this Button for Highlight Interactions
             this.actionButton.tradeButton = this;
 
@@ -64,9 +65,15 @@ namespace cowsins.Inventory
             int finalPrice = price * currentAmount;
 
             if (isInShopMode)
-                TryBuyItem(finalPrice);
+            {
+                if (!TryBuyItem(finalPrice))
+                    return ;
+            }
             else
-                TrySoldItem(finalPrice);
+            {
+                if (!TrySoldItem(finalPrice))
+                    return ;
+            }
 
             // Refresh all items. Based on the updated currency, update the visuals to display whether the player can purchase the items or not.
             Shop shop = (Shop)tradeHub;
@@ -144,20 +151,31 @@ namespace cowsins.Inventory
         {
             int finalPrice = shopItemData.price * currentAmount;
             // If the Player hasn´t got enough coins, display in red.
-            callToActionText.text = CoinManager.Instance.CheckIfEnoughCoins(finalPrice) ?
-                $"${finalPrice} {callToAction}" :
-                $"<color=#{ColorUtility.ToHtmlStringRGB(Color.red)}> ${finalPrice} {callToAction}</color>";
+            if (isInShopMode)
+            {
+                callToActionText.text = CoinManager.Instance.CheckIfEnoughCoins(finalPrice) ?
+                    $"${finalPrice} {callToAction}" :
+                    $"<color=#{ColorUtility.ToHtmlStringRGB(Color.red)}> ${finalPrice} {callToAction}</color>";
+            }
+            else
+            {
+                Recipe_SO soldItems = ScriptableObject.CreateInstance<Recipe_SO>();
+                soldItems.ingredients = new Recipe_SO.Ingredient[1] { new Recipe_SO.Ingredient(ShopItemData.item, currentAmount) };
+                callToActionText.text = InventoryProManager.instance._GridGenerator.HasEnoughIngredients(soldItems, 1) ?
+                    $"${finalPrice} {callToAction}" :
+                    $"<color=#{ColorUtility.ToHtmlStringRGB(Color.red)}> ${finalPrice} {callToAction}</color>";
+            }
             if (shopItemData.price <= 0) callToActionText.text = "Free";
         }
 
-        private void TryBuyItem(int finalPrice)
+        private bool TryBuyItem(int finalPrice)
         {
             // Decline Purchase if the Player hasn´t got enough currency or if the Item is Locked.
             if (!CoinManager.Instance.CheckIfEnoughCoins(finalPrice) || lockedContainer.activeSelf)
             {
                 tradeHub.Events.onDeclinedTrade?.Invoke();
                 SoundManager.Instance.PlaySound(tradeHub.ForbiddenTradeSFX, 0, 0, false, 0);
-                return;
+                return false;
             }
 
             // Decline Purchase if the Item cannot be stored in the Inventory
@@ -168,7 +186,7 @@ namespace cowsins.Inventory
                     ToastManager.Instance.ShowToast(ToastManager.Instance.InventoryIsFullMsg);
                 }
                 SoundManager.Instance.PlaySound(tradeHub.ForbiddenTradeSFX, 0, 0, false, 0);
-                return;
+                return false;
             }
 
             // Process Payment
@@ -181,11 +199,20 @@ namespace cowsins.Inventory
                 message += $"{shopItemData.item._name} {ToastManager.Instance.PurchaseMsg}";
                 ToastManager.Instance.ShowToast(message);
             }
+            return true;
         }
 
-        private void TrySoldItem(int finalPrice)
+        private bool TrySoldItem(int finalPrice)
         {
-
+            Recipe_SO soldItems = ScriptableObject.CreateInstance<Recipe_SO>();
+            soldItems.ingredients = new Recipe_SO.Ingredient[1] { new Recipe_SO.Ingredient(ShopItemData.item, currentAmount) };
+            if (InventoryProManager.instance._GridGenerator.HasEnoughIngredients(soldItems, 1))
+            {
+                InventoryProManager.instance._GridGenerator.PayIngredients(soldItems, 1);
+                CoinManager.Instance.AddCoins(finalPrice,true);
+                return true;
+            }
+            return false;
         }
     }
 
