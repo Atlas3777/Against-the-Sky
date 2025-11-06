@@ -61,6 +61,8 @@ namespace cowsins
 
         public bool IsVisible => isVisible;
 
+        [SerializeField] private GameObject crosshairOutline;
+
         #endregion
 
         private void Awake()
@@ -157,6 +159,7 @@ namespace cowsins
         public void SetVisibility(bool visible)
         {
             isVisible = visible;
+            crosshairOutline.SetActive(visible);
         }
     }
 }
