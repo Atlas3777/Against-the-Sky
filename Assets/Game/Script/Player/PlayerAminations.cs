@@ -1,4 +1,3 @@
-using StarterAssets;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour

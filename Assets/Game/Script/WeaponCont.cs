@@ -1,7 +1,6 @@
 using System.Collections;
 using Andtech.ProTracer;
 using cowsins;
-using StarterAssets;
 using UnityEngine;
 using UnityEngine.Serialization;
 
